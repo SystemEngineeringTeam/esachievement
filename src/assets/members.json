@@ -1,7 +1,7 @@
 {
   "members": [
     {
-      "myself":false,
+      "myself": false,
       "name": "苗字 名前",
       "screen_name": "xxxxxx",
       "icon": "https://placehold.jp/150x150.png",
@@ -12,7 +12,7 @@
       "email": "xxxxxx"
     },
     {
-      "myself":true,
+      "myself": true,
       "name": "重音 テト",
       "screen_name": "xxxxxx",
       "icon": "https://placehold.jp/150x150.png",
