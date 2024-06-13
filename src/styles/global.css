@@ -1,0 +1,8 @@
+body {
+  font-family: "Noto Sans JP Variable", sans-serif;
+}
+
+.radix-themes,
+main {
+  height: 100%;
+}
