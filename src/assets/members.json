@@ -1,0 +1,32 @@
+{
+  "members": [
+    {
+      "myself":false,
+      "name": "苗字 名前",
+      "screen_name": "xxxxxx",
+      "icon": "https://placehold.jp/150x150.png",
+      "role": "member",
+      "posts_count": 0,
+      "joined_at": "2019-01-01T00:00:00Z",
+      "last_accessed_at": "2019-01-01T00:00:00Z",
+      "email": "xxxxxx"
+    },
+    {
+      "myself":true,
+      "name": "重音 テト",
+      "screen_name": "xxxxxx",
+      "icon": "https://placehold.jp/150x150.png",
+      "role": "owner",
+      "posts_count": 0,
+      "joined_at": "2019-01-01T00:00:00Z",
+      "last_accessed_at": "2019-01-01T00:00:00Z",
+      "email": "xxxxxx"
+    }
+  ],
+  "prev_page": null,
+  "next_page": 2,
+  "total_count": 181,
+  "page": 1,
+  "per_page": 20,
+  "max_per_page": 100
+}

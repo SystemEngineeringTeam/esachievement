@@ -1,0 +1,24 @@
+{
+  "unlockedAchievements":[
+    {
+      "achievementID": "1",
+      "userEmail": "xxxxx",
+      "unlockedAt": "2017-01-01T00:00:00Z"
+    },
+    {
+      "achievementID": "2",
+      "userEmail": "xxxxx",
+      "unlockedAt": "2017-01-01T00:00:00Z"
+    },
+    {
+      "achievementID": "3",
+      "userEmail": "xxxxx",
+      "unlockedAt": "2017-01-01T00:00:00Z"
+    },
+    {
+      "achievementID": "4",
+      "userEmail": "xxxxx",
+      "unlockedAt": "2017-01-01T00:00:00Z"
+    }
+  ]
+}
