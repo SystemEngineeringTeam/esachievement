@@ -3,7 +3,7 @@ export type Member = {
   name: string; // 漢字 名義
   screen_name: string; // k2xxxx_name
   icon: string; // URL
-  role: "owner" |"member";
+  role: "owner" | "member";
   posts_count: number;
   joined_at: string; // JST
   last_posted_at: string; // JST

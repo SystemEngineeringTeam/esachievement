@@ -1,5 +1,4 @@
 import { type ReactElement } from "react";
-import { List } from "@/components/List";
 import { MemberCard } from "@/components/member/Card";
 
 export function Page(): ReactElement {
@@ -15,9 +14,5 @@ export function Page(): ReactElement {
       description: "",
     },
   ];
-  return (
-    <List data={achievementsTestData}>
-      <MemberCard data={undefined} />
-    </List>
-  );
+  return <p></p>;
 }
