@@ -1,7 +1,7 @@
 import { type ReactElement } from "react";
 import { MemberCard } from "@/components/member/Card";
 
-export function Page(): ReactElement {
+export default function Page(): ReactElement {
   const achievementsTestData = [
     {
       id: 1,
