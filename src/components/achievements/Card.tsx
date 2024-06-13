@@ -1,10 +1,18 @@
+import { Achievement } from "@/types/achievement";
 import { Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 
-export function memberCard({ data }: { data: any }): ReactElement {
+export function AchievementCard({
+  data,
+  showRelativeDate = false,
+}: {
+  data: Achievement;
+  showRelativeDate: boolean;
+}): ReactElement {
   return (
     <>
-      <Text>Hello This page is memberCard</Text>
+      {showRelativeDate && <Text>1日前</Text>}
+      <Text>Hello This page is AchievementCard</Text>
       <Text>{data.name}</Text>
       <Text>{data.description}</Text>
     </>

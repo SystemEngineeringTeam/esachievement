@@ -1,18 +1,17 @@
 import { type ReactElement } from "react";
-import { MemberCard } from "@/components/member/Card";
+import { AchievementCard } from "@/components/achievements/Card";
+import data from "@/assets/achievements.json";
 
 export default function Page(): ReactElement {
-  const achievementsTestData = [
-    {
-      id: 1,
-      name: "John Doe",
-      description: "",
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      description: "",
-    },
-  ];
-  return <p></p>;
+  return (
+    <>
+      {data.achievements.map((achievement) => (
+        <AchievementCard
+          key={achievement.id}
+          data={achievement}
+          showRelativeDate={false}
+        />
+      ))}
+    </>
+  );
 }
