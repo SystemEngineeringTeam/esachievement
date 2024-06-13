@@ -10,12 +10,12 @@ export type Achievement = {
   description: string;
   icon: string;
   tags: Tag[];
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type UnlockedAchievement = {
-  achievement_id: number; // ←achievementのidを参照
-  member_id: string; // ←memberのemailを参照
-  created_at: string;
+  achievementID: number; // ←achievementのidを参照
+  memberID: string; // ←memberのemailを参照
+  createdAt: string;
 };
