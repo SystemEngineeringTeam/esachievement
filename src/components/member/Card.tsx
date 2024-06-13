@@ -1,12 +1,13 @@
+import { Member } from "@/types/member";
 import { Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 
-export function MemberCard({ data }: { data: any }): ReactElement {
+export function MemberCard({ member }: { member: Member }): ReactElement {
   return (
     <>
       <Text>Hello This page is memberCard</Text>
-      <Text>{data.name}</Text>
-      <Text>{data.email}</Text>
+      <Text>{member.name}</Text>
+      <Text>{member.email}</Text>
     </>
   );
 }

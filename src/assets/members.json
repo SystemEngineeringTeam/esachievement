@@ -8,7 +8,7 @@
       "role": "member",
       "posts_count": 0,
       "joined_at": "2019-01-01T00:00:00Z",
-      "last_accessed_at": "2019-01-01T00:00:00Z",
+      "last_posted_at": "2019-01-01T00:00:00Z",
       "email": "xxxxxx"
     },
     {
@@ -19,7 +19,7 @@
       "role": "owner",
       "posts_count": 0,
       "joined_at": "2019-01-01T00:00:00Z",
-      "last_accessed_at": "2019-01-01T00:00:00Z",
+      "last_posted_at": "2019-01-01T00:00:00Z",
       "email": "xxxxxx"
     }
   ],
