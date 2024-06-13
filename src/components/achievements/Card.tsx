@@ -12,7 +12,7 @@ export function AchievementCard({
   return (
     <>
       {showRelativeDate && <Text>1日前</Text>}
-      <Text>Hello This page is memberCard</Text>
+      <Text>Hello This page is AchievementCard</Text>
       <Text>{data.name}</Text>
       <Text>{data.description}</Text>
     </>
