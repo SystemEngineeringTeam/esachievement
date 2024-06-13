@@ -10,6 +10,9 @@
     "fmt": "prettier --write ./src/",
     "lint": "eslint --ext .ts,.tsx ./src"
   },
+  "engines": {
+    "node": "22"
+  },
   "dependencies": {
     "@fontsource-variable/noto-sans-jp": "^5.0.19",
     "@generouted/react-router": "^1.19.3",
