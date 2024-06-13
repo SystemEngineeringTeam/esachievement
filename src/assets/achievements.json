@@ -1,39 +1,39 @@
 {
-  "achievements":[
+  "achievements": [
     {
-      "id":1,
-      "name":"First Blood",
-      "description":"Get the first kill in a match.",
-      "icon":"https://placehold.jp/150x150.png",
-      "tag":["kill"]
+      "id": 1,
+      "name": "First Blood",
+      "description": "Get the first kill in a match.",
+      "icon": "https://placehold.jp/150x150.png",
+      "tag": ["kill"]
     },
     {
-      "id":2,
-      "name":"Double Kill",
-      "description":"Get two kills in a row.",
-      "icon":"https://placehold.jp/150x150.png",
-      "tag":["kill"]
+      "id": 2,
+      "name": "Double Kill",
+      "description": "Get two kills in a row.",
+      "icon": "https://placehold.jp/150x150.png",
+      "tag": ["kill"]
     },
     {
-      "id":3,
-      "name":"Triple Kill",
-      "description":"Get three kills in a row.",
-      "icon":"https://placehold.jp/150x150.png",
-      "tag":["kill"]
+      "id": 3,
+      "name": "Triple Kill",
+      "description": "Get three kills in a row.",
+      "icon": "https://placehold.jp/150x150.png",
+      "tag": ["kill"]
     },
     {
-      "id":4,
-      "name":"Quadra Kill",
-      "description":"Get four kills in a row.",
-      "icon":"https://placehold.jp/150x150.png",
-      "tag":["kill"]
+      "id": 4,
+      "name": "Quadra Kill",
+      "description": "Get four kills in a row.",
+      "icon": "https://placehold.jp/150x150.png",
+      "tag": ["kill"]
     },
     {
-      "id":5,
-      "name":"Penta Kill",
-      "description":"Get five kills in a row.",
-      "icon":"https://placehold.jp/150x150.png",
-      "tag":["kill"]
+      "id": 5,
+      "name": "Penta Kill",
+      "description": "Get five kills in a row.",
+      "icon": "https://placehold.jp/150x150.png",
+      "tag": ["kill"]
     }
   ]
 }
