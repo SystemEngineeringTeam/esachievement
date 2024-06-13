@@ -1,4 +1,4 @@
-import { MemberCard } from "@/components/member/Card";
+import { MemberCard } from "@/components/member/RankingCard";
 import { ReactElement } from "react";
 import SampleMember from "@/assets/members.json";
 import members from "@/assets/members.json";
