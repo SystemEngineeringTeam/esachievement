@@ -1,8 +1,15 @@
 import { Member } from "@/types/member";
 import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import unlockedAchievements from "@/assets/unlockedAchievements.json";
 
 export function MemberCard({ member }: { member: Member }): ReactElement {
+  const userPoint = unlockedAchievements.unlockedAchievements.filter(
+    (achievements) => {
+      return achievements.userEmail == "xxxxxx";
+    },
+  );
+
   return (
     <>
       <Box maxWidth="240px">
@@ -18,7 +25,7 @@ export function MemberCard({ member }: { member: Member }): ReactElement {
               {member.name}
             </Text>
             <Text as="div" size="2" color="gray">
-              Engineering
+              {userPoint.length}pt
             </Text>
           </Box>
         </Flex>
