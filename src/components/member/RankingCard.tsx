@@ -15,7 +15,7 @@ export function MemberCard({ member }: { member: Member }): ReactElement {
       <Box maxWidth="50rem">
         <Flex gap="6" align="center" ml="14rem">
           <Text size="8" mr="3rem">
-            1
+            {member.posts_count}
           </Text>
           <Avatar
             size="8"
