@@ -8,6 +8,7 @@ export type Path =
   | `/achievements`
   | `/achievements/:id`
   | `/create`
+  | `/hayato`
   | `/members`
   | `/members/:id`
   | `/ranking`
