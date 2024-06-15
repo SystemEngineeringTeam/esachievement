@@ -1,4 +1,5 @@
 import { MemberCard } from "@/components/member/RankingCard";
+import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
 import { ReactElement } from "react";
 import unlockedAchievements from "@/assets/unlockedAchievements.json";
 
@@ -27,7 +28,7 @@ export default function Page(): ReactElement {
           />
         );
       })}
+      <LogRecentUnlocked />
     </div>
   );
 }
-

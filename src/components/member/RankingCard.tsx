@@ -3,15 +3,8 @@ import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import SampleMembers from "@/assets/members.json";
 
-export function MemberCard({
-  memberEmail,
-  index,
-  point,
-}: {
-  memberEmail: string;
-  index: number;
-  point: number;
-}): ReactElement {
+export function MemberCard({memberEmail,index,point,}: {memberEmail: string;index: number;point: number;})
+: ReactElement {
   // const userPoint = unlockedAchievements.unlockedAchievements.filter(
   //   (achievements) => {
   //     return achievements.userEmail == "xxxxx";
