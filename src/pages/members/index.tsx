@@ -6,9 +6,10 @@ import { Member } from "@/types/member";
 export default function Page(): ReactElement {
   return (
     <>
-      {SampleMember.members.map((user) => (
-        <MemberCard member={user as Member}></MemberCard>
-      ))}
+      {SampleMember.members.map((e: any) => {
+        const member = e as Member;
+        <MemberCard member={member}></MemberCard>;
+      })}
     </>
-  )
+  );
 }
