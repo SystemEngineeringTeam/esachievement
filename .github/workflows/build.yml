@@ -31,6 +31,10 @@ jobs:
 
       - name: 🏗️ Build app
         run: yarn run build
+        env:
+          VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
+          VITE_SECRET_CLIENT_ID: ${{ secrets.VITE_SECRET_CLIENT_ID }}
+          VITE_REDIRECT_URI: ${{ secrets.VITE_REDIRECT_URI }}
 
       - name: 🚀 Deploy to Cloudflare Pages
         id: cloudflare_pages_deploy
