@@ -10,6 +10,7 @@ export type Path =
   | `/auth/callback`
   | `/auth/login`
   | `/create`
+  | `/hayato`
   | `/members`
   | `/members/:id`
   | `/ranking`
