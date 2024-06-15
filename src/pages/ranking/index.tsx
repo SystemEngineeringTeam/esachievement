@@ -1,6 +1,6 @@
 import { MemberCard } from "@/components/member/RankingCard";
 import { ReactElement } from "react";
-import unlockedAchievements from "@/assets/unlockedAchievements.json";
+// import unlockedAchievements from "@/assets/unlockedAchievements.json";
 
 export default function Page(): ReactElement {
   // 仮のデータ(unlockedAchievements)からfilterでpointを取得する

@@ -1,4 +1,4 @@
-import { Flex, Button, Text } from "@radix-ui/themes";
+import { Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 
 export default function Page(): ReactElement {
