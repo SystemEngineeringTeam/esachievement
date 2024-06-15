@@ -7,6 +7,8 @@ export type Path =
   | `/`
   | `/achievements`
   | `/achievements/:id`
+  | `/auth/callback`
+  | `/auth/login`
   | `/create`
   | `/members`
   | `/members/:id`

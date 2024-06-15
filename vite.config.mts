@@ -5,4 +5,7 @@ import generouted from "@generouted/react-router/plugin";
 
 export default defineConfig({
   plugins: [react(), paths(), generouted()],
+  server: {
+    port: 8080,
+  },
 });
