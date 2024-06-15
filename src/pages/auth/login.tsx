@@ -6,7 +6,7 @@ export default function Page(): ReactElement {
     <Flex direction="column" gap="2">
       <Text>こちらログイン画面になります</Text>
       <a
-        href={`https://api.esa.io/oauth/authorize?client_id=${import.meta.env.CLIENT_ID}&redirect_uri=${import.meta.env.REDIRECT_LOCAL_URI}&scope=read+write&response_type=code`}
+        href={`https://api.esa.io/oauth/authorize?client_id=${import.meta.env.VITE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_REDIRECT_LOCAL_URI}&scope=read+write&response_type=code`}
       >
         <Button>Login</Button>
       </a>
