@@ -1,13 +1,33 @@
-import { MemberCard } from "@/components/member/Card";
+import { MemberCard } from "@/components/member/RankingCard";
 import { ReactElement } from "react";
-import SampleMember from "@/assets/members.json";
-import members from "@/assets/members.json";
-import { Member } from "@/types/member";
+import unlockedAchievements from "@/assets/unlockedAchievements.json";
 
 export default function Page(): ReactElement {
-  const teto = SampleMember.members.at(-1) as Member;
+  // 仮のデータ(unlockedAchievements)からfilterでpointを取得する
+  const members = [
+    {
+      memberEmail: "xxxxxx",
+      point: 100,
+    },
+    {
+      memberEmail: "yyyyyy",
+      point: 200,
+    },
+  ];
 
-  if (teto == null) throw new Error("Teto not found!");
-
-  return <MemberCard member={teto}></MemberCard>;
+  return (
+    <div>
+      {members.map((member, index) => {
+        return (
+          <MemberCard
+            key={index}
+            memberEmail={member.memberEmail}
+            index={index}
+            point={member.point}
+          />
+        );
+      })}
+    </div>
+  );
 }
+

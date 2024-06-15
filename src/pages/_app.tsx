@@ -18,7 +18,6 @@ export function Catch(): ReactElement {
 export default function Layout(): ReactElement {
   const Main = styled.main`
     font-family: "Noto Sans JP Variable";
-    background-color: #aaa;
     word-break: keep-all;
   `;
 
