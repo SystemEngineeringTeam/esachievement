@@ -1,21 +1,32 @@
 import { Member } from "@/types/member";
 import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
-import unlockedAchievements from "@/assets/unlockedAchievements.json";
+import SampleMembers from "@/assets/members.json";
 
-export function MemberCard({ member }: { member: Member }): ReactElement {
-  const userPoint = unlockedAchievements.unlockedAchievements.filter(
-    (achievements) => {
-      return achievements.userEmail == "xxxxx";
-    },
-  );
+export function MemberCard({
+  memberEmail,
+  index,
+  point,
+}: {
+  memberEmail: string;
+  index: number;
+  point: number;
+}): ReactElement {
+  // const userPoint = unlockedAchievements.unlockedAchievements.filter(
+  //   (achievements) => {
+  //     return achievements.userEmail == "xxxxx";
+  //   },
+  // );
+  const user: Member = SampleMembers.members.find(
+    (member) => member.email === memberEmail,
+  )!;
 
   return (
     <>
       <Box maxWidth="50rem">
         <Flex gap="6" align="center" ml="14rem">
           <Text size="8" mr="3rem">
-            {member.posts_count}
+            {index + 1}
           </Text>
           <Avatar
             size="8"
@@ -25,10 +36,10 @@ export function MemberCard({ member }: { member: Member }): ReactElement {
           />
           <Flex direction="column" align="center">
             <Text as="div" size="7" weight="bold">
-              {member.name}
+              {user.name}
             </Text>
             <Text as="div" size="7" color="gray">
-              {userPoint.length}pt
+              {point}pt
             </Text>
           </Flex>
         </Flex>

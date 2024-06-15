@@ -3,18 +3,18 @@
     {
       "myself": false,
       "name": "苗字 名前",
-      "screen_name": "xxxxxx",
+      "screen_name": "myouji namae",
       "icon": "https://placehold.jp/150x150.png",
       "role": "member",
       "posts_count": 0,
       "joined_at": "2019-01-01T00:00:00Z",
       "last_posted_at": "2019-01-01T00:00:00Z",
-      "email": "xxxxxx"
+      "email": "yyyyyy"
     },
     {
       "myself": true,
       "name": "重音 テト",
-      "screen_name": "xxxxxx",
+      "screen_name": "ju-on teto",
       "icon": "https://placehold.jp/150x150.png",
       "role": "owner",
       "posts_count": 0,
