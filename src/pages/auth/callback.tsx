@@ -1,33 +1,42 @@
 import { Flex, Text } from "@radix-ui/themes";
-import { type ReactElement, useEffect } from "react";
+import { type ReactElement, useEffect, useState } from "react";
 
 export default function Page(): ReactElement {
-  let code = "";
-  useEffect(() => {
+  const [code, setCode] = useState("");
+  const [resJson, setResJson] = useState("");
+
+  const test = async (): Promise<void> => {
     const url = new URLSearchParams(window.location.search);
-    code = url.get("code") ?? "";
-    fetch(`https://api.esa.io/oauth/token`, {
+    setCode(url.get("code") ?? "");
+    const data = await fetch(`https://api.esa.io/oauth/token`, {
       method: "POST",
+      mode: "cors",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
-        client_id: import.meta.env.VITE_CLIENT_ID,
-        client_secret: import.meta.env.VITE_CLIENT_SECRET,
-        code: code,
+        client_id: import.meta.env.VITE_LOCAL_CLIENT_ID,
+        client_secret: import.meta.env.VITE_LOCAL_SECRET_CLIENT_ID,
+        code,
         grant_type: "authorization_code",
-        redirect_uri: import.meta.env.VITE_REDIRECT_URI,
+        redirect_uri: "http://localhost:8080/auth/callback",
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    });
+    const json = await data.json();
+    setResJson(json);
+  };
+
+  useEffect(() => {
+    void test();
   }, []);
 
   return (
     <Flex direction="column" gap="2">
       <Text>こちらCallbackになります</Text>
+      <Text>code: {code}</Text>
+      <Text>responseJson: {resJson}</Text>
     </Flex>
   );
 }
