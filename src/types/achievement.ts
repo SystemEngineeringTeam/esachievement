@@ -16,6 +16,10 @@ export type Achievement = {
 
 export type UnlockedAchievement = {
   achievementID: number; // ←achievementのidを参照
-  memberID: string; // ←memberのemailを参照
+  memberEmail: string; // ←memberのemailを参照
   createdAt: string;
+};
+
+export type UnlockedAchievements = {
+  unlockedAchievements: UnlockedAchievement[];
 };

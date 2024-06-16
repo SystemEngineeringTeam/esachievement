@@ -17,7 +17,7 @@ export function MemberCard({
   //     return achievements.userEmail == "xxxxx";
   //   },
   // );
-  const user: Member = SampleMembers.members.find(
+  const member: Member = SampleMembers.members.find(
     (member) => member.email === memberEmail,
   )!;
 
@@ -36,7 +36,7 @@ export function MemberCard({
           />
           <Flex direction="column" align="center">
             <Text as="div" size="7" weight="bold">
-              {user.name}
+              {member.name}
             </Text>
             <Text as="div" size="7" color="gray">
               {point}pt
