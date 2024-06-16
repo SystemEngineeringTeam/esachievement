@@ -7,7 +7,10 @@ export type Path =
   | `/`
   | `/achievements`
   | `/achievements/:id`
+  | `/auth/callback`
+  | `/auth/login`
   | `/create`
+  | `/hayato`
   | `/members`
   | `/members/:id`
   | `/ranking`

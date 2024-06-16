@@ -4,7 +4,12 @@ import SampleMember from "@/assets/members.json";
 import { Member } from "@/types/member";
 
 export default function Page(): ReactElement {
-  const teto = SampleMember.members.at(-1) as Member;
-
-  return <MemberCard member={teto}></MemberCard>;
+  return (
+    <>
+      {SampleMember.members.map((e: any) => {
+        const member = e as Member;
+        <MemberCard member={member}></MemberCard>;
+      })}
+    </>
+  );
 }
