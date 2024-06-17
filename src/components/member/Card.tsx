@@ -1,45 +1,26 @@
-import { Member } from "@/types/member";
-import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
+import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import { type Member } from "@/types/member";
 
 export function MemberCard({ member,point }: { member: Member,point:number }): ReactElement {
-  //仮の情報を表示
-  //icon,name,screen_name,post_count,role
-
-
-
   return (
-    <>
-      <Flex gap="4" align="center" height="80px">
+      <Table.Row>
+        <Table.RowHeaderCell>
+        <Flex gap="2">
           <Avatar
-            size="5"
-            src = {member.icon}
+            fallback="A"
             radius="full"
-            fallback="T"
+            size="6"
+            src={member.icon}
           />
-          <Box width="300px" >
-            <Text as="div" size="7" weight="bold">
-              {member.name}
-            </Text>
-          </Box>
-          <Box width="60px">
-            <Text as="div" size="5" color="gray" align="center">
-              {member.screen_name}
-            </Text>
-          </Box>
-          <Box width="60px">
-            <Text as="div" size="5" color="gray" align="center">
-              {member.posts_count}
-            </Text>
-          </Box>
-          <Box width="60px">
-            <Text as="div" size="5" color="gray" align="center">
-              {member.role}
-            </Text>
-          </Box>
-      </Flex>
-      {point}
-      <Separator my="1" size="4" />
-    </>
+        </Flex>
+        </Table.RowHeaderCell>
+        <Table.Cell>
+          <Text as="div" size="8" weight="bold" >
+          {member.name}
+          </Text>
+        </Table.Cell>
+        <Table.Cell>{point}</Table.Cell>
+      </Table.Row>
   );
 }
