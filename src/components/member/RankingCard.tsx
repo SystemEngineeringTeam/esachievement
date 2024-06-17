@@ -3,7 +3,7 @@ import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import SampleMembers from "@/assets/members.json";
 
-export function MemberCard({
+export function RankingCard({
   memberEmail,
   index,
   point,
