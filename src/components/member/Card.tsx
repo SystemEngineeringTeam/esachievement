@@ -2,9 +2,12 @@ import { Member } from "@/types/member";
 import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 
-export function MemberCard({ member }: { member: Member }): ReactElement {
+export function MemberCard({ member,point }: { member: Member,point:number }): ReactElement {
   //仮の情報を表示
   //icon,name,screen_name,post_count,role
+
+
+
   return (
     <>
       <Flex gap="4" align="center" height="80px">
@@ -35,6 +38,7 @@ export function MemberCard({ member }: { member: Member }): ReactElement {
             </Text>
           </Box>
       </Flex>
+      {point}
       <Separator my="1" size="4" />
     </>
   );
