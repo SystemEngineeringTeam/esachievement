@@ -16,11 +16,15 @@ export function MemberCard({ member,point }: { member: Member,point:number }): R
         </Flex>
         </Table.RowHeaderCell>
         <Table.Cell>
-          <Text as="div" size="8" weight="bold" >
+          <Text as="div" size="8" weight="bold">
           {member.name}
           </Text>
         </Table.Cell>
-        <Table.Cell>{point}</Table.Cell>
+        <Table.Cell>
+          <Text as="div" size="6">
+            {point}        
+          </Text>
+        </Table.Cell>
       </Table.Row>
   );
 }
