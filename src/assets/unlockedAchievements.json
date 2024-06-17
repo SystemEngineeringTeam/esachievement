@@ -1,9 +1,15 @@
 {
   "unlockedAchievements": [
     {
+<<<<<<< issue/10
+      "achievementID": "1",
+      "userEmail": "xxxxxx",
+      "unlockedAt": "2017-01-01T00:00:00Z"
+=======
       "achievementID": 1,
       "memberEmail": "xxxxxx",
       "createdAt": "2017-01-01T00:00:00Z"
+>>>>>>> main
     },
     {
       "achievementID": 2,
@@ -11,9 +17,15 @@
       "createdAt": "2017-01-01T00:00:00Z"
     },
     {
+<<<<<<< issue/10
+      "achievementID": "3",
+      "userEmail": "xxxxxx",
+      "unlockedAt": "2017-01-01T00:00:00Z"
+=======
       "achievementID": 3,
       "memberEmail": "xxxx",
       "createdAt": "2017-01-01T00:00:00Z"
+>>>>>>> main
     },
     {
       "achievementID": 4,
