@@ -1,5 +1,6 @@
 import { type ReactElement } from "react";
 import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
+import { Header } from "@/components/Header";
 import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
 
@@ -18,6 +19,7 @@ export default function Page(): ReactElement {
 
   return (
     <div>
+      <Header />
       {members.map((member, index) => {
         return (
           <RankingCard
