@@ -24,7 +24,7 @@ export default function Page(): ReactElement {
           const member: Member = e as Member;
           
           SampleUnlockedAchievements.unlockedAchievements.forEach((unlockedAchievement)=>{
-            if(unlockedAchievement.userEmail === member.email){
+            if(unlockedAchievement.memberEmail === member.email){
               point += 1;
             }
           })
