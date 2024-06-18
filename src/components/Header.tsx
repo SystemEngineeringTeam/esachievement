@@ -12,24 +12,16 @@ const HeaderStyle = styled(Flex)`
   overflow: hidden;
 
   .esaAchievementsStyle {
-    display: block;
-    padding: 3rem 1.6rem;
-  }
-  .usersStyle {
-    margin-left: 45rem;
-    display: block;
-    padding: 3rem 1.6rem;
-  }
-  .achievementsStyle {
-    display: block;
-    padding: 3rem 1.6rem;
+    margin-right: 39rem;
   }
   .createStyle {
-    display: block;
-    padding: 3rem 1.6rem;
     padding-right: 4rem;
     color: #f8fafc;
     background-color: #0f172a;
+  }
+  .headerDefaultStyle {
+    display: block;
+    padding: 3rem 1.4rem;
   }
   :hover.hoverAnime {
     background-color: #e2e8f0;
@@ -43,25 +35,37 @@ export function Header(): ReactElement {
   const loginFlag = true;
   return (
     <HeaderStyle align="center">
-      <Link className="esaAchievementsStyle hoverAnime" to="/">
+      <Link
+        className="esaAchievementsStyle hoverAnime headerDefaultStyle"
+        to="/"
+      >
         <Text size="7" weight="bold">
           えさちぶめんと
         </Text>
       </Link>
-      <Link className="usersStyle hoverAnime" to="/members">
+      <Link className="hoverAnime headerDefaultStyle" to="/members">
         <Text size="5" weight="bold">
           users
         </Text>
       </Link>
-      <Link className="achievementsStyle hoverAnime" to="/achievements">
-        <Box>
-          <Text size="5" weight="bold">
-            achievements
-          </Text>
-        </Box>
+      <Link className="hoverAnime headerDefaultStyle" to="/ranking">
+        <Text size="5" weight="bold">
+          ranking
+        </Text>
+      </Link>
+      <Link
+        className="achievementsStyle hoverAnime headerDefaultStyle"
+        to="/achievements"
+      >
+        <Text size="5" weight="bold">
+          achievements
+        </Text>
       </Link>
       {loginFlag ? (
-        <Link className="createStyle createHoverAnime" to="/create">
+        <Link
+          className="createStyle createHoverAnime headerDefaultStyle"
+          to="/create"
+        >
           <Flex align="center" gap="5">
             <Text size="5" weight="bold">
               実績管理
