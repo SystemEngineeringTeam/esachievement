@@ -21,11 +21,9 @@ export function LogRecentUnlocked({
   const achievement: Achievement = SampleAchievements.achievements.find(
     (a) => a.id === achievementID,
   );
-  console.log(member, achievement);
-
   return (
     <Box maxWidth="240px">
-      <Flex gap="3" align="center" justify="center">
+      <Flex align="center" gap="3" justify="center">
         <Avatar
           fallback="T"
           radius="full"
@@ -36,7 +34,7 @@ export function LogRecentUnlocked({
           <Text as="div" size="2" weight="bold">
             {member?.name}
           </Text>
-          <Text as="div" size="2" color="gray">
+          <Text as="div" color="gray" size="2">
             {achievement.name}
           </Text>
         </Box>

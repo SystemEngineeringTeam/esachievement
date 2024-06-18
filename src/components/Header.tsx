@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
@@ -7,43 +8,44 @@ const HeaderStyle = styled(Flex)`
   background-color: #f1f5f9;
   top: 0;
   width: 100%;
-  height: 5rem;
+  height: 4.8rem;
   overflow: hidden;
 
   .esaAchievementsStyle {
     display: block;
-    padding: 3rem 1rem;
+    padding: 3rem 1.6rem;
   }
   .usersStyle {
-    margin-left: 50rem;
+    margin-left: 45rem;
     display: block;
-    padding: 3rem 1rem;
+    padding: 3rem 1.6rem;
   }
   .achievementsStyle {
     display: block;
-    padding: 3rem 1rem;
+    padding: 3rem 1.6rem;
   }
   .createStyle {
     display: block;
-    padding: 3rem 1rem;
+    padding: 3rem 1.6rem;
     padding-right: 4rem;
     color: #f8fafc;
-    background-color: #1e293b;
+    background-color: #0f172a;
   }
   :hover.hoverAnime {
     background-color: #e2e8f0;
   }
   :hover.createHoverAnime {
-    background-color: #334155;
+    background-color: #1e293b;
   }
 `;
 
 export function Header(): ReactElement {
+  const loginFlag = true;
   return (
     <HeaderStyle align="center">
       <Link className="esaAchievementsStyle hoverAnime" to="/">
         <Text size="7" weight="bold">
-          エサちぶめんと
+          えさちぶめんと
         </Text>
       </Link>
       <Link className="usersStyle hoverAnime" to="/members">
@@ -58,19 +60,30 @@ export function Header(): ReactElement {
           </Text>
         </Box>
       </Link>
-      <Link className="createStyle createHoverAnime" to="/create">
-        <Flex align="center" gap="3">
-          <Text size="5" weight="bold">
-            実績管理
-          </Text>
-          <Avatar
-            fallback="T"
-            radius="full"
-            size="5"
-            src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
-          />
-        </Flex>
-      </Link>
+      {loginFlag ? (
+        <Link className="createStyle createHoverAnime" to="/create">
+          <Flex align="center" gap="5">
+            <Text size="5" weight="bold">
+              実績管理
+            </Text>
+            <Avatar
+              fallback="T"
+              radius="full"
+              size="5"
+              src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+            />
+          </Flex>
+        </Link>
+      ) : (
+        <Link className="createStyle createHoverAnime" to="/create">
+          <Flex align="center" gap="5">
+            <Text size="5" weight="bold">
+              ログイン
+            </Text>
+            <Icon icon="material-symbols:person" width={60} height={60} />
+          </Flex>
+        </Link>
+      )}
     </HeaderStyle>
   );
 }

@@ -23,7 +23,7 @@ export default function Page(): ReactElement {
       {members.map((member, index) => {
         return (
           <RankingCard
-            key={index}
+            key={member.memberEmail}
             index={index}
             memberEmail={member.memberEmail}
             point={member.point}
