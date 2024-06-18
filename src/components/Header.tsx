@@ -8,34 +8,58 @@ const HeaderStyle = styled(Flex)`
   top: 0;
   width: 100%;
   height: 5rem;
-  .esaAchievements {
-    margin-left: 2rem;
+  overflow: hidden;
+
+  .esaAchievementsStyle {
+    display: block;
+    padding: 3rem 1rem;
   }
-  .users {
-    margin-left: 49rem;
+  .usersStyle {
+    margin-left: 50rem;
+    display: block;
+    padding: 3rem 1rem;
+  }
+  .achievementsStyle {
+    display: block;
+    padding: 3rem 1rem;
+  }
+  .createStyle {
+    display: block;
+    padding: 3rem 1rem;
+    padding-right: 4rem;
+    color: #f8fafc;
+    background-color: #1e293b;
+  }
+  :hover.hoverAnime {
+    background-color: #e2e8f0;
+  }
+  :hover.createHoverAnime {
+    background-color: #334155;
   }
 `;
 
 export function Header(): ReactElement {
   return (
-    <HeaderStyle gap="6" align="center">
-      <Link to="/" className="esaAchievements">
+    <HeaderStyle align="center">
+      <Link className="esaAchievementsStyle hoverAnime" to="/">
         <Text size="7" weight="bold">
           エサちぶめんと
         </Text>
       </Link>
-      <Link to="/members" className="users">
+      <Link className="usersStyle hoverAnime" to="/members">
         <Text size="5" weight="bold">
           users
         </Text>
       </Link>
-      <Link to="/achievements">
-        <Text size="5" weight="bold">
-          achievements
-        </Text>
+      <Link className="achievementsStyle hoverAnime" to="/achievements">
+        <Box>
+          <Text size="5" weight="bold">
+            achievements
+          </Text>
+        </Box>
       </Link>
-      <Link to="/create">
-        <Flex gap="3" align="center">
+      <Link className="createStyle createHoverAnime" to="/create">
+        <Flex align="center" gap="3">
           <Text size="5" weight="bold">
             実績管理
           </Text>
