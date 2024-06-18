@@ -1,6 +1,7 @@
-import { MemberCard } from "@/components/member/RankingCard";
+import { type ReactElement } from "react";
+import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
+import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
-import { ReactElement } from "react";
 
 export default function Page(): ReactElement {
   // 仮のデータ(unlockedAchievements)からfilterでpointを取得する
@@ -15,38 +16,29 @@ export default function Page(): ReactElement {
     },
   ];
 
-  const achievements = [
-    {
-      achievementID: 1,
-      memberEmail: "xxxxxx",
-    },
-    {
-      achievementID: 2,
-      memberEmail: "yyyyyy",
-    },
-  ];
-
   return (
     <div>
       {members.map((member, index) => {
         return (
-          <MemberCard
-            key={index}
-            memberEmail={member.memberEmail}
+          <RankingCard
+            key={member.memberEmail}
             index={index}
+            memberEmail={member.memberEmail}
             point={member.point}
           />
         );
       })}
 
-      {achievements.map((achievement) => {
-        return (
-          <LogRecentUnlocked
-            achievementID={achievement.achievementID}
-            memberEmail={achievement.memberEmail}
-          />
-        );
-      })}
+      {SampleUnlockedAchievements.unlockedAchievements.map(
+        (unlockedAchievements) => {
+          return (
+            <LogRecentUnlocked
+              achievementID={unlockedAchievements.achievementID}
+              memberEmail={unlockedAchievements.memberEmail}
+            />
+          );
+        },
+      )}
     </div>
   );
 }

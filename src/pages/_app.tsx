@@ -2,6 +2,7 @@ import { Theme } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import { Outlet, useRouteError } from "react-router-dom";
 import styled from "styled-components";
+import { Header } from "@/components/Header";
 import { Redirects } from "@/components/Redirects";
 
 import "the-new-css-reset/css/reset.css";
@@ -25,6 +26,7 @@ export default function Layout(): ReactElement {
     <Theme>
       <Main>
         <Redirects>
+          <Header />
           <Outlet />
         </Redirects>
       </Main>
