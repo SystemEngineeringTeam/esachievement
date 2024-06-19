@@ -20,6 +20,7 @@ export default function Layout(): ReactElement {
   const Main = styled.main`
     font-family: "Noto Sans JP Variable";
     word-break: keep-all;
+    overflow: hidden;
   `;
 
   return (

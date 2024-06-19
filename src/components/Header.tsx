@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import { Link } from "@/router.ts";
