@@ -12,3 +12,5 @@ export type ArrayElem<ArrayType extends readonly unknown[]> =
   ArrayType extends ReadonlyArray<infer ElementType> ? ElementType : never;
 
 export type OmitStrict<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+export type Nullable<T> = T | null | undefined;

@@ -45,7 +45,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   });
 
   if (!res.ok) {
-    return new Response("Failed to request access token. See details on log.", {
+    return new Response("Failed to request access token!", {
       status: 500,
     });
   }

@@ -27,7 +27,9 @@ export async function requestAccessTokenData(
   });
 
   if (!res.ok) {
-    throw new Error("Failed to request access token");
+    throw new Error(
+      `Failed to request access token!: ${res.status} ${res.statusText}`,
+    );
   }
 
   return await res.json();

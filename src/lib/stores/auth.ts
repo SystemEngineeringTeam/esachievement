@@ -1,17 +1,19 @@
-import { persistentMap } from "@nanostores/persistent";
+import { persistentAtom } from "@nanostores/persistent";
+import { computed } from "nanostores";
 import { getLocalStorageKey } from "@/lib/consts";
-import { type StringifiedAccessTokenData } from "@/types/auth";
+import { type AccessTokenData } from "@/types/auth";
+import { type Nullable } from "@/types/utils";
 
-export function stringifyAccessTokenData(
-  data: StringifiedAccessTokenData,
-): StringifiedAccessTokenData {
-  return {
-    ...data,
-    created_at: String(data.created_at),
-  };
-}
-
-export const $accessTokenData = persistentMap<StringifiedAccessTokenData>(
-  getLocalStorageKey("accessTokenData", true),
+export const $accessTokenData = persistentAtom<Nullable<AccessTokenData>>(
+  getLocalStorageKey("accessTokenData"),
   undefined,
+  {
+    encode: JSON.stringify,
+    decode: JSON.parse,
+  },
+);
+
+export const $isAuthenticated = computed(
+  $accessTokenData,
+  (data) => data != null,
 );

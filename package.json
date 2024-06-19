@@ -28,7 +28,9 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
     "styled-components": "^6.1.11",
+    "swr": "^2.2.5",
     "the-new-css-reset": "^1.11.2",
+    "ts-pattern": "^5.2.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

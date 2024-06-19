@@ -1,3 +1,4 @@
+import { P } from "ts-pattern";
 import { type Env } from "@/types/env";
 
 export async function waitMs(ms: number): Promise<void> {
@@ -13,6 +14,12 @@ export function getEnv(key: keyof Env): string {
   }
   return value;
 }
+
+export const S = {
+  Error: { error: P.not(undefined) },
+  Loading: { isLoading: true },
+  Success: { data: P.not(undefined) },
+};
 
 export const APP_NAME = "esachievement";
 export const LOCAL_STORAGE_VERSION = "1";
