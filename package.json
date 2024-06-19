@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "dev:workers": "wrangler pages dev -- yarn dev",
+    "build": "tsc && vite build && cpx \"functions/**\" dist/functions",
     "preview": "vite preview",
     "fmt": "prettier --write ./src/",
-    "lint": "eslint --ext .ts,.tsx ./src"
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "gen:esa-type": "openapi-typescript https://raw.githubusercontent.com/suin/esa-openapi/main/esa-api.json -o ./src/lib/services/esa.gen.ts"
   },
   "engines": {
     "node": "22"
@@ -17,22 +19,27 @@
     "@fontsource-variable/noto-sans-jp": "^5.0.19",
     "@generouted/react-router": "^1.19.3",
     "@iconify/react": "^4.1.1",
+    "@nanostores/persistent": "^0.10.1",
     "@nanostores/react": "^0.7.2",
     "@radix-ui/themes": "^3.0.5",
     "nanostores": "^0.10.3",
+    "openapi-fetch": "^0.9.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
     "styled-components": "^6.1.11",
-    "the-new-css-reset": "^1.11.2"
+    "the-new-css-reset": "^1.11.2",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240614.0",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "@vitest/ui": "^1.5.0",
+    "cpx": "^1.5.0",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
@@ -46,9 +53,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "eslint-plugin-unused-imports": "^3.1.0",
+    "openapi-typescript": "^6.7.6",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5",
     "vite": "^5.2.0",
-    "vite-tsconfig-paths": "^4.3.2"
+    "vite-tsconfig-paths": "^4.3.2",
+    "wrangler": "^3.61.0"
   }
 }

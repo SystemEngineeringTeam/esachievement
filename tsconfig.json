@@ -31,7 +31,10 @@
     }
   },
   "include": [
-    "src"
+    "src/**/*"
+  ],
+  "exclude": [
+    "functions/**/*"
   ],
   "references": [
     {
