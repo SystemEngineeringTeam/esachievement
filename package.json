@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "npm run gen:esa-type",
     "dev": "vite",
     "dev:workers": "wrangler pages dev -- yarn dev",
     "build": "tsc && vite build && cpx \"functions/**\" dist/functions",
