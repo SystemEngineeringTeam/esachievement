@@ -13,7 +13,7 @@ export const $accessTokenData = persistentAtom<Nullable<AccessTokenData>>(
   },
 );
 
-export const $isAuthenticated = computed(
+export const $hasAuthenticated = computed(
   $accessTokenData,
   (data) => data != null,
 );

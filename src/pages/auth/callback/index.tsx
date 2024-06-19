@@ -23,10 +23,10 @@ export default function Page(): ReactElement {
     const code = urlParams.get("code");
     if (code == null) throw new Error("code is not found");
 
-    const tokenData = await requestAccessTokenData(code);
-    $accessTokenData.set(tokenData);
+    const data = await requestAccessTokenData(code);
+    $accessTokenData.set(data);
 
-    return tokenData;
+    return data;
   }
 
   return (
