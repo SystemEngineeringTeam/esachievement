@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import { Link } from "@/router.ts";
@@ -84,7 +84,7 @@ export function Header(): ReactElement {
             <Text size="5" weight="bold">
               ログイン
             </Text>
-            <Icon icon="material-symbols:person" width={60} height={60} />
+            <Icon height={60} icon="material-symbols:person" width={60} />
           </Flex>
         </Link>
       )}

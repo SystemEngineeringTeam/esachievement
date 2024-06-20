@@ -1,5 +1,6 @@
-import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
+import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import styled from "styled-components";
 import SampleMembers from "@/assets/members.json";
 import { type Member } from "@/types/member";
 
@@ -22,10 +23,17 @@ export function RankingCard({
     (member) => member.email === memberEmail,
   );
 
+  const BoxStyle = styled(Box)`
+    border-bottom: 1px solid;
+    border-color: #cbd5e1;
+    padding: 1.2rem 0;
+    width: 50rem;
+  `;
+
   return (
-    <Box maxWidth="50rem">
-      <Flex align="center" gap="6" ml="14rem">
-        <Text mr="3rem" size="8">
+    <BoxStyle>
+      <Flex align="center" gap="6" ml="10rem" mr="10rem">
+        <Text mr="3rem" size="8" weight="bold">
           {index + 1}
         </Text>
         <Avatar
@@ -43,7 +51,6 @@ export function RankingCard({
           </Text>
         </Flex>
       </Flex>
-      <Separator my="3" size="4" />
-    </Box>
+    </BoxStyle>
   );
 }
