@@ -1,31 +1,26 @@
 
-import { Avatar, Box, Card, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import { type Achievement, } from "@/types/achievement";
 
 export function AchievementCard({achievement}: {achievement: Achievement}): ReactElement {
   return (
-    <Card>
-      <Flex align="center" gap="3">
-        <Avatar
-          fallback="T"
-          radius="full"
-          size="3"
-          src={achievement.icon}
-        />
-        <Box>
-          <Text as="div" size="2" weight="bold">
-            {achievement.name}
-          </Text>
-          <Text as="div" color="gray" size="2">
-            {achievement.description}
-          </Text>
-          <Text as="div" color="gray" size="2">
-            #{achievement.tags[0].name}
+    <Table.Row>
+      <Table.RowHeaderCell>
+        <Flex gap="2">
+          <Avatar fallback="A" radius="full" size="6" src={achievement.icon} />
+        </Flex>
+      </Table.RowHeaderCell>
+      <Table.Cell>
+        <Text as="div" size="8" weight="bold">
+          {achievement.name}
         </Text>
-        </Box>
-      </Flex>
-      
-    </Card>
+      </Table.Cell>
+      <Table.Cell>
+        <Text as="div" size="6">
+          #{achievement.tags[0].name}
+        </Text>
+      </Table.Cell>
+    </Table.Row>
   );
 }
