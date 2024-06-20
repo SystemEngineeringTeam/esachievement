@@ -31,18 +31,26 @@ jobs:
 
       - name: 🏗️ Build app
         run: yarn run build
+        env:
+          VITE_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          VITE_REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
 
       - name: 🚀 Deploy to Cloudflare Pages
         id: cloudflare_pages_deploy
-        uses: cloudflare/pages-action@v1.4.0
+        uses: cloudflare/wrangler-action@2.0.0
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-          projectName: esachievement
-          directory: ./dist
+          command: "pages deploy ./dist --project-name esachievement"
+          secrets: |
+            CLIENT_ID
+            SECRET_CLIENT_ID
+            REDIRECT_URI
         env:
           NODE_VERSION: 22
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          SECRET_CLIENT_ID: ${{ secrets.SECRET_CLIENT_ID }}
+          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
 
       - name: 🚀 Deploy pages based on commit sha
         uses: actions/github-script@v6
@@ -52,9 +60,9 @@ jobs:
             await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              context: 'cloudflare / build (push)',
-              description: 'Commit based deploy',
-              state: 'success',
+              context: "cloudflare / build (push)",
+              description: "Commit based deploy",
+              state: "success",
               sha,
-              target_url: "${{ steps.cloudflare_pages_deploy.outputs.url }}",
+              target_url: "esachievement.pages.dev",
             });
