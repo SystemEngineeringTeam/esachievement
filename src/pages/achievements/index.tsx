@@ -16,6 +16,7 @@ export default function Page(): ReactElement {
           <Table.Row>
             <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>

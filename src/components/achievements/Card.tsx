@@ -17,6 +17,9 @@ export function AchievementCard({achievement}: {achievement: Achievement}): Reac
         </Text>
       </Table.Cell>
       <Table.Cell>
+        {achievement.description}
+      </Table.Cell>
+      <Table.Cell>
         <Text as="div" size="6">
           #{achievement.tags[0].name}
         </Text>
