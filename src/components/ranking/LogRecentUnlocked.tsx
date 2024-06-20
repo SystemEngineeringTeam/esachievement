@@ -20,12 +20,12 @@ export function LogRecentUnlocked({
   achievementID: number;
   memberEmail: string;
 }): ReactElement {
-  //@ts-ignore
+  // @ts-expect-error
   const member: Member = SampleMembers.members.find(
     (m) => m.email === memberEmail,
   );
 
-  //@ts-ignore
+  // @ts-expect-error
   const achievement: Achievement = SampleAchievements.achievements.find(
     (a) => a.id === achievementID,
   );

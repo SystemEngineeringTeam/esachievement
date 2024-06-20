@@ -90,16 +90,14 @@ export default function Page(): ReactElement {
         実績解除ランキング
       </TitleStyle>
       <RankingCardStyle>
-        {members.map((member, index) => {
-          return (
+        {members.map((member, index) => (
             <RankingCard
               key={member.memberEmail}
               index={index}
               memberEmail={member.memberEmail}
               point={member.point}
             />
-          );
-        })}
+          ))}
       </RankingCardStyle>
 
       <SideBar>
@@ -108,14 +106,13 @@ export default function Page(): ReactElement {
         </LogTitleStyle>
         <LogRecentUnlockedStyle>
           {SampleUnlockedAchievements.unlockedAchievements.map(
-            (unlockedAchievements) => {
-              return (
-                <LogRecentUnlocked
+            (unlockedAchievements) => (
+              <LogRecentUnlocked
+                  key={unlockedAchievements.achievementID}
                   achievementID={unlockedAchievements.achievementID}
                   memberEmail={unlockedAchievements.memberEmail}
                 />
-              );
-            },
+              ),
           )}
         </LogRecentUnlockedStyle>
       </SideBar>

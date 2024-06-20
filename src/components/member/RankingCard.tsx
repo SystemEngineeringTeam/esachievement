@@ -18,7 +18,7 @@ export function RankingCard({
   //     return achievements.userEmail == "xxxxx";
   //   },
   // );
-  //@ts-ignore
+  // @ts-expect-error
   const matchMember: Member = SampleMembers.members.find(
     (member) => member.email === memberEmail,
   );
