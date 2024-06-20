@@ -1,5 +1,6 @@
 import { type ReactElement } from "react";
-import { MemberCard } from "@/components/member/RankingCard";
+import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
+import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
 
 export default function Page(): ReactElement {
@@ -15,35 +16,28 @@ export default function Page(): ReactElement {
     },
   ];
 
-  const achievements = [
-    {
-      achievementID: 1,
-      memberEmail: "xxxxxx",
-    },
-    {
-      achievementID: 2,
-      memberEmail: "yyyyyy",
-    },
-  ];
-
   return (
     <div>
-      {members.map((member, index) => (
-          <MemberCard
-            key={index}
+      {members.map((member, index) => {
+        return (
+          <RankingCard
+            key={member.memberEmail}
             index={index}
             memberEmail={member.memberEmail}
             point={member.point}
           />
         ))}
 
-      {achievements.map((achievement,index) => (
-          <LogRecentUnlocked
-             key={index}
-            achievementID={achievement.achievementID}
-            memberEmail={achievement.memberEmail}
-          />
-        ))}
+      {SampleUnlockedAchievements.unlockedAchievements.map(
+        (unlockedAchievements) => {
+          return (
+            <LogRecentUnlocked
+              achievementID={unlockedAchievements.achievementID}
+              memberEmail={unlockedAchievements.memberEmail}
+            />
+          );
+        },
+      )}
     </div>
   );
 }
