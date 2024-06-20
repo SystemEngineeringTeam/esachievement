@@ -84,7 +84,7 @@ export function Header(): ReactElement {
             <Text size="5" weight="bold">
               ログイン
             </Text>
-            <Icon icon="material-symbols:person" width={60} height={60} />
+            <Icon height={60} icon="material-symbols:person" width={60} />
           </Flex>
         </Link>
       )}

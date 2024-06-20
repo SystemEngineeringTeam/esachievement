@@ -1,9 +1,9 @@
+import { Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import styled from "styled-components";
 import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
 import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
-import styled from "styled-components";
-import { Text } from "@radix-ui/themes";
 
 export default function Page(): ReactElement {
   // 仮のデータ(unlockedAchievements)からfilterでpointを取得する
@@ -38,7 +38,7 @@ export default function Page(): ReactElement {
     position: relative;
     top: 4rem;
     overflow: scroll;
-    height: 40rem;
+    height: 43rem;
     left: 14rem;
     width: fit-content;
     :hover {
@@ -54,18 +54,34 @@ export default function Page(): ReactElement {
     font-size: 2rem;
   `;
 
-  const LogRecentUnlockedStyle = styled.div`
+  const LogTitleStyle = styled(Text)`
+    font-size: 2rem;
     position: relative;
-    top: -38rem;
+    top: -45.5rem;
     left: 71rem;
     overflow: scroll;
-    height: 20rem;
-    width: auto;
     width: fit-content;
+    height: calc(100vh - 4.8rem);
+    width: 40rem;
+    background-color: #f1f5f9;
+  `;
+  const LogRecentUnlockedStyle = styled.div`
+    position: relative;
+    top: -45.5rem;
+    left: 71rem;
+    overflow: scroll;
+    width: fit-content;
+    height: calc(100vh - 4.8rem);
+    width: 40rem;
     :hover {
       background-color: #e2e8f0;
       transition: 100ms;
     }
+    background-color: #f1f5f9;
+  `;
+
+  const SideBar = styled.div`
+    background-color: #f1f5f9;
   `;
 
   return (
@@ -85,18 +101,24 @@ export default function Page(): ReactElement {
           );
         })}
       </RankingCardStyle>
-      <LogRecentUnlockedStyle>
-        {SampleUnlockedAchievements.unlockedAchievements.map(
-          (unlockedAchievements) => {
-            return (
-              <LogRecentUnlocked
-                achievementID={unlockedAchievements.achievementID}
-                memberEmail={unlockedAchievements.memberEmail}
-              />
-            );
-          },
-        )}
-      </LogRecentUnlockedStyle>
+
+      <SideBar>
+        <LogTitleStyle size="7" weight="bold">
+          テスト　　　　　　　　
+        </LogTitleStyle>
+        <LogRecentUnlockedStyle>
+          {SampleUnlockedAchievements.unlockedAchievements.map(
+            (unlockedAchievements) => {
+              return (
+                <LogRecentUnlocked
+                  achievementID={unlockedAchievements.achievementID}
+                  memberEmail={unlockedAchievements.memberEmail}
+                />
+              );
+            },
+          )}
+        </LogRecentUnlockedStyle>
+      </SideBar>
     </div>
   );
 }

@@ -20,15 +20,19 @@ export default function Layout(): ReactElement {
   const Main = styled.main`
     font-family: "Noto Sans JP Variable";
     word-break: keep-all;
+  `;
+  const BodyStyle = styled.div`
+    height: calc(100vh - 4.8rem);
     overflow: hidden;
   `;
-
   return (
     <Theme>
       <Main>
         <Redirects>
           <Header />
-          <Outlet />
+          <BodyStyle>
+            <Outlet />
+          </BodyStyle>
         </Redirects>
       </Main>
     </Theme>
