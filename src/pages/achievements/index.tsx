@@ -1,7 +1,7 @@
 import { type ReactElement } from "react";
-import { FirstPenguin } from "@/components/achievements/FirstPenguin";
-import { AchievementCard } from "@/components/achievements/Card";
 import data from "@/assets/achievements.json";
+import { AchievementCard } from "@/components/achievements/Card";
+import { FirstPenguin } from "@/components/achievements/FirstPenguin";
 
 export default function Page(): ReactElement {
   return (

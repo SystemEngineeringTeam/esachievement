@@ -1,6 +1,6 @@
-import { Achievement } from "@/types/achievement";
 import { Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import { type Achievement } from "@/types/achievement";
 
 export function AchievementCard({
   data,
