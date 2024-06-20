@@ -1,13 +1,20 @@
-import { Table } from "@radix-ui/themes";
+import { Box, Table } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import styled from "styled-components";
 import SampleMember from "@/assets/members.json";
 import SampleUnlockedAchievements from '@/assets/unlockedAchievements.json'
 import { MemberCard } from "@/components/member/Card";
 import { type Member } from "@/types/member";
 
+
+const BoxStyle = styled(Box)`
+  margin: 0 auto;
+`;
+
 export default function Page(): ReactElement {
   let point:number = 0;
   return (
+    <BoxStyle width="70%">
       <Table.Root>
         <Table.Header>
           <Table.Row>
@@ -24,7 +31,7 @@ export default function Page(): ReactElement {
           const member: Member = e as Member;
           
           SampleUnlockedAchievements.unlockedAchievements.forEach((unlockedAchievement)=>{
-            if(unlockedAchievement.memberEmail === member.email){
+            if(unlockedAchievement.userEmail === member.email){
               point += 1;
             }
           })
@@ -32,5 +39,6 @@ export default function Page(): ReactElement {
         })}
         </Table.Body>
       </Table.Root>
+    </BoxStyle>
   );
 }
