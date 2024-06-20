@@ -7,8 +7,8 @@
       "icon": "https://placehold.jp/150x150.png",
       "role": "member",
       "posts_count": 0,
-      "joined_at": "2019-01-01T00:00:00Z",
-      "last_posted_at": "2019-01-01T00:00:00Z",
+      "joined_at": "2022-09-17T01:35:57+09:00",
+      "last_posted_at": "024-06-19T19:19:00+09:00",
       "email": "yyyyyy"
     },
     {
@@ -18,9 +18,31 @@
       "icon": "https://placehold.jp/150x150.png",
       "role": "owner",
       "posts_count": 0,
-      "joined_at": "2019-01-01T00:00:00Z",
-      "last_posted_at": "2019-01-01T00:00:00Z",
+      "joined_at": "2022-09-17T01:35:57+09:00",
+      "last_posted_at": "2022-09-17T01:35:57+09:00",
       "email": "xxxxxx"
+    },
+    {
+      "myself": false,
+      "name": "三島 由紀夫",
+      "screen_name": "mishima yukio",
+      "icon": "https://placehold.jp/150x150.png",
+      "role": "member",
+      "posts_count": 0,
+      "joined_at": "2022-09-17T01:35:57+09:00",
+      "last_posted_at": "2022-09-17T01:35:57+09:00",
+      "email": "zzzzzz"
+    },
+    {
+      "myself": false,
+      "name": "太宰 治",
+      "screen_name": "dazai osamu",
+      "icon": "https://placehold.jp/150x150.png",
+      "role": "member",
+      "posts_count": 0,
+      "joined_at": "2022-09-17T01:35:57+09:00",
+      "last_posted_at": "2022-09-17T01:35:57+09:00",
+      "email": "wwwwww"
     }
   ],
   "prev_page": null,

@@ -1,15 +1,16 @@
 import { type ReactElement } from "react";
+import Achievements from "@/assets/achievements.json";
 import { AchievementCard } from "@/components/achievements/Card";
-import data from "@/assets/achievements.json";
+import { FirstPenguin } from "@/components/achievements/FirstPenguin";
 
 export default function Page(): ReactElement {
   return (
     <>
-      {data.achievements.map((achievement) => (
+      <FirstPenguin />
+      {Achievements.achievements.map((achievement) => (
         <AchievementCard
-          key={achievement.id}
-          data={achievement}
-          showRelativeDate={false}
+          key={achievement.id} 
+          achievement={achievement}
         />
       ))}
     </>
