@@ -26,8 +26,7 @@ export default function Page(): ReactElement {
             memberEmail={member.memberEmail}
             point={member.point}
           />
-        );
-      })}
+        ))}
 
       {SampleUnlockedAchievements.unlockedAchievements.map(
         (unlockedAchievements) => {

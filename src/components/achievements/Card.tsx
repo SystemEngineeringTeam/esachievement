@@ -1,3 +1,4 @@
+
 import { Avatar, Box, Card, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import { type Achievement, } from "@/types/achievement";

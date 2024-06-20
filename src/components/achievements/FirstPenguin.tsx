@@ -1,11 +1,16 @@
-import { Flex, Text, Avatar, Box} from "@radix-ui/themes";
+import { Icon } from "@iconify/react";
+import { Flex, Text, Box} from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import GroupSVG from "@/assets/firstsvg/Group 30.svg";
 import UnionSVG from "@/assets/firstsvg/Union.svg";
 
+const StyledBox = styled(Box)`
+  margin-left: 50px;
+`;
+
 const StyledFlex = styled(Flex)`
-  padding:8px;
+  padding:16px;
 `;
 
 const Margin = styled.div`
@@ -13,67 +18,55 @@ const Margin = styled.div`
   `;
 
 const BackgroundImage = styled.div`
-position: relative;
-top:-50px;
+  position: relative;
+  top:-110px;
+  padding:8px;
 `;
 
 const Front = styled.div`
-position: absolute;
-top:5px;
-left:60px;
+  position: absolute;
+  top:23px;
+  left:120px;
 `;
 
 const King = styled.div`
-position: absolute;
-top:53px;
-left: 120px;
+  position: absolute;
+  top:107px;
+  left: 263px;
 `;
 
 
 export function FirstPenguin(): ReactElement {
-  const achievementTest = {
-    id: 1,
-    name: "first blood",
-    description: "Get the first kill in a match.",
-    icon: "https://placehold.jp/150x150.png",
-    tag: ["kill"],
-  };
-
   return (
   
-    <Box maxWidth="20rem">
+    <StyledBox maxWidth="35rem">
 
-      <StyledFlex direction="column" align="center">
+      <StyledFlex align="center" direction="column">
        <Margin>
-        <Text weight="bold" size="7" >
+        <Text size="9" weight="bold">
           最初の解除者
         </Text>
        </Margin>
 
         <Margin>
-          <Avatar
-          size="8"
-          src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
-          radius="full"
-          fallback="T"
-        />
+          <Icon height={300} icon='material-symbols:account-circle-full' width={200} />
         </Margin>
 
         <King>
-            <img src={UnionSVG} alt="Union" width="80" height="64" />
+            <img alt="Union" height="110" src={UnionSVG} width="133"/>
         </King>
 
         <BackgroundImage>
           <Front>
-            <Text weight="bold" size="7">
-              {achievementTest.name}
+            <Text size="9" weight="bold">
+              大崎 稜馬
             </Text>
           </Front>
 
-          <img src={GroupSVG} alt="Group" width="250" height="64" />
+          <img alt="Group" height="128" src={GroupSVG} width="500"/>
         </BackgroundImage>
       </StyledFlex> 
-    </Box>
+    </StyledBox>
   );
 }
 

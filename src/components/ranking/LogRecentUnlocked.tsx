@@ -1,4 +1,5 @@
 import { Avatar, Box, Flex, Separator, Text } from "@radix-ui/themes";
+
 import { type ReactElement } from "react";
 import SampleAchievements from "@/assets/achievements.json";
 import SampleMembers from "@/assets/members.json";
