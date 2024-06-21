@@ -13,12 +13,6 @@ export function RankingCard({
   index: number;
   point: number;
 }): ReactElement {
-  // const userPoint = unlockedAchievements.unlockedAchievements.filter(
-  //   (achievements) => {
-  //     return achievements.userEmail == "xxxxx";
-  //   },
-  // );
-  // @ts-expect-error
   const matchMember: Member = SampleMembers.members.find(
     (member) => member.email === memberEmail,
   );

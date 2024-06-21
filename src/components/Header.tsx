@@ -1,7 +1,8 @@
 import { Icon } from "@iconify/react";
-import { Avatar, Flex, Text } from "@radix-ui/themes";
+import { Avatar, Flex, Text, Link as LinkComponent } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
+import { getAuthorizePageUrl } from "@/lib/services/esa";
 import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
@@ -29,10 +30,18 @@ const HeaderStyle = styled(Flex)`
   :hover.createHoverAnime {
     background-color: #1e293b;
   }
+  .loginStyle {
+    padding-right: 4rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: #f8fafc;
+    background-color: #0f172a;
+  }
 `;
 
 export function Header(): ReactElement {
-  const loginFlag = true;
+  const loginFlag = false;
   return (
     <HeaderStyle align="center">
       <Link
@@ -43,14 +52,14 @@ export function Header(): ReactElement {
           えさちぶめんと
         </Text>
       </Link>
-      <Link className="hoverAnime headerDefaultStyle" to="/members">
-        <Text size="5" weight="bold">
-          users
-        </Text>
-      </Link>
       <Link className="hoverAnime headerDefaultStyle" to="/ranking">
         <Text size="5" weight="bold">
           ranking
+        </Text>
+      </Link>
+      <Link className="hoverAnime headerDefaultStyle" to="/members">
+        <Text size="5" weight="bold">
+          members
         </Text>
       </Link>
       <Link
@@ -79,14 +88,17 @@ export function Header(): ReactElement {
           </Flex>
         </Link>
       ) : (
-        <Link className="createStyle createHoverAnime" to="/create">
-          <Flex align="center" gap="5">
+        <LinkComponent
+          className="createStyle loginStyle createHoverAnime"
+          href={getAuthorizePageUrl()}
+        >
+          <Flex align="center" gap="1">
             <Text size="5" weight="bold">
               ログイン
             </Text>
             <Icon height={60} icon="material-symbols:person" width={60} />
           </Flex>
-        </Link>
+        </LinkComponent>
       )}
     </HeaderStyle>
   );
