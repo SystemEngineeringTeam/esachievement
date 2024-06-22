@@ -1,8 +1,10 @@
 import { Icon } from "@iconify/react";
+import { useStore } from "@nanostores/react";
 import { Avatar, Flex, Text, Link as LinkComponent } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import { getAuthorizePageUrl } from "@/lib/services/esa";
+import { $hasAuthenticated } from "@/lib/stores/auth";
 import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
@@ -41,7 +43,6 @@ const HeaderStyle = styled(Flex)`
 `;
 
 export function Header(): ReactElement {
-  const loginFlag = false;
   return (
     <HeaderStyle align="center">
       <Link
@@ -70,7 +71,7 @@ export function Header(): ReactElement {
           achievements
         </Text>
       </Link>
-      {loginFlag ? (
+      {useStore($hasAuthenticated) ? (
         <Link
           className="createStyle createHoverAnime headerDefaultStyle"
           to="/create"
