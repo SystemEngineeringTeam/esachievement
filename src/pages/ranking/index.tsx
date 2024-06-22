@@ -97,6 +97,8 @@ export default function Page(): ReactElement {
             key={member.email}
             index={index}
             memberEmail={member.email}
+            memberIcon={member.icon}
+            memberName={member.name}
             point={member.unlockedCount}
           />
         ))}
