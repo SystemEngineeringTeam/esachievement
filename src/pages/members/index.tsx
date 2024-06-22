@@ -29,7 +29,7 @@ export default function Page(): ReactElement {
         
         {SampleMember.members.map((e: any) => {
           const member: Member = e as Member;
-          
+          point = 0;
           SampleUnlockedAchievements.unlockedAchievements.forEach((unlockedAchievement)=>{
             if(unlockedAchievement.memberEmail === member.email){
               point += 1;
