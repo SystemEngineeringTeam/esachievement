@@ -1,54 +1,141 @@
-import { TextField, Text, Box, Flex, Button, Avatar } from "@radix-ui/themes";
-import { type ReactElement } from "react";
+import { Icon } from "@iconify/react";
+import {
+  TextField,
+  Flex,
+  Box,
+  Avatar,
+  Text,
+  Button,
+  IconButton,
+  Popover,
+} from "@radix-ui/themes";
+import { useState, type ReactElement } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
-
-const TextFieldRootStyle = styled(TextField.Root)`
-  height: 10rem;
-`;
-
-const Form = styled(Flex)`
-  overflow: scroll;
-  height: calc(100vh - 4.8rem);
-`;
+import { type Achievement } from "@/types/achievement";
 
 export default function create(): ReactElement {
+  const [selectIcon, setSelectIcon] = useState("");
+
+  const { register, handleSubmit, setValue } = useForm<Achievement>({
+    mode: "onSubmit",
+  });
+  const onSubmit: SubmitHandler<Achievement> = (data) => {
+    console.log(data);
+  };
+
+  const FormStyle = styled(Flex)`
+    overflow: scroll;
+    height: calc(100vh - 4.8rem);
+  `;
+
+  const AvatarContainer = styled.div`
+    position: relative;
+  `;
+
+  const PlusButton = styled(IconButton)`
+    position: absolute;
+    top: 152px;
+    left: 112px;
+  `;
+
+  const iconUrl = [
+    "https://qr.paps.jp/8o3Og",
+    "https://i.imgur.com/5TaVIlf.gif",
+    "https://qr.paps.jp/fblo0",
+    "https://i.gifer.com/9ZNS.gif",
+  ];
+
   return (
-    <Form align="center" direction="column">
-      <Avatar
-        fallback="A"
-        mb="5vh"
-        mt="5vh"
-        radius="full"
-        size="9"
-        src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F401312%2F9a7ef74a-33fd-5414-aa41-76889da2d665.gif?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&s=e7b5fd4deefd37c9cbd72fb4659ff39f"
-      />
-      <Box mb="5vh" width="50vw">
-        <Text>Achievement Name</Text>
-        <TextField.Root placeholder="カカポ" size="3">
-          <TextField.Slot px="1" side="right" />
-        </TextField.Root>
-      </Box>
-      <Box mb="5vh" width="50vw">
-        <Text>Achievement First Tag Name</Text>
-        <TextField.Root placeholder="#party parrot" size="3">
-          <TextField.Slot px="1" side="right" />
-        </TextField.Root>
-      </Box>
-      <Box mb="5vh" width="50vw">
-        <Text>Achievement Second Tag Name</Text>
-        <TextField.Root placeholder="#love2" size="3">
-          <TextField.Slot px="1" side="right" />
-        </TextField.Root>
-      </Box>
-      <Box mb="5vh" width="50vw">
-        <Text>Achievement Detail</Text>
-        <TextFieldRootStyle placeholder="lkjhgvb" size="3">
-          <TextField.Slot px="1" side="right" />
-        </TextFieldRootStyle>
-      </Box>
-      <Box mb="20vh">
-        <Button>View users</Button>
-      </Box>
-    </Form>
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormStyle align="center" direction="column">
+        <AvatarContainer>
+          <Popover.Root>
+            <Popover.Trigger>
+              <PlusButton radius="full" size="4">
+                <Icon icon="ion:add" width="30px" />
+              </PlusButton>
+            </Popover.Trigger>
+            <Popover.Content maxWidth="300px" size="1">
+              <Text as="p" size="1" trim="both">
+                {iconUrl.map((url, index) => (
+                  <IconButton
+                    key={index}
+                    mr="3"
+                    onClick={() => {
+                      setSelectIcon(url);
+                      setValue("icon", url);
+                    }}
+                    {...register("icon")}
+                    radius="full"
+                    size="4"
+                  >
+                    <Avatar fallback="A" size="4" src={url} />
+                  </IconButton>
+                ))}
+              </Text>
+            </Popover.Content>
+          </Popover.Root>
+          <Avatar
+            fallback="A"
+            mb="5vh"
+            mt="5vh"
+            radius="full"
+            size="9"
+            src={selectIcon}
+          />
+        </AvatarContainer>
+        <Box mb="5vh" width="50vw">
+          <Text>Achievement Name</Text>
+          <TextField.Root
+            placeholder="カカポ"
+            size="3"
+            type="text"
+            {...register("name")}
+          >
+            <TextField.Slot px="1" side="right" />
+          </TextField.Root>
+        </Box>
+        <Box mb="5vh" width="50vw">
+          <Text>Achievement First Tag Name</Text>
+          <TextField.Root
+            placeholder="#party parrot"
+            size="3"
+            type="text"
+            {...register(`tags.${0}.name`)}
+          >
+            <TextField.Slot px="1" side="right" />
+          </TextField.Root>
+        </Box>
+        <Box mb="5vh" width="50vw">
+          <Text>Achievement Second Tag Name</Text>
+          <TextField.Root
+            placeholder="#love2"
+            size="3"
+            type="text"
+            {...register(`tags.${1}.name`)}
+          >
+            <TextField.Slot px="1" side="right" />
+          </TextField.Root>
+        </Box>
+        <Box mb="5vh" width="50vw">
+          <Text>Achievement Detail</Text>
+          <TextField.Root
+            placeholder="lkjhgvb"
+            size="3"
+            type="text"
+            {...register("description")}
+          >
+            <TextField.Slot px="1" side="right" />
+          </TextField.Root>
+        </Box>
+        <Box mb="20vh">
+          <Button>
+            <input type="submit" value="submit" />
+          </Button>
+        </Box>
+      </FormStyle>
+    </form>
   );
 }
