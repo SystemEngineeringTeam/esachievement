@@ -1,5 +1,7 @@
 import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import styled from "styled-components";
+import { useNavigate } from "@/router";
 import { type Member } from "@/types/member";
 
 export function MemberCard({
@@ -9,8 +11,25 @@ export function MemberCard({
   member: Member;
   point: number;
 }): ReactElement {
+  const navigate = useNavigate();
+  const TableRow = styled(Table.Row)`
+    transition: background-color 100ms;
+    cursor: pointer;
+    &:hover {
+      background-color: #e2e8f0;
+    }
+  `;
+
   return (
-    <Table.Row>
+    <TableRow
+      onClick={() => {
+        navigate("/members/:id", {
+          params: {
+            id: member.email.toString(),
+          },
+        });
+      }}
+    >
       <Table.RowHeaderCell>
         <Flex gap="2">
           <Avatar fallback="A" radius="full" size="6" src={member.icon} />
@@ -26,6 +45,6 @@ export function MemberCard({
           {point}
         </Text>
       </Table.Cell>
-    </Table.Row>
+    </TableRow>
   );
 }
