@@ -2,7 +2,7 @@ import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import { useNavigate } from "@/router";
-import { type Achievement } from "@/types/achievement";
+import { type Achievement } from "@/types/post-data/achievements";
 
 export function AchievementCard({
   achievement,
