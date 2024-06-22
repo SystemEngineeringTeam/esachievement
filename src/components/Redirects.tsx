@@ -8,7 +8,7 @@ export function Redirects({ children }: { children: ReactNode }): ReactNode {
 
   const isInPublicPaths = pathname === "/" || pathname.startsWith("/auth");
   if (!$hasAuthenticated.get() && !isInPublicPaths) {
-    redirect("/auth/login");
+    redirect("/");
   }
 
   return children;

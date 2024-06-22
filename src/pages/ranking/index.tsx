@@ -4,36 +4,9 @@ import styled from "styled-components";
 import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
 import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
+import { esaClient } from "@/lib/services/esa";
 
 export default function Page(): ReactElement {
-  // 仮のデータ(unlockedAchievements)からfilterでpointを取得する
-  const members = [
-    {
-      memberEmail: "xxxxxx",
-      point: 100,
-    },
-    {
-      memberEmail: "yyyyyy",
-      point: 200,
-    },
-    {
-      memberEmail: "yyyyyy",
-      point: 200,
-    },
-    {
-      memberEmail: "yyyyyy",
-      point: 200,
-    },
-    {
-      memberEmail: "yyyyyy",
-      point: 200,
-    },
-    {
-      memberEmail: "yyyyyy",
-      point: 200,
-    },
-  ];
-
   const RankingCardStyle = styled.div`
     position: relative;
     top: 4rem;
@@ -84,6 +57,13 @@ export default function Page(): ReactElement {
     background-color: #f1f5f9;
   `;
 
+  void esaClient.GET("/teams/{team_name}", {
+    params: {
+      path: {
+        team_name: "sysken",
+      },
+    },
+  });
   return (
     <div>
       <TitleStyle size="7" weight="bold">
@@ -91,13 +71,13 @@ export default function Page(): ReactElement {
       </TitleStyle>
       <RankingCardStyle>
         {members.map((member, index) => (
-            <RankingCard
-              key={member.memberEmail}
-              index={index}
-              memberEmail={member.memberEmail}
-              point={member.point}
-            />
-          ))}
+          <RankingCard
+            key={member.memberEmail}
+            index={index}
+            memberEmail={member.memberEmail}
+            point={member.point}
+          />
+        ))}
       </RankingCardStyle>
 
       <SideBar>
@@ -108,11 +88,11 @@ export default function Page(): ReactElement {
           {SampleUnlockedAchievements.unlockedAchievements.map(
             (unlockedAchievements) => (
               <LogRecentUnlocked
-                  key={unlockedAchievements.achievementID}
-                  achievementID={unlockedAchievements.achievementID}
-                  memberEmail={unlockedAchievements.memberEmail}
-                />
-              ),
+                key={unlockedAchievements.achievementID}
+                achievementID={unlockedAchievements.achievementID}
+                memberEmail={unlockedAchievements.memberEmail}
+              />
+            ),
           )}
         </LogRecentUnlockedStyle>
       </SideBar>
