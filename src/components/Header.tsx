@@ -43,7 +43,6 @@ const HeaderStyle = styled(Flex)`
 `;
 
 export function Header(): ReactElement {
-  const loginFlag = false;
   return (
     <HeaderStyle align="center">
       <Link
