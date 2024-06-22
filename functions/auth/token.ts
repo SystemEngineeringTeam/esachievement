@@ -1,17 +1,9 @@
 import type { PagesFunction } from "@cloudflare/workers-types";
 import { string, object } from "yup";
-import { Env } from "../__lib/consts.js";
+import { Env, getDefaultCors, getEnv } from "../__lib/consts.js";
 
 export const onRequestOptions: PagesFunction<Env> = async ({ env }) => {
-  return new Response(null, {
-    status: 204,
-    headers: {
-      "Access-Control-Allow-Origin": new URL(env.ESA_APP_REDIRECT_URI).origin,
-      "Access-Control-Allow-Headers": "*",
-      "Access-Control-Allow-Methods": "GET, OPTIONS",
-      "Access-Control-Max-Age": "86400",
-    },
-  });
+  return getDefaultCors(env.ESA_APP_REDIRECT_URI);
 };
 
 export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
@@ -36,11 +28,11 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      client_id: env.ESA_APP_CLIENT_ID,
-      client_secret: env.ESA_APP_CLIENT_SECRET,
+      client_id: getEnv(env, "ESA_APP_CLIENT_ID"),
+      client_secret: getEnv(env, "ESA_APP_CLIENT_SECRET"),
       code: code,
       grant_type: "authorization_code",
-      redirect_uri: env.ESA_APP_REDIRECT_URI,
+      redirect_uri: getEnv(env, "ESA_APP_REDIRECT_URI"),
     }),
   });
 

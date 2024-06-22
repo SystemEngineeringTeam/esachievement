@@ -1,9 +1,12 @@
-
 import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
-import { type Achievement, } from "@/types/achievement";
+import { type Achievement } from "@/types/post-data/achievements";
 
-export function AchievementCard({achievement}: {achievement: Achievement}): ReactElement {
+export function AchievementCard({
+  achievement,
+}: {
+  achievement: Achievement;
+}): ReactElement {
   return (
     <Table.Row>
       <Table.RowHeaderCell>
@@ -16,9 +19,7 @@ export function AchievementCard({achievement}: {achievement: Achievement}): Reac
           {achievement.name}
         </Text>
       </Table.Cell>
-      <Table.Cell>
-        {achievement.description}
-      </Table.Cell>
+      <Table.Cell>{achievement.description}</Table.Cell>
       <Table.Cell>
         <Text as="div" size="6">
           #{achievement.tags[0].name}

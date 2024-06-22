@@ -29,9 +29,7 @@ export function useTeam() {
   }: {
     response: Response;
   }): Promise<never> {
-    throw new Error(
-      `Failed to fetch API: ${response.status} ${await response.text()}`,
-    );
+    throw new Error(`Failed to fetch API: ${response.status}`);
   }
 
   const fetchAbout = async (): Promise<
@@ -92,7 +90,7 @@ export function useTeam() {
       params: {
         ...paramsWithTeamName.params,
         query: {
-          q: `category:${category}`,
+          q: `on:${category}`,
         },
       },
     });
@@ -174,9 +172,9 @@ export function useTeam() {
     fetchAbout,
     fetchMembers,
     fetchPostByPostId,
+    fetchPostsByCategory,
 
     __createNewPost: createNewPost,
-    __fetchPostsByCategory: fetchPostsByCategory,
     __updatePost: updatePost,
     __deletePost: deletePost,
   };
