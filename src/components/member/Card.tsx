@@ -42,7 +42,7 @@ export function MemberCard({
       </Table.Cell>
       <Table.Cell>
         <Text as="div" size="6">
-          {point}
+          {point}pt
         </Text>
       </Table.Cell>
     </TableRow>
