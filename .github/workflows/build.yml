@@ -32,8 +32,8 @@ jobs:
       - name: 🏗️ Build app
         run: yarn run build
         env:
-          VITE_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          VITE_REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+          VITE_ESA_APP_CLIENT_ID: ${{ secrets.ESA_APP_CLIENT_ID }}
+          VITE_ESA_APP_REDIRECT_URI: ${{ secrets.ESA_APP_REDIRECT_URI }}
 
       - name: 🚀 Deploy to Cloudflare Pages
         id: cloudflare_pages_deploy
@@ -48,9 +48,9 @@ jobs:
             REDIRECT_URI
         env:
           NODE_VERSION: 22
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          SECRET_CLIENT_ID: ${{ secrets.SECRET_CLIENT_ID }}
-          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+          ESA_APP_CLIENT_ID: ${{ secrets.ESA_APP_CLIENT_ID }}
+          ESA_APP_CLIENT_SECRET: ${{ secrets.ESA_APP_CLIENT_SECRET }}
+          ESA_APP_REDIRECT_URI: ${{ secrets.ESA_APP_REDIRECT_URI }}
 
       - name: 🚀 Deploy pages based on commit sha
         uses: actions/github-script@v6
