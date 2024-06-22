@@ -114,6 +114,7 @@ export default function Page(): ReactElement {
                 key={unlockedAchievements.achievementID}
                 achievementID={unlockedAchievements.achievementID}
                 memberEmail={unlockedAchievements.memberEmail}
+                unlockedDate={unlockedAchievements.createdAt}
               />
             ),
           )}

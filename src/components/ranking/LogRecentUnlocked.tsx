@@ -16,11 +16,21 @@ const BoxStyle = styled(Box)`
 
 export function LogRecentUnlocked({
   achievementID,
+  unlockedDate,
   memberEmail,
 }: {
   achievementID: number;
+  unlockedDate: string;
   memberEmail: string;
 }): ReactElement {
+
+  const DateStyle = styled(Text)`
+    padding-left: 10rem;
+    
+  `;
+
+
+
   // @ts-expect-error
   const member: Member = SampleMembers.members.find(
     (m) => m.email === memberEmail,
@@ -34,7 +44,7 @@ export function LogRecentUnlocked({
     <Link params={{ id: achievement.id.toString() }} to="/achievements/:id">
       <BoxStyle>
         <Flex align="center" gap="3" justify="center">
-          <Avatar fallback="T" radius="full" size="4" src={achievement.icon} />
+          <Avatar fallback="T" radius="full" size="5" src={achievement.icon} />
           <Box>
             <Text as="div" size="3" weight="bold">
               {member.name}
@@ -42,6 +52,9 @@ export function LogRecentUnlocked({
             <Text as="div" color="gray" size="3">
               {achievement.name}
             </Text>
+            <DateStyle  color="gray" size="1">
+              {unlockedDate.slice(0, 10)}
+            </DateStyle>
           </Box>
         </Flex>
       </BoxStyle>
