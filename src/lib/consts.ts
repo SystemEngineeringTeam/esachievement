@@ -15,9 +15,16 @@ export function getEnv(key: keyof Env): string {
   return value;
 }
 
+// pattern for swr
 export const S = {
   Error: { error: P.not(undefined) },
   Loading: { isLoading: true },
+  Success: { data: P.not(undefined) },
+};
+
+// pattern for openapi-fetch
+export const A = {
+  Error: { error: P.not(undefined) },
   Success: { data: P.not(undefined) },
 };
 
