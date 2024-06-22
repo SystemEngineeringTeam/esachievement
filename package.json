@@ -7,7 +7,7 @@
     "prepare": "npm run gen:esa-type",
     "dev": "vite",
     "dev:workers": "wrangler pages dev -- yarn dev",
-    "build": "tsc && vite build && cpx \"functions/**\" dist/functions",
+    "build": "tsc && vite build && cpx wrangler.toml dist/ && cpx \"functions/**\" dist/functions",
     "preview": "vite preview",
     "fmt": "prettier --write ./src/",
     "lint": "eslint --ext .ts,.tsx ./src",
