@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
-import { FirstPenguin } from "@/components/achievements/FirstPenguin";
+import { PercentageView } from "@/components/member/PercentageView";
 
-export default function Page():ReactElement {
-  return <FirstPenguin />;
+export default function Page(): ReactElement {
+  return <PercentageView />;
 }

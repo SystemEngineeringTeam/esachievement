@@ -6,6 +6,7 @@ import SampleMembers from "@/assets/members.json";
 import { Link } from "@/router";
 import { type Achievement } from "@/types/achievement";
 import { type Member } from "@/types/member";
+import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
   border-bottom: 1px solid;

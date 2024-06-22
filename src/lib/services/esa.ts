@@ -36,7 +36,7 @@ export async function requestAccessTokenData(
 }
 
 export const esaClient = createClient<paths>({
-  baseUrl: "https://api.esa.io/v1",
+  baseUrl: "/api",
 });
 
 esaClient.use({
