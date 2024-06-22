@@ -4,7 +4,6 @@ import styled from "styled-components";
 import SampleAchievements from "@/assets/achievements.json";
 import SampleMembers from "@/assets/members.json";
 import { Link } from "@/router";
-import { type Achievement } from "@/types/achievement";
 import { type Member } from "@/types/member";
 import { type Achievement } from "@/types/post-data/achievements";
 
