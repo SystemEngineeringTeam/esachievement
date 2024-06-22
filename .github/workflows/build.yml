@@ -65,5 +65,5 @@ jobs:
               description: "Commit based deploy",
               state: "success",
               sha,
-              target_url: "esachievement.pages.dev",
+              target_url: "https://esachievement.pages.dev",
             });
