@@ -40,10 +40,9 @@ export default function Page(): ReactElement {
     position: relative;
     top: -45.5rem;
     left: 71rem;
+    padding: 0.3rem;
     overflow: scroll;
-    width: fit-content;
-    height: calc(100vh - 4.8rem);
-    width: 40rem;
+    font-weight: bold;
     background-color: #f1f5f9;
   `;
   const LogRecentUnlockedStyle = styled.div`
@@ -105,8 +104,8 @@ export default function Page(): ReactElement {
       </RankingCardStyle>
 
       <SideBar>
-        <LogTitleStyle size="7" weight="bold">
-          テスト
+        <LogTitleStyle as="div" size="7">
+          最近の実績解除
         </LogTitleStyle>
         <LogRecentUnlockedStyle>
           {UnlockedAchievements.unlockedAchievements.map(
