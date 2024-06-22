@@ -43,9 +43,9 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: "pages deploy ./dist --project-name esachievement"
           secrets: |
-            CLIENT_ID
-            SECRET_CLIENT_ID
-            REDIRECT_URI
+            ESA_APP_CLIENT_ID
+            ESA_APP_CLIENT_SECRET
+            ESA_APP_REDIRECT_URI
         env:
           NODE_VERSION: 22
           ESA_APP_CLIENT_ID: ${{ secrets.ESA_APP_CLIENT_ID }}
