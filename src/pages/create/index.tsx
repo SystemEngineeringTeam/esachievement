@@ -12,7 +12,7 @@ import {
 import { useState, type ReactElement } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
-import { type Achievement } from "@/types/achievement";
+import { type Achievement } from "@/types/post-data/achievements";
 
 export default function create(): ReactElement {
   const [selectIcon, setSelectIcon] = useState("");
@@ -21,6 +21,7 @@ export default function create(): ReactElement {
     mode: "onSubmit",
   });
   const onSubmit: SubmitHandler<Achievement> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 
@@ -61,6 +62,7 @@ export default function create(): ReactElement {
               <Text as="p" size="1" trim="both">
                 {iconUrl.map((url, index) => (
                   <IconButton
+                    // eslint-disable-next-line react/no-array-index-key
                     key={index}
                     mr="3"
                     onClick={() => {

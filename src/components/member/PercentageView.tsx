@@ -52,17 +52,16 @@ const Padding = styled.div`
 `;
 
 const One = styled.div`
-    font-size:80px;
-    position:relative;
-    top: -80px;
-    left: 25px;
-
+  font-size: 80px;
+  position: relative;
+  top: -80px;
+  left: 25px;
 `;
 
 const Center = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export function PercentageView(): ReactElement {
@@ -74,20 +73,19 @@ export function PercentageView(): ReactElement {
           <Flag>
             <img alt="flag" src={FirstFlag} width="100" />
           </Flag>
-            <One>1</One>
+          <One>1</One>
         </Center>
 
         <StyledIcon icon="material-symbols:account-circle-full" />
       </FlexContainer>
 
       <div>
-      <StyledText>Ryoma osaki</StyledText>
+        <StyledText>Ryoma osaki</StyledText>
       </div>
 
       <div>
-      <Styledclass> 学部 kk 学年 b1</Styledclass>
+        <Styledclass> 学部 kk 学年 b1</Styledclass>
       </div>
-    
     </Padding>
   );
 }

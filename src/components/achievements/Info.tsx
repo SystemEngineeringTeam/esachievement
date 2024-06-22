@@ -26,6 +26,7 @@ export default function Page(): ReactElement {
       </Flex>
 
       {achievementTest.tag.map((tag, index) => (
+        // eslint-disable-next-line react/no-array-index-key
         <Text key={index} color="gray">
           タグ {tag}
         </Text>
