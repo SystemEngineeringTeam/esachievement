@@ -60,10 +60,6 @@ export default function Page(): ReactElement {
     background-color: #f1f5f9;
   `;
 
-  const SideBar = styled.div`
-    background-color: #f1f5f9;
-  `;
-
   void esaClient.GET("/teams/{team_name}", {
     params: {
       path: {
@@ -103,23 +99,21 @@ export default function Page(): ReactElement {
         ))}
       </RankingCardStyle>
 
-      <SideBar>
-        <LogTitleStyle as="div" size="7">
-          最近の実績解除
-        </LogTitleStyle>
-        <LogRecentUnlockedStyle>
-          {UnlockedAchievements.unlockedAchievements.map(
-            (unlockedAchievements) => (
-              <LogRecentUnlocked
-                key={unlockedAchievements.achievementID}
-                achievementID={unlockedAchievements.achievementID}
-                memberEmail={unlockedAchievements.memberEmail}
-                unlockedDate={unlockedAchievements.createdAt}
-              />
-            ),
-          )}
-        </LogRecentUnlockedStyle>
-      </SideBar>
+      <LogTitleStyle as="div" size="7">
+        最近の実績解除
+      </LogTitleStyle>
+      <LogRecentUnlockedStyle>
+        {UnlockedAchievements.unlockedAchievements.map(
+          (unlockedAchievements) => (
+            <LogRecentUnlocked
+              key={unlockedAchievements.achievementID}
+              achievementID={unlockedAchievements.achievementID}
+              memberEmail={unlockedAchievements.memberEmail}
+              unlockedDate={unlockedAchievements.createdAt}
+            />
+          ),
+        )}
+      </LogRecentUnlockedStyle>
     </div>
   );
 }
