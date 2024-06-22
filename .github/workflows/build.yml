@@ -43,15 +43,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: "pages deploy . --project-name esachievement"
           workingDirectory: ./dist
-          secrets: |
-            ESA_APP_CLIENT_ID
-            ESA_APP_CLIENT_SECRET
-            ESA_APP_REDIRECT_URI
         env:
           NODE_VERSION: 22
-          ESA_APP_CLIENT_ID: ${{ secrets.ESA_APP_CLIENT_ID }}
-          ESA_APP_CLIENT_SECRET: ${{ secrets.ESA_APP_CLIENT_SECRET }}
-          ESA_APP_REDIRECT_URI: ${{ secrets.ESA_APP_REDIRECT_URI }}
 
       - name: 🚀 Deploy pages based on commit sha
         uses: actions/github-script@v6
