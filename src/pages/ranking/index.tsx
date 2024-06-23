@@ -8,12 +8,8 @@ import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
+import { type Member } from "@/types/member";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
-import { type ArrayElem } from "@/types/utils";
-
-type Member = ArrayElem<
-  Awaited<ReturnType<ReturnType<typeof useTeam>["fetchMembers"]>>
->;
 
 type MembersWithUnlockedCount = Array<
   Member & {

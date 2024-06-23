@@ -9,11 +9,12 @@ import { MemberCard } from "@/components/member/Card";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
-import { type ArrayElem } from "@/types/utils";
+import { type Member } from "@/types/member";
 
-type Member = ArrayElem<
-  Awaited<ReturnType<ReturnType<typeof useTeam>["fetchMembers"]>>
+type MembersWithUnlockedCount = Array<
+  Member & {
+    unlockedCount: number;
+  }
 >;
 
 const BoxStyle = styled(Box)`
@@ -28,32 +29,33 @@ export default function Page(): ReactElement {
     fetchMembersWithUnlockedCount,
   );
 
-  async function fetchMembersWithUnlockedCount(): Promise<{
-    members: Member[];
-    unlockedAchievements: UnlockedAchievement[];
-  }> {
+  async function fetchMembersWithUnlockedCount(): Promise<MembersWithUnlockedCount> {
     const members = await fetchMembers();
     const unlockedAchievements = await fetch();
 
     if (unlockedAchievements == null)
       throw new Error("No unlockedAchievements found.");
 
-    if (members == null) throw new Error("No members found.");
-
-    return {
-      members,
-      unlockedAchievements,
-    };
+    return members
+      .map((m) => {
+        const unlockedCount = unlockedAchievements.filter(
+          (u) => u.memberEmail === m.email,
+        ).length;
+        return {
+          ...m,
+          unlockedCount,
+        };
+      })
+      .sort((a, b) => b.unlockedCount - a.unlockedCount);
   }
 
   useEffect(() => {
     void init();
   }, []);
 
-  let point: number = 0;
   return match(swrMembersWithUnlockedCount)
     .with(S.Loading, () => <div>Loading...</div>)
-    .with(S.Success, ({ data: { members, unlockedAchievements } }) => (
+    .with(S.Success, ({ data }) => (
       <BoxStyle width="70%">
         <Table.Root>
           <Table.Header>
@@ -65,15 +67,10 @@ export default function Page(): ReactElement {
           </Table.Header>
 
           <Table.Body>
-            {members.map((member) => {
-              point = 0;
-              unlockedAchievements.forEach((unlockedAchievement) => {
-                if (unlockedAchievement.memberEmail === member.email) {
-                  point += 1;
-                }
-              });
-              return <MemberCard key="index" member={member} point={point} />;
-            })}
+            {data.map((m, idx) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <MemberCard key={idx} member={m} point={m.unlockedCount} />
+            ))}
           </Table.Body>
         </Table.Root>
       </BoxStyle>
