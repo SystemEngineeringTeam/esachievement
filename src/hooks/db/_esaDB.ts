@@ -45,7 +45,7 @@ export function useEsaDB<T>(
   const fetch = async (): Promise<T> => {
     const postsId = await searchPostId();
     const { body_md } = await fetchPostByPostId(postsId);
-    return await config.schema.validate(JSON.parse(body_md));
+    return await config.schema.validate(JSON.parse(body_md).data);
   };
 
   const create = async (): Promise<
