@@ -10,8 +10,8 @@ export function RecentUnlockedCard({
 }: {
   unlockedAchievement: UnlockedAchievement;
 }): ReactElement {
+  const navigate = useNavigate();
 
-	const navigate = useNavigate();
   const TableRow = styled(Table.Row)`
     transition: background-color 100ms;
     cursor: pointer;
@@ -41,7 +41,6 @@ export function RecentUnlockedCard({
   });
 
   return (
-
     <TableRow
       onClick={() => {
         navigate("/achievements/:id", {
@@ -52,7 +51,9 @@ export function RecentUnlockedCard({
       }}
     >
       <Table.RowHeaderCell>
-        <Text color="gray" size="5">{rtf1.format(dayDiff, "day")}</Text>
+        <Text color="gray" size="5">
+          {rtf1.format(dayDiff, "day")}
+        </Text>
         {/* <Text>{passedDate}</Text> */}
       </Table.RowHeaderCell>
       <Table.Cell>
