@@ -12,16 +12,10 @@ const BoxStyle = styled(Box)`
   margin: 0 auto;
 `;
 
-const PlusButton = styled(IconButton)`
-  position: relative;
-  left: -17vh;
-  transform: scale(1.6);
-`;
-
 export default function Page(): ReactElement {
   const { init, fetch } = useAchievements(useTeam);
   const swrFetchAchievements = useSWR("fetchAchievements", fetch);
-      
+
   useEffect(() => {
     void init();
   }, []);
