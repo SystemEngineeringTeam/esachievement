@@ -10,10 +10,17 @@ const BoxStyle = styled(Box)`
   margin: 0 auto;
 `;
 
+const ScrollStyle = styled.div`
+  height: calc(100vh - 4.8rem);
+  width: 100%;
+  overflow: scroll;
+`;
+
 export default function Page(): ReactElement {
   let point: number = 0;
   return (
     <BoxStyle width="70%">
+      <ScrollStyle>
       <Table.Root>
         <Table.Header>
           <Table.Row>
@@ -38,6 +45,7 @@ export default function Page(): ReactElement {
           })}
         </Table.Body>
       </Table.Root>
+      </ScrollStyle>
     </BoxStyle>
   );
 }

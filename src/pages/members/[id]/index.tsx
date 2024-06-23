@@ -23,6 +23,12 @@ const FlexStyle = styled(Flex)`
   margin: 1rem 1rem;
 `;
 
+const ScrollStyle = styled.div`
+  height: calc(100vh - 4.8rem);
+  width: 100%;
+  overflow: scroll;
+`;
+
 export default function Page(): ReactElement {
   // const { params } = useMatch('/posts/$id')
   const { id } = useParams("/achievements/:id");
@@ -42,40 +48,42 @@ export default function Page(): ReactElement {
       unlockedCount: unlockedArchievements.length,
     };
   });
-
+  let memberIndex: number = 0;
   memberList.sort((a, b) => b.unlockedCount - a.unlockedCount);
   const memberRank = memberList.map((m, index) => {
     if (m.email === id) {
-      return index + 1;
+      memberIndex = index + 1;
     }
   });
 
   return (
     <FlexStyle gap="5">
-      <Info id={id} point={memberRecentUnlocked.length} rank={memberRank} />
+      <Info id={id} point={memberRecentUnlocked.length} rank={memberIndex} />
       <BoxStyle width="70%">
-        <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
+        <ScrollStyle>
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-          <Table.Body>
-            {memberRecentUnlocked.map((achievement) => (
-              <RecentUnlockedCard
-                key={achievement.memberEmail}
-                unlockedAchievement={
-                  achievement as unknown as UnlockedAchievement
-                }
-              />
-            ))}
-          </Table.Body>
-        </Table.Root>
+            <Table.Body>
+              {memberRecentUnlocked.map((achievement) => (
+                <RecentUnlockedCard
+                  key={achievement.memberEmail}
+                  unlockedAchievement={
+                    achievement as unknown as UnlockedAchievement
+                  }
+                />
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </ScrollStyle>
       </BoxStyle>
     </FlexStyle>
   );
