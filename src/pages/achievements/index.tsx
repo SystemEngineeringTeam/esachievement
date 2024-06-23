@@ -9,31 +9,39 @@ const BoxStyle = styled(Box)`
   margin: 0 auto;
 `;
 
+const ScrollStyle = styled.div`
+  height: calc(100vh - 4.8rem);
+  width: 100%;
+  overflow: scroll;
+`;
+
 export default function Page(): ReactElement {
   return (
     <BoxStyle width="70%">
-      <Table.Root>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
+      <ScrollStyle>
+        <Table.Root>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
+            </Table.Row>
+          </Table.Header>
 
-        <Table.Body>
-          {Achievements.achievements.map((achievement) => {
-            const typedAchievement = achievement as unknown as Achievement;
-            return (
-              <AchievementCard
-                key={achievement.id}
-                achievement={typedAchievement}
-              />
-            );
-          })}
-        </Table.Body>
-      </Table.Root>
+          <Table.Body>
+            {Achievements.achievements.map((achievement) => {
+              const typedAchievement = achievement as unknown as Achievement;
+              return (
+                <AchievementCard
+                  key={achievement.id}
+                  achievement={typedAchievement}
+                />
+              );
+            })}
+          </Table.Body>
+        </Table.Root>
+      </ScrollStyle>
     </BoxStyle>
   );
 }

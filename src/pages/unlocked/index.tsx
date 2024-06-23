@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Achievements from "@/assets/achievements.json";
 import { AchievementCard } from "@/components/achievements/Card";
 import { UnlockableCard } from "@/components/achievements/UnlockableCard";
+import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
@@ -25,7 +26,10 @@ export default function Page(): ReactElement {
 
         <Table.Body>
           {Achievements.achievements.map((achievement) => (
-            <UnlockableCard achievement={achievement} key={achievement.id} />
+            <UnlockableCard
+              key={achievement.id}
+              achievement={achievement as unknown as Achievement}
+            />
           ))}
         </Table.Body>
       </Table.Root>
@@ -37,7 +41,10 @@ export default function Page(): ReactElement {
   <Table.Root>
     <Table.Body>
       {Achievements.achievements.map((achievement) => (
-        <AchievementCard key={achievement.id} achievement={achievement} />
+        <AchievementCard
+          key={achievement.id}
+          achievement={achievement as unknown as Achievement}
+        />
       ))}
     </Table.Body>
   </Table.Root>

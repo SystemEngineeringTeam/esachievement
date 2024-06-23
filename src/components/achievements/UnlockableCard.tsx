@@ -1,7 +1,7 @@
 import { Table, Text, Checkbox, Flex, Avatar } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-import { type Achievement } from "@/types/achievement";
+import { type Achievement } from "@/types/post-data/achievements";
 
 const CustomCheckbox = styled(Checkbox)`
   transform: scale(2);
