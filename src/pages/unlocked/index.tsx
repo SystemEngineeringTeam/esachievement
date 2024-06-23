@@ -36,7 +36,7 @@ export default function Page(): ReactElement {
           </Table.Header>
 
           <Table.Body>
-            {data.map((achievement) => (
+            {data?.map((achievement) => (
               <UnlockableCard key={achievement.id} achievement={achievement} />
             ))}
           </Table.Body>

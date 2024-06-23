@@ -6,14 +6,8 @@ import UnlockedAchievements from "@/assets/unlockedAchievements.json";
 import { RecentUnlockedCard } from "@/components/achievements/RecentUnlockedCard";
 import { Info } from "@/components/member/Info";
 import { useParams } from "@/router";
-import { type Member } from "@/types/member";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
-type MembersWithUnlockedCount = Array<
-  Member & {
-    unlockedCount: number;
-  }
->;
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
