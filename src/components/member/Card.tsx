@@ -23,9 +23,12 @@ export function MemberCard({
   return (
     <TableRow
       onClick={() => {
+        if (member.email == null) {
+          throw new Error("Member email is undefined");
+        }
         navigate("/members/:id", {
           params: {
-            id: member.email.toString(),
+            id: member.email,
           },
         });
       }}
