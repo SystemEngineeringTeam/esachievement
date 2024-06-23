@@ -13,6 +13,12 @@ const BoxStyle = styled(Box)`
   margin: 0 auto;
 `;
 
+const ScrollStyle = styled.div`
+  height: calc(100vh - 4.8rem);
+  width: 100%;
+  overflow: scroll;
+`;
+
 export default function Page(): ReactElement {
   const { init, fetch } = useAchievements(useTeam);
   const swrAchievements = useSWR("achievements", fetchAchievements);
