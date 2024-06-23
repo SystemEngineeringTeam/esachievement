@@ -36,10 +36,8 @@ export default function Page(): ReactElement {
   const memberRecentUnlocked = UnlockedAchievements.unlockedAchievements.filter(
     (a) => a.memberEmail === id,
   );
-  //  memberRecentUnlocked.sort((a, b) => b.createdAt - a.createdAt)
 
-  // @ts-ignore
-  const memberList: MembersWithUnlockedCount = Members.members.map((m) => {
+  const memberList = Members.members.map((m) => {
     const unlockedArchievements =
       UnlockedAchievements.unlockedAchievements.filter(
         (u) => u.memberEmail === m.email,
