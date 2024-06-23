@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import { useStore } from "@nanostores/react";
 import { Avatar, Flex, Text, Link as LinkComponent } from "@radix-ui/themes";
 import { type ReactElement } from "react";
@@ -9,74 +8,72 @@ import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
   background-color: #f1f5f9;
-  top: 0;
-  width: 100%;
   height: 4.8rem;
-  overflow: hidden;
 
   .esaAchievementsStyle {
-    margin-right: 39rem;
+    margin-right: auto;
   }
   .createStyle {
-    padding-right: 4rem;
     color: #f8fafc;
     background-color: #0f172a;
-  }
-  .headerDefaultStyle {
-    display: block;
-    padding: 3rem 1.4rem;
-  }
-  :hover.hoverAnime {
-    background-color: #e2e8f0;
+    align-items: center;
+    justify-content: center;
+    width: 13rem;
+    display: flex;
   }
   :hover.createHoverAnime {
-    background-color: #1e293b;
+    background: #1e293b;
   }
   .loginStyle {
-    padding-right: 4rem;
-    padding-left: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    width: 15rem;
     color: #f8fafc;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 13rem;
     background-color: #0f172a;
+  }
+`;
+
+const LinkContents = styled(Link)`
+  height: 100%;
+  display: flex;
+  padding: 0 1rem;
+  align-items: center;
+  &:hover {
+    background: #e2e8f0;
   }
 `;
 
 export function Header(): ReactElement {
   return (
-    <HeaderStyle align="center">
-      <Link
-        className="esaAchievementsStyle hoverAnime headerDefaultStyle"
-        to="/"
-      >
+    <HeaderStyle>
+      <LinkContents className="esaAchievementsStyle" to="/">
         <Text size="7" weight="bold">
           えさちぶめんと
         </Text>
-      </Link>
-      <Link className="hoverAnime headerDefaultStyle" to="/ranking">
-        <Text size="5" weight="bold">
+      </LinkContents>
+      <LinkContents to="/ranking">
+        <Text as="div" size="5" weight="bold">
           ranking
         </Text>
-      </Link>
-      <Link className="hoverAnime headerDefaultStyle" to="/members">
+      </LinkContents>
+      <LinkContents to="/members">
         <Text size="5" weight="bold">
           members
         </Text>
-      </Link>
-      <Link
-        className="achievementsStyle hoverAnime headerDefaultStyle"
-        to="/achievements"
-      >
+      </LinkContents>
+      <LinkContents to="/achievements">
         <Text size="5" weight="bold">
           achievements
         </Text>
-      </Link>
+      </LinkContents>
       {useStore($hasAuthenticated) ? (
         <Link
           className="createStyle createHoverAnime headerDefaultStyle"
-          to="/create"
+          to="/unlocked"
         >
-          <Flex align="center" gap="5">
+          <Flex align="center" gap="4">
             <Text size="5" weight="bold">
               実績管理
             </Text>
@@ -90,17 +87,23 @@ export function Header(): ReactElement {
         </Link>
       ) : (
         <LinkComponent
-          className="createStyle loginStyle createHoverAnime"
+          className="createStyle createHoverAnime"
           href={getAuthorizePageUrl()}
         >
-          <Flex align="center" gap="1">
+          <Flex align="center" gap="4">
             <Text size="5" weight="bold">
               ログイン
             </Text>
-            <Icon height={60} icon="material-symbols:person" width={60} />
+            <Avatar
+              fallback="T"
+              radius="full"
+              size="5"
+              src="https://api.iconify.design/ion:person-sharp.svg?color=%23ffffff"
+            />
           </Flex>
         </LinkComponent>
       )}
     </HeaderStyle>
   );
+  // https://api.iconify.design/ion:add.svg
 }
