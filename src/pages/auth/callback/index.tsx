@@ -1,5 +1,5 @@
 import { useStore } from "@nanostores/react";
-import { Card, Flex } from "@radix-ui/themes";
+import { Button, Flex } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
@@ -13,11 +13,19 @@ import { useNavigate } from "@/router";
 import { type AccessTokenData } from "@/types/auth";
 
 function TeamSelector(): ReactElement {
+  const navigate = useNavigate();
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
   const swrJoinedTeams = useSWR("joinedTeams", fetchJoinedTeams);
 
   const FlexStyled = styled(Flex)`
-    gap: 1rem;
+    gap: 15rem;
+  `;
+
+  const ButtonStyle = styled(Button)`
+    transform: scale(2);
+    padding: 0;
+    height: 100px;
+    width: 100px;
   `;
 
   return match(swrJoinedTeams)
@@ -25,14 +33,16 @@ function TeamSelector(): ReactElement {
     .with(S.Success, ({ data }) => (
       <FlexStyled>
         {data.map((team) => (
-          <Card
+          <ButtonStyle
             key={team.name}
             onClick={() => {
               markTeamNameAsSelected(team.name);
+              navigate("/ranking");
             }}
+            size="4"
           >
             <img alt={team.name} src={team.icon} />
-          </Card>
+          </ButtonStyle>
         ))}
       </FlexStyled>
     ))
