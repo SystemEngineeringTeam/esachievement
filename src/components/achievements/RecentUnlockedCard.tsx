@@ -1,6 +1,6 @@
 import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
 import { useEffect, useState, type ReactElement } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Achievements from "@/assets/achievements.json";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
@@ -10,7 +10,7 @@ export function RecentUnlockedCard({
 }: {
   unlockedAchievement: UnlockedAchievement;
 }): ReactElement {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const TableRow = styled(Table.Row)`
     transition: background-color 100ms;
@@ -42,13 +42,13 @@ export function RecentUnlockedCard({
 
   return (
     <TableRow
-      onClick={() => {
-        navigate("/achievements/:id", {
-          params: {
-            id: matchedAchievement.id.toString(),
-          },
-        });
-      }}
+      // onClick={() => {
+      //   navigate("/achievements/:id", {
+      //     params: {
+      //       id: matchedAchievement.id.toString(),
+      //     },
+      //   });
+      // }}
     >
       <Table.RowHeaderCell>
         <Text color="gray" size="5">

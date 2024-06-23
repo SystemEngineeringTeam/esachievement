@@ -50,7 +50,7 @@ export default function Page(): ReactElement {
   });
   let memberIndex: number = 0;
   memberList.sort((a, b) => b.unlockedCount - a.unlockedCount);
-  const memberRank = memberList.map((m, index) => {
+    memberList.forEach((m, index) => {
     if (m.email === id) {
       memberIndex = index + 1;
     }
