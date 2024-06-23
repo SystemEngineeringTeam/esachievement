@@ -12,22 +12,41 @@ import { $accessTokenData } from "@/lib/stores/auth";
 import { useNavigate } from "@/router";
 import { type AccessTokenData } from "@/types/auth";
 
-export default function Page(): ReactElement {
+function TeamSelector(): ReactElement {
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
-  const swrTokenAndTeams = useSWR("tokenAndTeams", fetchTokenAndTeams);
-  const accessTokenData = useStore($accessTokenData);
-  const navigate = useNavigate();
+  const swrJoinedTeams = useSWR("joinedTeams", fetchJoinedTeams);
 
   const FlexStyled = styled(Flex)`
     gap: 1rem;
   `;
 
-  type TokenAndTeams = {
-    tokenData: AccessTokenData;
-    teams: Awaited<ReturnType<typeof fetchJoinedTeams>>;
-  };
+  return match(swrJoinedTeams)
+    .with(S.Loading, () => <p>Loading...</p>)
+    .with(S.Success, ({ data }) => (
+      <FlexStyled>
+        {data.map((team) => (
+          <Card
+            key={team.name}
+            onClick={() => {
+              markTeamNameAsSelected(team.name);
+            }}
+          >
+            <img alt={team.name} src={team.icon} />
+          </Card>
+        ))}
+      </FlexStyled>
+    ))
+    .otherwise(({ error }) => {
+      throw error;
+    });
+}
 
-  async function fetchTokenAndTeams(): Promise<TokenAndTeams> {
+export default function Page(): ReactElement {
+  const swrTokenAndTeams = useSWR("tokenAndTeams", fetchTokenAndTeams);
+  const accessTokenData = useStore($accessTokenData);
+  const navigate = useNavigate();
+
+  async function fetchTokenAndTeams(): Promise<AccessTokenData> {
     if (accessTokenData != null) {
       // eslint-disable-next-line no-console
       console.warn("Access token has already been set");
@@ -41,37 +60,14 @@ export default function Page(): ReactElement {
     const tokenData = await requestAccessTokenData(code);
     $accessTokenData.set(tokenData);
 
-    const teams = await fetchJoinedTeams();
-
-    return {
-      tokenData,
-      teams,
-    };
-  }
-
-  function handleTeamClick(teamName: string): void {
-    markTeamNameAsSelected(teamName);
-    navigate("/ranking");
+    return tokenData;
   }
 
   return (
     <Center>
       {match(swrTokenAndTeams)
         .with(S.Loading, () => <p>Loading...</p>)
-        .with(S.Success, ({ data: { teams } }) => (
-          <FlexStyled>
-            {teams.map((team) => (
-              <Card
-                key={team.name}
-                onClick={() => {
-                  handleTeamClick(team.name);
-                }}
-              >
-                <img alt={team.name} src={team.icon} />
-              </Card>
-            ))}
-          </FlexStyled>
-        ))
+        .with(S.Success, () => <TeamSelector />)
         .otherwise(({ error }) => {
           throw error;
         })}

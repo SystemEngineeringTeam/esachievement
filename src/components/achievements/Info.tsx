@@ -1,7 +1,7 @@
 import { Flex, Text, Avatar, Box } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 
-export default function Page(): ReactElement {
+export function Info(): ReactElement {
   const achievementTest = {
     id: 1,
     name: "first blood",

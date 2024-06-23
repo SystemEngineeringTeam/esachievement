@@ -34,7 +34,10 @@ export default function Page(): ReactElement {
 
         <Table.Body>
           {Achievements.achievements.map((achievement) => (
-            <UnlockableCard key={achievement.id} achievement={achievement} />
+            <UnlockableCard
+              key={achievement.id}
+              achievement={achievement as unknown as Achievement}
+            />
           ))}
         </Table.Body>
       </Table.Root>
