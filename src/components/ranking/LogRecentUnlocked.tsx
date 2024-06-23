@@ -23,23 +23,18 @@ export function LogRecentUnlocked({
   unlockedDate: string;
   memberEmail: string;
 }): ReactElement {
-
   const DateStyle = styled(Text)`
     padding-left: 10rem;
-    
   `;
 
-
-
-  // @ts-expect-error
-  const member: Member = SampleMembers.members.find(
+  const member = SampleMembers.members.find(
     (m) => m.email === memberEmail,
-  );
+  ) as unknown as Member;
 
-  // @ts-expect-error
-  const achievement: Achievement = SampleAchievements.achievements.find(
+  const achievement = SampleAchievements.achievements.find(
     (a) => a.id === achievementID,
-  );
+  ) as unknown as Achievement;
+
   return (
     <Link params={{ id: achievement.id.toString() }} to="/achievements/:id">
       <BoxStyle>
@@ -52,7 +47,7 @@ export function LogRecentUnlocked({
             <Text as="div" color="gray" size="3">
               {achievement.name}
             </Text>
-            <DateStyle  color="gray" size="1">
+            <DateStyle color="gray" size="1">
               {unlockedDate.slice(0, 10)}
             </DateStyle>
           </Box>

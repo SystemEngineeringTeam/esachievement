@@ -1,20 +1,11 @@
-import { Flex, Button, Text } from "@radix-ui/themes";
-import { type ReactElement, useState } from "react";
+import { Flex } from "@radix-ui/themes";
+import { type ReactElement } from "react";
+import Logo from "@/assets/esachievementLogo.svg";
 
 export default function App(): ReactElement {
-  const [count, setCount] = useState(0);
-
   return (
-    <Flex direction="column" gap="2">
-      <Text>Hello from Radix Themes :)</Text>
-      <Text>Count: {count}</Text>
-      <Button
-        onClick={() => {
-          setCount((prev) => prev + 1);
-        }}
-      >
-        Increment
-      </Button>
+    <Flex justify="center" mt="12vh">
+      <img alt="logo" src={Logo} />
     </Flex>
   );
 }

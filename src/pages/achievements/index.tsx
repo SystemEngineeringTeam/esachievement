@@ -3,6 +3,7 @@ import { type ReactElement } from "react";
 import styled from "styled-components";
 import Achievements from "@/assets/achievements.json";
 import { AchievementCard } from "@/components/achievements/Card";
+import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
@@ -22,12 +23,15 @@ export default function Page(): ReactElement {
         </Table.Header>
 
         <Table.Body>
-          {Achievements.achievements.map((achievement) => (
-            <AchievementCard
-              key={achievement.id} 
-              achievement={achievement}
-            />
-          ))}
+          {Achievements.achievements.map((achievement) => {
+            const typedAchievement = achievement as unknown as Achievement;
+            return (
+              <AchievementCard
+                key={achievement.id}
+                achievement={typedAchievement}
+              />
+            );
+          })}
         </Table.Body>
       </Table.Root>
     </BoxStyle>

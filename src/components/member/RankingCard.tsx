@@ -16,7 +16,6 @@ export function RankingCard({
   index: number;
   point: number;
 }): ReactElement {
-
   const BoxStyle = styled(Box)`
     border-bottom: 1px solid;
     border-color: #cbd5e1;

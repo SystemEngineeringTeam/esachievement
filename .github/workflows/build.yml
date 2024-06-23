@@ -32,8 +32,8 @@ jobs:
       - name: 🏗️ Build app
         run: yarn run build
         env:
-          VITE_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          VITE_REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+          VITE_ESA_APP_CLIENT_ID: ${{ secrets.ESA_APP_CLIENT_ID }}
+          VITE_ESA_APP_REDIRECT_URI: ${{ secrets.ESA_APP_REDIRECT_URI }}
 
       - name: 🚀 Deploy to Cloudflare Pages
         id: cloudflare_pages_deploy
@@ -41,16 +41,10 @@ jobs:
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: "pages deploy ./dist --project-name esachievement"
-          secrets: |
-            CLIENT_ID
-            SECRET_CLIENT_ID
-            REDIRECT_URI
+          command: "pages deploy . --project-name esachievement"
+          workingDirectory: ./dist
         env:
           NODE_VERSION: 22
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          SECRET_CLIENT_ID: ${{ secrets.SECRET_CLIENT_ID }}
-          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
 
       - name: 🚀 Deploy pages based on commit sha
         uses: actions/github-script@v6
@@ -64,5 +58,5 @@ jobs:
               description: "Commit based deploy",
               state: "success",
               sha,
-              target_url: "esachievement.pages.dev",
+              target_url: "https://esachievement.pages.dev",
             });
