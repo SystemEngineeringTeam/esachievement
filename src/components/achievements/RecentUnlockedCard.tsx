@@ -41,6 +41,7 @@ export function RecentUnlockedCard({
   });
 
   return (
+
     <TableRow
       onClick={() => {
         navigate("/achievements/:id", {
