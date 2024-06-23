@@ -12,6 +12,10 @@ const BoxStyle = styled(Box)`
   margin: 0 auto;
 `;
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 export default function Page(): ReactElement {
   const { init, fetch } = useAchievements(useTeam);
   const swrFetchAchievements = useSWR("fetchAchievements", fetch);
