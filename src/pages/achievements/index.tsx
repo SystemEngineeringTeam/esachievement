@@ -1,8 +1,12 @@
 import { Box, Table } from "@radix-ui/themes";
-import { type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import styled from "styled-components";
-import Achievements from "@/assets/achievements.json";
+import useSWR from "swr";
+import { match } from "ts-pattern";
 import { AchievementCard } from "@/components/achievements/Card";
+import { useAchievements } from "@/hooks/db/achievements";
+import { useTeam } from "@/hooks/teams";
+import { S } from "@/lib/consts";
 import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
@@ -16,9 +20,32 @@ const ScrollStyle = styled.div`
 `;
 
 export default function Page(): ReactElement {
-  return (
-    <BoxStyle width="70%">
-      <ScrollStyle>
+  const { init, fetch } = useAchievements(useTeam);
+  const swrAchievements = useSWR("achievements", fetchAchievements);
+
+  async function fetchAchievements(): Promise<{
+    achievements: Achievement[];
+  }> {
+    const achievements = await fetch();
+
+    if (achievements == null)
+      throw new Error("No unlockedAchievements found.");
+
+    return {
+      achievements,
+    };
+  }
+
+
+
+  useEffect(() => {
+    void init();
+  }, []);
+
+  return match(swrAchievements)
+    .with(S.Loading, () => <div>Loading...</div>)
+    .with(S.Success, ({ data:{achievements} }) => (
+      <BoxStyle width="70%">
         <Table.Root>
           <Table.Header>
             <Table.Row>
@@ -30,7 +57,7 @@ export default function Page(): ReactElement {
           </Table.Header>
 
           <Table.Body>
-            {Achievements.achievements.map((achievement) => {
+            {achievements.map((achievement) => {
               const typedAchievement = achievement as unknown as Achievement;
               return (
                 <AchievementCard
@@ -41,7 +68,9 @@ export default function Page(): ReactElement {
             })}
           </Table.Body>
         </Table.Root>
-      </ScrollStyle>
-    </BoxStyle>
-  );
+      </BoxStyle>
+    ))
+    .otherwise(({ error }) => {
+      throw error;
+    });
 }

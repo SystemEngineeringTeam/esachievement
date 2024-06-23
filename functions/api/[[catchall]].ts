@@ -10,8 +10,6 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   const url = new URL(req.url);
   const params = new URLSearchParams(url.search);
 
-  console.log(url);
-
   const baseUrl = "https://api.esa.io/v1";
   const newUrl = new URL(
     baseUrl + url.pathname.replace(/^\/api/, "") + "?" + params.toString(),

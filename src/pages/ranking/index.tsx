@@ -1,12 +1,15 @@
 import { Text } from "@radix-ui/themes";
-import { type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import styled from "styled-components";
-import members from "@/assets/members.json";
-import UnlockedAchievements from "@/assets/unlockedAchievements.json";
+import useSWR from "swr";
+import { match } from "ts-pattern";
 import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
-import { esaClient } from "@/lib/services/esa";
+import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
+import { useTeam } from "@/hooks/teams";
+import { S } from "@/lib/consts";
 import { type Member } from "@/types/member";
+import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
 type MembersWithUnlockedCount = Array<
   Member & {
@@ -15,6 +18,44 @@ type MembersWithUnlockedCount = Array<
 >;
 
 export default function Page(): ReactElement {
+  const { fetchMembers } = useTeam();
+  const { init, fetch } = useUnlockedAchievements(useTeam);
+  const swrMembersWithUnlockedCount = useSWR(
+    "membersWithUnlockedCount",
+    fetchMembersWithUnlockedCount,
+  );
+
+  async function fetchMembersWithUnlockedCount(): Promise<{
+    membersWithUnlockedCount: MembersWithUnlockedCount;
+    unlockedAchievements: UnlockedAchievement[];
+  }> {
+    const members = await fetchMembers();
+    const unlockedAchievements = await fetch();
+
+    if (unlockedAchievements == null)
+      throw new Error("No unlockedAchievements found.");
+
+    const membersWithUnlockedCount = members
+      .map((m) => {
+        const unlockedCount = unlockedAchievements.filter(
+          (u) => u.memberEmail === m.email,
+        ).length;
+        return {
+          ...m,
+          unlockedCount,
+        };
+      })
+      .sort((a, b) => b.unlockedCount - a.unlockedCount);
+
+    return {
+      membersWithUnlockedCount,
+      unlockedAchievements,
+    };
+  }
+
+  useEffect(() => {
+    void init();
+  }, []);
   const RankingCardStyle = styled.div`
     position: relative;
     top: 4rem;
@@ -60,60 +101,41 @@ export default function Page(): ReactElement {
     background-color: #f1f5f9;
   `;
 
-  void esaClient.GET("/teams/{team_name}", {
-    params: {
-      path: {
-        team_name: "sysken",
-      },
-    },
-  });
+  return match(swrMembersWithUnlockedCount)
+    .with(S.Loading, () => <p>Loading...</p>)
+    .with(
+      S.Success,
+      ({ data: { membersWithUnlockedCount, unlockedAchievements } }) => (
+        <div>
+          <TitleStyle size="7" weight="bold">
+            実績解除ランキング
+          </TitleStyle>
+          <RankingCardStyle>
+            {membersWithUnlockedCount.map((m, idx) => (
+              <RankingCard
+                key={m.email}
+                idx={idx}
+                member={m}
+                point={m.unlockedCount}
+              />
+            ))}
+          </RankingCardStyle>
 
-  const memberList: MembersWithUnlockedCount = members.members.map((m) => {
-    const unlockedArchievements =
-      UnlockedAchievements.unlockedAchievements.filter(
-        (u) => u.memberEmail === m.email,
-      );
-    return {
-      ...m,
-      unlockedCount: unlockedArchievements.length,
-    };
-  });
-
-  memberList.sort((a, b) => b.unlockedCount - a.unlockedCount);
-
-  return (
-    <div>
-      <TitleStyle size="7" weight="bold">
-        実績解除ランキング
-      </TitleStyle>
-      <RankingCardStyle>
-        {memberList.map((member, index) => (
-          <RankingCard
-            key={member.email}
-            index={index}
-            memberEmail={member.email}
-            memberIcon={member.icon}
-            memberName={member.name}
-            point={member.unlockedCount}
-          />
-        ))}
-      </RankingCardStyle>
-
-      <LogTitleStyle as="div" size="7">
-        最近の実績解除
-      </LogTitleStyle>
-      <LogRecentUnlockedStyle>
-        {UnlockedAchievements.unlockedAchievements.map(
-          (unlockedAchievements) => (
-            <LogRecentUnlocked
-              key={unlockedAchievements.achievementID}
-              achievementID={unlockedAchievements.achievementID}
-              memberEmail={unlockedAchievements.memberEmail}
-              unlockedDate={unlockedAchievements.createdAt}
-            />
-          ),
-        )}
-      </LogRecentUnlockedStyle>
-    </div>
-  );
+          <LogTitleStyle as="div" size="7">
+            最近の実績解除
+          </LogTitleStyle>
+          <LogRecentUnlockedStyle>
+            {unlockedAchievements.map((u) => (
+              <LogRecentUnlocked
+                key={u.achievementID}
+                unlockedAchievement={u}
+              />
+            ))}
+          </LogRecentUnlockedStyle>
+        </div>
+      ),
+    )
+    .otherwise(({ error }) => {
+      throw error;
+    });
 }

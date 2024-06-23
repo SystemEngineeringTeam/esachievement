@@ -6,6 +6,7 @@ import SampleMembers from "@/assets/members.json";
 import { Link } from "@/router";
 import { type Member } from "@/types/member";
 import { type Achievement } from "@/types/post-data/achievements";
+import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
 const BoxStyle = styled(Box)`
   border-bottom: 1px solid;
@@ -15,14 +16,12 @@ const BoxStyle = styled(Box)`
 `;
 
 export function LogRecentUnlocked({
-  achievementID,
-  unlockedDate,
-  memberEmail,
+  unlockedAchievement,
 }: {
-  achievementID: number;
-  unlockedDate: string;
-  memberEmail: string;
+  unlockedAchievement: UnlockedAchievement;
 }): ReactElement {
+  const { memberEmail, achievementID, createdAt } = unlockedAchievement;
+
   const DateStyle = styled(Text)`
     padding-left: 10rem;
   `;
@@ -48,7 +47,7 @@ export function LogRecentUnlocked({
               {achievement.name}
             </Text>
             <DateStyle color="gray" size="1">
-              {unlockedDate.slice(0, 10)}
+              {createdAt.toString().slice(0, 10)}
             </DateStyle>
           </Box>
         </Flex>
