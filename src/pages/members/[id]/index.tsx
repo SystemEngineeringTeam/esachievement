@@ -38,6 +38,7 @@ export default function Page(): ReactElement {
   );
   //  memberRecentUnlocked.sort((a, b) => b.createdAt - a.createdAt)
 
+  // @ts-ignore
   const memberList: MembersWithUnlockedCount = Members.members.map((m) => {
     const unlockedArchievements =
       UnlockedAchievements.unlockedAchievements.filter(
