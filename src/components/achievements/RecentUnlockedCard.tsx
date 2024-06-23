@@ -1,9 +1,9 @@
 import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
 import { useEffect, useState, type ReactElement } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import Achievements from "@/assets/achievements.json";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 export function RecentUnlockedCard({
   unlockedAchievement,
@@ -51,7 +51,7 @@ export function RecentUnlockedCard({
       }}
     >
       <Table.RowHeaderCell>
-        <Text>{rtf1.format(dayDiff, "day")}</Text>
+        <Text color="gray" size="5">{rtf1.format(dayDiff, "day")}</Text>
         {/* <Text>{passedDate}</Text> */}
       </Table.RowHeaderCell>
       <Table.Cell>
