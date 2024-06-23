@@ -1,13 +1,21 @@
-import { Box, Table } from "@radix-ui/themes";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Box, IconButton, Table } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import Achievements from "@/assets/achievements.json";
 import { AchievementCard } from "@/components/achievements/Card";
 import { UnlockableCard } from "@/components/achievements/UnlockableCard";
+import { Link } from "@/router.ts";
 import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
+`;
+
+const PlusButton = styled(IconButton)`
+  position: relative;
+  left: -17vh;
+  transform: scale(1.6);
 `;
 
 export default function Page(): ReactElement {
@@ -33,6 +41,11 @@ export default function Page(): ReactElement {
           ))}
         </Table.Body>
       </Table.Root>
+      <Link to="/create">
+        <PlusButton radius="full" size="4">
+          <Icon icon="ion:add" width="30px" />
+        </PlusButton>
+      </Link>
     </BoxStyle>
   );
 }
