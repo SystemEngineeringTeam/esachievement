@@ -63,7 +63,7 @@ export default function Page(): ReactElement {
                 {
                   achievementID: 1,
                   createdAt: new Date(),
-                  memberEmail: "email",
+                  memberEmail: "info@expamle.com",
                 },
               ]);
               console.log("updated! => ", result);
