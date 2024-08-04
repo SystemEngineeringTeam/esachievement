@@ -66,17 +66,14 @@ const Center = styled.div`
 
 export function Info({
   id,
-	point,
-	rank
+  point,
+  rank,
 }: {
-  id: string,
-	point: number,
-	rank: number
+  id: string;
+  point: number;
+  rank: number;
 }): ReactElement {
-
-	const matchedMember = Members.members.find(
-    (a) => a.email === id,
-  );
+  const matchedMember = Members.members.find((a) => a.email === id);
 
   return (
     <Padding>

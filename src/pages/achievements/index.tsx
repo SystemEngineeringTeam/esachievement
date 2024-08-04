@@ -22,15 +22,12 @@ export default function Page(): ReactElement {
   }> {
     const achievements = await fetch();
 
-    if (achievements == null)
-      throw new Error("No unlockedAchievements found.");
+    if (achievements == null) throw new Error("No unlockedAchievements found.");
 
     return {
       achievements,
     };
   }
-
-
 
   useEffect(() => {
     void init();
@@ -38,7 +35,7 @@ export default function Page(): ReactElement {
 
   return match(swrAchievements)
     .with(S.Loading, () => <div>Loading...</div>)
-    .with(S.Success, ({ data:{achievements} }) => (
+    .with(S.Success, ({ data: { achievements } }) => (
       <BoxStyle width="70%">
         <Table.Root>
           <Table.Header>

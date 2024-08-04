@@ -8,7 +8,6 @@ import { Info } from "@/components/member/Info";
 import { useParams } from "@/router";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
-
 const BoxStyle = styled(Box)`
   margin: 0 auto;
 `;
@@ -43,7 +42,7 @@ export default function Page(): ReactElement {
   });
   let memberIndex: number = 0;
   memberList.sort((a, b) => b.unlockedCount - a.unlockedCount);
-    memberList.forEach((m, index) => {
+  memberList.forEach((m, index) => {
     if (m.email === id) {
       memberIndex = index + 1;
     }

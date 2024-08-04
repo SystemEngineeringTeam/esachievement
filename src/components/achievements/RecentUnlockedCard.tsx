@@ -42,13 +42,13 @@ export function RecentUnlockedCard({
 
   return (
     <TableRow
-      // onClick={() => {
-      //   navigate("/achievements/:id", {
-      //     params: {
-      //       id: matchedAchievement.id.toString(),
-      //     },
-      //   });
-      // }}
+    // onClick={() => {
+    //   navigate("/achievements/:id", {
+    //     params: {
+    //       id: matchedAchievement.id.toString(),
+    //     },
+    //   });
+    // }}
     >
       <Table.RowHeaderCell>
         <Text color="gray" size="5">
