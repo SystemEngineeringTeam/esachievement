@@ -7,9 +7,14 @@ import { $hasAuthenticated } from "@/lib/stores/auth";
 import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
+  position: absolute;
+  top: 2%;
+  right: 0;
+  left: 0;
   margin: 0 auto;
   height: 9%;
   width: 94%;
+  z-index: 1;
 `;
 
 const RightContents = styled(Flex)`
@@ -38,6 +43,10 @@ const LinkContents = styled(Link)`
   justify-items: center;
   display: flex;
   margin-right: -4rem;
+  box-shadow:
+    16px 16px 32px #afafaf,
+    -16px -16px 32px #ffffff;
+
   border-radius: 80px;
   &:hover {
     background: #dadfe2;
