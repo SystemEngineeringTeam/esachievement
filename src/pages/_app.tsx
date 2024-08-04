@@ -44,6 +44,10 @@ export default function Layout(): ReactElement {
   const BodyStyle = styled.div`
     height: calc(100vh - 4.8rem);
     overflow: hidden;
+    ::-webkit-scrollbar {
+      /* Edge Chorome Safari Operaなど */
+      display: none;
+    }
   `;
   return (
     <Theme>

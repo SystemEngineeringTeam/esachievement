@@ -8,12 +8,13 @@ import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
   position: absolute;
+  color: #374151;
   top: 2%;
   right: 0;
   left: 0;
   margin: 0 auto;
   height: 9%;
-  width: 94%;
+  width: 96%;
   z-index: 1;
 `;
 
@@ -25,41 +26,52 @@ const RightContents = styled(Flex)`
 const CreateStyle = styled(Link)`
   color: #f8fafc;
   background-color: #0f172a;
-  align-items: center;
-  justify-content: center;
+  box-shadow:
+    12px 12px 32px #afafaf,
+    -12px -12px 32px #ffffff;
+
   width: 13rem;
   border-radius: 80px;
+
+  align-items: center;
+  justify-content: center;
   display: flex;
   &:hover {
-    background: #1e293b;
+    background-color: #33c2ff;
   }
 `;
 
 const LinkContents = styled(Link)`
   background: #dadfe2;
+  box-shadow:
+    12px 12px 32px #afafaf,
+    -12px -12px 32px #ffffff;
+
   height: 100%;
   padding: 0 5rem 0 2rem;
-  align-items: center;
-  justify-items: center;
-  display: flex;
   margin-right: -4rem;
-  box-shadow:
-    16px 16px 32px #afafaf,
-    -16px -16px 32px #ffffff;
-
   border-radius: 80px;
+
+  align-items: center;
+  display: flex;
+
   &:hover {
-    background: #dadfe2;
+    color: #33c2ff;
   }
 `;
 
-const EsaAchievementsStyle = styled(Link)``;
+const EsaAchievementsStyle = styled(Link)`
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  letter-spacing: 10px;
+`;
 
 export function Header(): ReactElement {
   return (
     <HeaderStyle>
       <EsaAchievementsStyle to="/">
-        <Text size="7" weight="bold">
+        <Text size="9" weight="bold">
           esachievement
         </Text>
       </EsaAchievementsStyle>
