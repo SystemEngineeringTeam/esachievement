@@ -9,8 +9,8 @@ import { type Achievement } from "@/types/post-data/achievements";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
 const BoxStyle = styled(Box)`
-  border-bottom: 1px solid;
   border-color: #cbd5e1;
+  border-bottom: 1px solid #000000;
   padding: 1.2rem 0;
   width: 20rem;
 `;

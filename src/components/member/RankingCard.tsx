@@ -18,9 +18,15 @@ export function RankingCard({
   if (email == null) throw new Error("email is null");
 
   const BoxStyle = styled(Box)`
-    border-bottom: 1px solid;
+    border-radius: 24px;
     border-color: #cbd5e1;
+    box-shadow:
+      12px 12px 32px #afafaf,
+      -12px -12px 32px #ffffff;
+
     padding: 1.2rem 0;
+    margin: 0 auto;
+    margin-bottom: 2rem;
     width: 50rem;
   `;
 

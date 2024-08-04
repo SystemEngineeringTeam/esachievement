@@ -57,48 +57,51 @@ export default function Page(): ReactElement {
     void init();
   }, []);
   const RankingCardStyle = styled.div`
-    position: relative;
-    top: 4rem;
+    box-shadow:
+      inset 12px 12px 32px #afafaf,
+      inset -12px -12px 32px #ffffff;
+
+    border-radius: 50px;
+    position: absolute;
+    top: 16vh;
     overflow: scroll;
-    height: 43rem;
-    left: 14rem;
-    width: fit-content;
+    height: 40rem;
+    left: 2vw;
+    width: 68vw;
     :hover {
       background-color: #e2e8f0;
       transition: 100ms;
     }
   `;
 
-  const TitleStyle = styled(Text)`
-    position: relative;
-    left: 10rem;
-    top: 2rem;
-    font-size: 2rem;
-  `;
+  // const TitleStyle = styled(Text)`
+  //   position: relative;
+  //   left: 10rem;
+  //   top: 2rem;
+  //   font-size: 2rem;
+  // `;
 
   const LogTitleStyle = styled(Text)`
-    font-size: 2rem;
+    /* font-size: 2rem;
     position: relative;
     top: -45.5rem;
     left: 71rem;
     padding: 0.3rem;
     overflow: scroll;
     font-weight: bold;
-    background-color: #f1f5f9;
+    background-color: #f1f5f9; */
   `;
   const LogRecentUnlockedStyle = styled.div`
-    position: relative;
-    top: -45.5rem;
-    left: 71rem;
+    position: absolute;
     overflow: scroll;
-    width: fit-content;
-    height: calc(100vh - 4.8rem);
-    width: 40rem;
+    left: 72%;
+    width: 26vw;
+    height: 100vh;
     :hover {
       background-color: #e2e8f0;
       transition: 100ms;
     }
-    background-color: #f1f5f9;
+    background-color: #dadfe2;
   `;
 
   return match(swrMembersWithUnlockedCount)
@@ -107,9 +110,9 @@ export default function Page(): ReactElement {
       S.Success,
       ({ data: { membersWithUnlockedCount, unlockedAchievements } }) => (
         <div>
-          <TitleStyle size="7" weight="bold">
+          {/* <TitleStyle size="7" weight="bold">
             実績解除ランキング
-          </TitleStyle>
+          </TitleStyle> */}
           <RankingCardStyle>
             {membersWithUnlockedCount.map((m, idx) => (
               <RankingCard
@@ -121,10 +124,10 @@ export default function Page(): ReactElement {
             ))}
           </RankingCardStyle>
 
-          <LogTitleStyle as="div" size="7">
-            最近の実績解除
-          </LogTitleStyle>
           <LogRecentUnlockedStyle>
+            <LogTitleStyle as="div" size="7">
+              最近の実績解除
+            </LogTitleStyle>
             {unlockedAchievements.map((u) => (
               <LogRecentUnlocked
                 key={u.achievementID}

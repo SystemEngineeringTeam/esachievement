@@ -40,9 +40,10 @@ export default function Layout(): ReactElement {
     font-family: "Noto Sans JP Variable";
     word-break: keep-all;
     background-color: #dadfe2;
+    overflow: hidden;
   `;
   const BodyStyle = styled.div`
-    height: calc(100vh - 4.8rem);
+    height: 100vw;
     overflow: hidden;
     ::-webkit-scrollbar {
       /* Edge Chorome Safari Operaなど */
