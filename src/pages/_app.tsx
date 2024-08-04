@@ -39,6 +39,7 @@ export default function Layout(): ReactElement {
   const Main = styled.main`
     font-family: "Noto Sans JP Variable";
     word-break: keep-all;
+    background-color: #dadfe2;
   `;
   const BodyStyle = styled.div`
     height: calc(100vh - 4.8rem);
