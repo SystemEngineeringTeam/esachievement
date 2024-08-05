@@ -64,15 +64,16 @@ const EsaAchievementsStyle = styled(Link)`
   top: 0;
   bottom: 0;
   margin: auto 0;
-  letter-spacing: 10px;
+  font-weight: 900;
+  margin-left: 5vw;
 `;
 
 export function Header(): ReactElement {
   return (
     <HeaderStyle>
       <EsaAchievementsStyle to="/">
-        <Text size="9" weight="bold">
-          esachievement
+        <Text size="9">
+          <span>esa</span>chievement
         </Text>
       </EsaAchievementsStyle>
 

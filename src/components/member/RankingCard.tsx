@@ -27,27 +27,28 @@ export function RankingCard({
     padding: 1.2rem 0;
     margin: 0 auto;
     margin-bottom: 2rem;
-    width: 50rem;
+    width: 40rem;
+    background-color: #dadfe2;
   `;
 
   return (
-    <Link params={{ id: email }} to="/members/:id">
-      <BoxStyle>
-        <Flex align="center" gap="6" ml="10rem" mr="10rem">
-          <Text mr="3rem" size="8" weight="bold">
+    <BoxStyle>
+      <Link params={{ id: email }} to="/members/:id">
+        <Flex align="center" gap="6" ml="6rem">
+          <Text mr="2rem" size="8" weight="bold">
             {idx + 1}
           </Text>
-          <Avatar fallback="T" radius="full" size="8" src={icon} />
+          <Avatar fallback="T" radius="full" size="7" src={icon} />
           <Flex align="center" direction="column">
-            <Text as="div" size="7" weight="bold">
+            <Text as="div" size="6" weight="bold">
               {name}
             </Text>
-            <Text as="div" color="gray" size="7">
+            <Text as="div" color="gray" size="5">
               {point}pt
             </Text>
           </Flex>
         </Flex>
-      </BoxStyle>
-    </Link>
+      </Link>
+    </BoxStyle>
   );
 }
