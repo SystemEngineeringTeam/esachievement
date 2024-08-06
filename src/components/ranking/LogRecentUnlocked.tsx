@@ -9,10 +9,14 @@ import { type Achievement } from "@/types/post-data/achievements";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
 const BoxStyle = styled(Box)`
-  border-bottom: 1px solid;
   border-color: #cbd5e1;
-  padding: 1.2rem 0;
-  width: 20rem;
+  border-bottom: 1px solid #94a3b8;
+  padding: 1rem 0;
+  width: 22vw;
+  :hover {
+    background-color: #e2e8f0;
+    transition: 100ms;
+  }
 `;
 
 export function LogRecentUnlocked({
@@ -38,12 +42,12 @@ export function LogRecentUnlocked({
     <Link params={{ id: achievement.id.toString() }} to="/achievements/:id">
       <BoxStyle>
         <Flex align="center" gap="3" justify="center">
-          <Avatar fallback="T" radius="full" size="5" src={achievement.icon} />
+          <Avatar fallback="T" radius="full" size="4" src={achievement.icon} />
           <Box>
             <Text as="div" size="3" weight="bold">
               {member.name}
             </Text>
-            <Text as="div" color="gray" size="3">
+            <Text as="div" color="gray" size="2">
               {achievement.name}
             </Text>
             <DateStyle color="gray" size="1">

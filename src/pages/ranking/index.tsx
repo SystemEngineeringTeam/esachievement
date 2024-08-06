@@ -1,4 +1,4 @@
-import { Text } from "@radix-ui/themes";
+import { Text, Box } from "@radix-ui/themes";
 import { useEffect, type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
@@ -57,48 +57,41 @@ export default function Page(): ReactElement {
     void init();
   }, []);
   const RankingCardStyle = styled.div`
-    position: relative;
-    top: 4rem;
+    border-radius: 50px;
+    top: 16vh;
+    left: 6vw;
+    height: 40rem;
+    width: 62vw;
+    position: absolute;
     overflow: scroll;
-    height: 43rem;
-    left: 14rem;
-    width: fit-content;
+    z-index: 1;
     :hover {
       background-color: #e2e8f0;
       transition: 100ms;
     }
   `;
 
-  const TitleStyle = styled(Text)`
-    position: relative;
-    left: 10rem;
-    top: 2rem;
-    font-size: 2rem;
+  const RankingCardBox = styled.div`
+    box-shadow:
+      inset 8px 8px 32px #afafaf,
+      inset -12px -12px 32px #ffffff;
+
+    border-radius: 50px;
+    top: 16vh;
+    left: 6vw;
+    height: 40rem;
+    width: 62vw;
+    position: absolute;
+    z-index: 0;
   `;
 
-  const LogTitleStyle = styled(Text)`
-    font-size: 2rem;
-    position: relative;
-    top: -45.5rem;
-    left: 71rem;
-    padding: 0.3rem;
-    overflow: scroll;
-    font-weight: bold;
-    background-color: #f1f5f9;
-  `;
   const LogRecentUnlockedStyle = styled.div`
-    position: relative;
-    top: -45.5rem;
-    left: 71rem;
+    position: absolute;
     overflow: scroll;
-    width: fit-content;
-    height: calc(100vh - 4.8rem);
-    width: 40rem;
-    :hover {
-      background-color: #e2e8f0;
-      transition: 100ms;
-    }
-    background-color: #f1f5f9;
+    left: 73%;
+    width: 26vw;
+    height: 100vh;
+    background-color: #dadfe2;
   `;
 
   return match(swrMembersWithUnlockedCount)
@@ -107,10 +100,11 @@ export default function Page(): ReactElement {
       S.Success,
       ({ data: { membersWithUnlockedCount, unlockedAchievements } }) => (
         <div>
-          <TitleStyle size="7" weight="bold">
+          {/* <TitleStyle size="7" weight="bold">
             実績解除ランキング
-          </TitleStyle>
+          </TitleStyle> */}
           <RankingCardStyle>
+            <Box mt="2rem" />
             {membersWithUnlockedCount.map((m, idx) => (
               <RankingCard
                 key={m.email}
@@ -120,11 +114,14 @@ export default function Page(): ReactElement {
               />
             ))}
           </RankingCardStyle>
+          <RankingCardBox />
 
-          <LogTitleStyle as="div" size="7">
-            最近の実績解除
-          </LogTitleStyle>
           <LogRecentUnlockedStyle>
+            <Box mt="10rem" />
+            <Text as="div" size="2" weight="bold">
+              最近の実績解除
+            </Text>
+            <Box mt="1rem" />
             {unlockedAchievements.map((u) => (
               <LogRecentUnlocked
                 key={u.achievementID}
