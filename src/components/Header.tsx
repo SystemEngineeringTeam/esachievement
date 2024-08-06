@@ -65,7 +65,7 @@ const EsaAchievementsStyle = styled(Link)`
   bottom: 0;
   margin: auto 0;
   font-weight: 900;
-  margin-left: 5vw;
+  margin-left: 3vw;
 `;
 
 export function Header(): ReactElement {

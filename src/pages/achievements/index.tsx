@@ -11,7 +11,8 @@ import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
-  margin-top: 8%;
+  height: 100%;
+  overflow: scroll;
 `;
 
 export default function Page(): ReactElement {
@@ -38,6 +39,7 @@ export default function Page(): ReactElement {
     .with(S.Loading, () => <div>Loading...</div>)
     .with(S.Success, ({ data: { achievements } }) => (
       <BoxStyle width="70%">
+        <Box mt="12%" />
         <Table.Root>
           <Table.Header>
             <Table.Row>
