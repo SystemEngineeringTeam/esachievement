@@ -7,7 +7,7 @@ import { $hasAuthenticated } from "@/lib/stores/auth";
 import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
-  position: absolute;
+  position: fixed;
   color: #374151;
   top: 2%;
   right: 0;

@@ -11,6 +11,7 @@ import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
+  margin-top: 8%;
 `;
 
 export default function Page(): ReactElement {
