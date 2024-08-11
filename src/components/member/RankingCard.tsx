@@ -28,7 +28,7 @@ export function RankingCard({
     margin: 0 auto;
     margin-bottom: 1.4rem;
     width: 40rem;
-    background-color: #E7E7E7;
+    background-color: #e7e7e7;
     &:hover {
       box-shadow: none;
       transition: 100ms;
