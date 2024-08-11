@@ -21,6 +21,7 @@ export function AchievementCard({
       box-shadow:
         inset 8px 8px 16px #b5bec9,
         inset -8px -8px 16px #ffffff;
+        transition: 100ms;
     }
   `;
 

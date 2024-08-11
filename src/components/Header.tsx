@@ -38,6 +38,7 @@ const CreateStyle = styled(Link)`
   display: flex;
   &:hover {
     box-shadow: none;
+    transition: 100ms;
   }
 `;
 
