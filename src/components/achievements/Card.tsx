@@ -12,10 +12,19 @@ export function AchievementCard({
   const navigate = useNavigate();
   const TableRow = styled(Table.Row)`
     transition: background-color 100ms;
+    color: #374151;
     cursor: pointer;
     &:hover {
       background-color: #e2e8f0;
     }
+  `;
+
+  const AvatarStyle = styled(Avatar)`
+    box-shadow:
+      8px 8px 16px #b5bec9,
+      -8px -8px 16px #ffffff;
+    box-sizing: content-box;
+    border: 6px solid #e7e7e7;
   `;
 
   return (
@@ -30,7 +39,13 @@ export function AchievementCard({
     >
       <Table.RowHeaderCell>
         <Flex gap="2">
-          <Avatar fallback="A" radius="full" size="6" src={achievement.icon} />
+          <AvatarStyle
+            fallback="A"
+            ml="3"
+            radius="full"
+            size="6"
+            src={achievement.icon}
+          />
         </Flex>
       </Table.RowHeaderCell>
       <Table.Cell>

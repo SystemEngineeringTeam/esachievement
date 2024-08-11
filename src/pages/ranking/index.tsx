@@ -87,7 +87,7 @@ export default function Page(): ReactElement {
     left: 73%;
     width: 26vw;
     height: 100vh;
-    background-color: #E7E7E7;
+    background-color: #e7e7e7;
   `;
 
   return match(swrMembersWithUnlockedCount)
