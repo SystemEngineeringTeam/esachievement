@@ -7,7 +7,7 @@ import { $hasAuthenticated } from "@/lib/stores/auth";
 import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
-  position: absolute;
+  position: fixed;
   color: #374151;
   top: 2%;
   right: 0;
@@ -24,10 +24,10 @@ const RightContents = styled(Flex)`
 `;
 
 const CreateStyle = styled(Link)`
-  color: #f8fafc;
+  color: #e7e7e7;
   background-color: #0f172a;
   box-shadow:
-    12px 12px 32px #afafaf,
+    12px 12px 32px #b5bec9,
     -12px -12px 32px #ffffff;
 
   width: 13rem;
@@ -37,14 +37,15 @@ const CreateStyle = styled(Link)`
   justify-content: center;
   display: flex;
   &:hover {
-    background-color: #33c2ff;
+    box-shadow: none;
+    transition: 100ms;
   }
 `;
 
 const LinkContents = styled(Link)`
-  background: #dadfe2;
+  background: #e7e7e7;
   box-shadow:
-    12px 12px 32px #afafaf,
+    12px 12px 32px #b5bec9,
     -12px -12px 32px #ffffff;
 
   height: 100%;
@@ -56,7 +57,7 @@ const LinkContents = styled(Link)`
   display: flex;
 
   &:hover {
-    color: #33c2ff;
+    box-shadow: none;
   }
 `;
 
@@ -65,16 +66,19 @@ const EsaAchievementsStyle = styled(Link)`
   bottom: 0;
   margin: auto 0;
   font-weight: 900;
-  margin-left: 5vw;
+  margin-left: 3vw;
+`;
+
+const Esa = styled(Text)`
+  color: #1dd4cb;
 `;
 
 export function Header(): ReactElement {
   return (
     <HeaderStyle>
       <EsaAchievementsStyle to="/">
-        <Text size="9">
-          <span>esa</span>chievement
-        </Text>
+        <Esa size="9">esa</Esa>
+        <Text size="9">chievement</Text>
       </EsaAchievementsStyle>
 
       <RightContents>

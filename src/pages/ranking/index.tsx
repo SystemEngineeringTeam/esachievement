@@ -65,15 +65,11 @@ export default function Page(): ReactElement {
     position: absolute;
     overflow: scroll;
     z-index: 1;
-    :hover {
-      background-color: #e2e8f0;
-      transition: 100ms;
-    }
   `;
 
   const RankingCardBox = styled.div`
     box-shadow:
-      inset 8px 8px 32px #afafaf,
+      inset 8px 8px 32px #b5bec9,
       inset -12px -12px 32px #ffffff;
 
     border-radius: 50px;
@@ -91,7 +87,7 @@ export default function Page(): ReactElement {
     left: 73%;
     width: 26vw;
     height: 100vh;
-    background-color: #dadfe2;
+    background-color: #e7e7e7;
   `;
 
   return match(swrMembersWithUnlockedCount)
@@ -100,9 +96,6 @@ export default function Page(): ReactElement {
       S.Success,
       ({ data: { membersWithUnlockedCount, unlockedAchievements } }) => (
         <div>
-          {/* <TitleStyle size="7" weight="bold">
-            実績解除ランキング
-          </TitleStyle> */}
           <RankingCardStyle>
             <Box mt="2rem" />
             {membersWithUnlockedCount.map((m, idx) => (
