@@ -24,10 +24,10 @@ const RightContents = styled(Flex)`
 `;
 
 const CreateStyle = styled(Link)`
-  color: #f8fafc;
+  color: #e7e7e7;
   background-color: #0f172a;
   box-shadow:
-    12px 12px 32px #afafaf,
+    12px 12px 32px #b5bec9,
     -12px -12px 32px #ffffff;
 
   width: 13rem;
@@ -42,9 +42,9 @@ const CreateStyle = styled(Link)`
 `;
 
 const LinkContents = styled(Link)`
-  background: #dadfe2;
+  background: #e7e7e7;
   box-shadow:
-    12px 12px 32px #afafaf,
+    12px 12px 32px #b5bec9,
     -12px -12px 32px #ffffff;
 
   height: 100%;
@@ -68,13 +68,16 @@ const EsaAchievementsStyle = styled(Link)`
   margin-left: 3vw;
 `;
 
+const Esa = styled(Text)`
+  color: #1dd4cb;
+`;
+
 export function Header(): ReactElement {
   return (
     <HeaderStyle>
       <EsaAchievementsStyle to="/">
-        <Text size="9">
-          <span>esa</span>chievement
-        </Text>
+        <Esa size="9">esa</Esa>
+        <Text size="9">chievement</Text>
       </EsaAchievementsStyle>
 
       <RightContents>

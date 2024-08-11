@@ -69,7 +69,7 @@ export default function Page(): ReactElement {
 
   const RankingCardBox = styled.div`
     box-shadow:
-      inset 8px 8px 32px #afafaf,
+      inset 8px 8px 32px #b5bec9,
       inset -12px -12px 32px #ffffff;
 
     border-radius: 50px;
@@ -87,7 +87,7 @@ export default function Page(): ReactElement {
     left: 73%;
     width: 26vw;
     height: 100vh;
-    background-color: #dadfe2;
+    background-color: #E7E7E7;
   `;
 
   return match(swrMembersWithUnlockedCount)

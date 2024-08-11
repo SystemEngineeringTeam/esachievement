@@ -15,7 +15,7 @@ const BoxStyle = styled(Box)`
   width: 22vw;
   &:hover {
     box-shadow:
-      inset 6px 6px 32px #afafaf,
+      inset 6px 6px 32px #b5bec9,
       inset -10px -10px 32px #ffffff;
     transition: 100ms;
   }
