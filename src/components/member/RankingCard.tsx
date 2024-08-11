@@ -29,6 +29,10 @@ export function RankingCard({
     margin-bottom: 2rem;
     width: 40rem;
     background-color: #dadfe2;
+    &:hover {
+      box-shadow: none;
+      transition: 100ms;
+    }
   `;
 
   return (

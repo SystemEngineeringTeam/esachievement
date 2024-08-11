@@ -10,11 +10,13 @@ import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievement
 
 const BoxStyle = styled(Box)`
   border-color: #cbd5e1;
-  border-bottom: 1px solid #94a3b8;
+  border-radius: 16px;
   padding: 1rem 0;
   width: 22vw;
-  :hover {
-    background-color: #e2e8f0;
+  &:hover {
+    box-shadow:
+      inset 6px 6px 32px #afafaf,
+      inset -10px -10px 32px #ffffff;
     transition: 100ms;
   }
 `;

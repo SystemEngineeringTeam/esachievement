@@ -65,10 +65,6 @@ export default function Page(): ReactElement {
     position: absolute;
     overflow: scroll;
     z-index: 1;
-    :hover {
-      background-color: #e2e8f0;
-      transition: 100ms;
-    }
   `;
 
   const RankingCardBox = styled.div`
@@ -100,9 +96,6 @@ export default function Page(): ReactElement {
       S.Success,
       ({ data: { membersWithUnlockedCount, unlockedAchievements } }) => (
         <div>
-          {/* <TitleStyle size="7" weight="bold">
-            実績解除ランキング
-          </TitleStyle> */}
           <RankingCardStyle>
             <Box mt="2rem" />
             {membersWithUnlockedCount.map((m, idx) => (
