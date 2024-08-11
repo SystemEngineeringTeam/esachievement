@@ -37,7 +37,24 @@ export function AchievementCard({
     width: 30vw;
   `;
 
-  const Tags = styled(Text)``;
+  const Tags = styled(Text)`
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #374151;
+
+    background-color: #e7e7e7;
+
+    padding: 0.1em 1em 0.3em;
+    margin-right: 1vw;
+
+    text-align: center;
+    border-radius: 50px;
+    box-shadow:
+      8px 8px 16px #d4d9e1,
+      -8px -8px 16px #ffffff,
+      inset 4px 4px 16px #e6e9ec,
+      inset -4px -4px 16px #ffffff;
+  `;
 
   return (
     <CardStyle
@@ -52,14 +69,14 @@ export function AchievementCard({
     >
       <AvatarStyle
         fallback="A"
-        ml="6vw"
-        mr="5vw"
+        ml="7vw"
+        mr="3vw"
         radius="full"
         size="6"
         src={achievement.icon}
       />
 
-      <Flex direction="column" mb="3.8vh" mr="3vw" mt="3.8vh">
+      <Flex direction="column" mb="3.8vh" mt="3.8vh">
         <Text as="div" size="8" weight="bold">
           {achievement.name}
         </Text>
@@ -69,9 +86,8 @@ export function AchievementCard({
         </Description>
       </Flex>
 
-      <Tags as="div" size="6" weight="bold">
-        #{achievement.tags[0].name}
-      </Tags>
+      <Tags as="div">#{achievement.tags[0].name}</Tags>
+      <Tags as="div">#{achievement.tags[0].name}</Tags>
     </CardStyle>
   );
 }

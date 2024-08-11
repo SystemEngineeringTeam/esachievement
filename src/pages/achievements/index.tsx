@@ -39,18 +39,7 @@ export default function Page(): ReactElement {
     .with(S.Loading, () => <div>Loading...</div>)
     .with(S.Success, ({ data: { achievements } }) => (
       <BoxStyle width="70%">
-        <Box mt="18vh" />
-        {/* <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header> */}
-
-        {/* <Table.Body> */}
+        <Box mt="20vh" />
         {achievements.map((achievement) => {
           const typedAchievement = achievement as unknown as Achievement;
           return (
@@ -60,8 +49,6 @@ export default function Page(): ReactElement {
             />
           );
         })}
-        {/* </Table.Body>
-        </Table.Root> */}
       </BoxStyle>
     ))
     .otherwise(({ error }) => {
