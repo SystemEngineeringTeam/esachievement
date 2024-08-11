@@ -1,4 +1,4 @@
-import { Box, Table } from "@radix-ui/themes";
+import { Box } from "@radix-ui/themes";
 import { useEffect, type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
@@ -39,8 +39,8 @@ export default function Page(): ReactElement {
     .with(S.Loading, () => <div>Loading...</div>)
     .with(S.Success, ({ data: { achievements } }) => (
       <BoxStyle width="70%">
-        <Box mt="12%" />
-        <Table.Root>
+        <Box mt="18vh" />
+        {/* <Table.Root>
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
@@ -48,20 +48,20 @@ export default function Page(): ReactElement {
               <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
             </Table.Row>
-          </Table.Header>
+          </Table.Header> */}
 
-          <Table.Body>
-            {achievements.map((achievement) => {
-              const typedAchievement = achievement as unknown as Achievement;
-              return (
-                <AchievementCard
-                  key={achievement.id}
-                  achievement={typedAchievement}
-                />
-              );
-            })}
-          </Table.Body>
-        </Table.Root>
+        {/* <Table.Body> */}
+        {achievements.map((achievement) => {
+          const typedAchievement = achievement as unknown as Achievement;
+          return (
+            <AchievementCard
+              key={achievement.id}
+              achievement={typedAchievement}
+            />
+          );
+        })}
+        {/* </Table.Body>
+        </Table.Root> */}
       </BoxStyle>
     ))
     .otherwise(({ error }) => {

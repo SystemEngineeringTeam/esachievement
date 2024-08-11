@@ -37,7 +37,7 @@ const CreateStyle = styled(Link)`
   justify-content: center;
   display: flex;
   &:hover {
-    background-color: #33c2ff;
+    box-shadow: none;
   }
 `;
 
@@ -56,7 +56,7 @@ const LinkContents = styled(Link)`
   display: flex;
 
   &:hover {
-    color: #33c2ff;
+    box-shadow: none;
   }
 `;
 
