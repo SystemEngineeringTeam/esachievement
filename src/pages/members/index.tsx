@@ -3,12 +3,13 @@ import { useEffect, type ReactElement } from "react";
 import styled from "styled-components";
 // import SampleMember from "@/assets/members.json";
 // import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { MemberCard } from "@/components/member/Card";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
+import { localStorageProvider } from "@/main";
 import { type Member } from "@/types/member";
 
 type MembersWithUnlockedCount = Array<
@@ -24,12 +25,17 @@ const BoxStyle = styled(Box)`
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
   const { init, fetch } = useUnlockedAchievements(useTeam);
-  const swrMembersWithUnlockedCount = useSWR(
+  const swrMembersWithUnlockedCount = useSWRImmutable(
     "membersWithUnlockedCount",
     fetchMembersWithUnlockedCount,
   );
 
   async function fetchMembersWithUnlockedCount(): Promise<MembersWithUnlockedCount> {
+    if (import.meta.env.USE_MOCK === 1) {
+      const test = localStorageProvider();
+      const members = test.get("membersWithUnlockedCount");
+      return members;
+    }
     const members = await fetchMembers();
     const unlockedAchievements = await fetch();
 

@@ -2,7 +2,7 @@ import { useStore } from "@nanostores/react";
 import { Button, Flex } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { Center } from "@/components/Center";
 import { useMember } from "@/hooks/member";
@@ -15,7 +15,7 @@ import { type AccessTokenData } from "@/types/auth";
 function TeamSelector(): ReactElement {
   const navigate = useNavigate();
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
-  const swrJoinedTeams = useSWR("joinedTeams", fetchJoinedTeams);
+  const swrJoinedTeams = useSWRImmutable("joinedTeams", fetchJoinedTeams);
 
   const FlexStyled = styled(Flex)`
     gap: 15rem;
@@ -52,7 +52,7 @@ function TeamSelector(): ReactElement {
 }
 
 export default function Page(): ReactElement {
-  const swrTokenAndTeams = useSWR("tokenAndTeams", fetchTokenAndTeams);
+  const swrTokenAndTeams = useSWRImmutable("tokenAndTeams", fetchTokenAndTeams);
   const accessTokenData = useStore($accessTokenData);
   const navigate = useNavigate();
 

@@ -1,7 +1,7 @@
 import { Text, Box } from "@radix-ui/themes";
 import { useEffect, type ReactElement } from "react";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
@@ -20,7 +20,7 @@ type MembersWithUnlockedCount = Array<
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
   const { init, fetch } = useUnlockedAchievements(useTeam);
-  const swrMembersWithUnlockedCount = useSWR(
+  const swrMembersWithUnlockedCount = useSWRImmutable(
     "membersWithUnlockedCount",
     fetchMembersWithUnlockedCount,
   );
