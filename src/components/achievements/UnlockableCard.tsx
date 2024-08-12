@@ -10,13 +10,21 @@ const CustomCheckbox = styled(Checkbox)`
   line-height: 10px;
 `;
 
+const CardStyle = styled(Flex)`
+  transition: background-color 100ms;
+  color: #374151;
+  border-radius: 16px;
+  height: fit-content;
+  cursor: pointer;
+`;
+
 export function UnlockableCard({
   achievement,
 }: {
   achievement: Achievement;
 }): ReactElement {
   return (
-    <Flex>
+    <CardStyle>
       <CustomCheckbox size="3" />
 
       <Avatar fallback="A" radius="full" size="6" src={achievement.icon} />
@@ -30,6 +38,6 @@ export function UnlockableCard({
       </Flex>
 
       <Text>{achievement.tags[0].name}</Text>
-    </Flex>
+    </CardStyle>
   );
 }
