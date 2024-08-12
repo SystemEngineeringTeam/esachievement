@@ -18,6 +18,14 @@ const CardStyle = styled(Flex)`
   cursor: pointer;
 `;
 
+const AvatarStyle = styled(Avatar)`
+  box-shadow:
+    8px 8px 16px #b5bec9,
+    -8px -8px 16px #ffffff;
+  box-sizing: content-box;
+  border: 6px solid #e7e7e7;
+`;
+
 export function UnlockableCard({
   achievement,
 }: {
@@ -27,7 +35,7 @@ export function UnlockableCard({
     <CardStyle>
       <CustomCheckbox size="3" />
 
-      <Avatar fallback="A" radius="full" size="6" src={achievement.icon} />
+      <AvatarStyle fallback="A" radius="full" size="6" src={achievement.icon} />
 
       <Flex direction="column">
         <Text as="div" size="8" weight="bold">
