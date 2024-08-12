@@ -26,6 +26,11 @@ const AvatarStyle = styled(Avatar)`
   border: 6px solid #e7e7e7;
 `;
 
+const Description = styled(Text)`
+  word-break: break-all;
+  width: 30vw;
+`;
+
 export function UnlockableCard({
   achievement,
 }: {
@@ -35,14 +40,21 @@ export function UnlockableCard({
     <CardStyle>
       <CustomCheckbox size="3" />
 
-      <AvatarStyle fallback="A" radius="full" size="6" src={achievement.icon} />
+      <AvatarStyle
+        fallback="A"
+        ml="7vw"
+        mr="3vw"
+        radius="full"
+        size="6"
+        src={achievement.icon}
+      />
 
-      <Flex direction="column">
+      <Flex direction="column" mb="3.8vh" mt="3.8vh">
         <Text as="div" size="8" weight="bold">
           {achievement.name}
         </Text>
 
-        <Text>{achievement.description}</Text>
+        <Description>{achievement.description}</Description>
       </Flex>
 
       <Text>{achievement.tags[0].name}</Text>
