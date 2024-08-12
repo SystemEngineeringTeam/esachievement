@@ -2,10 +2,12 @@ import { useStore } from "@nanostores/react";
 import { Button, Flex } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 import { match } from "ts-pattern";
 import { Center } from "@/components/Center";
+import { useAchievements } from "@/hooks/db/achievements";
 import { useMember } from "@/hooks/member";
+import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import { requestAccessTokenData } from "@/lib/services/esa";
 import { $accessTokenData } from "@/lib/stores/auth";
@@ -15,7 +17,7 @@ import { type AccessTokenData } from "@/types/auth";
 function TeamSelector(): ReactElement {
   const navigate = useNavigate();
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
-  const swrJoinedTeams = useSWRImmutable("joinedTeams", fetchJoinedTeams);
+  const swrJoinedTeams = useSWR("joinedTeams", fetchJoinedTeams);
 
   const FlexStyled = styled(Flex)`
     gap: 15rem;
@@ -52,11 +54,12 @@ function TeamSelector(): ReactElement {
 }
 
 export default function Page(): ReactElement {
-  const swrTokenAndTeams = useSWRImmutable("tokenAndTeams", fetchTokenAndTeams);
+  const swrTokenAndTeams = useSWR("tokenAndTeams", fetchTokenAndTeams);
   const accessTokenData = useStore($accessTokenData);
   const navigate = useNavigate();
 
   async function fetchTokenAndTeams(): Promise<AccessTokenData> {
+    const { init } = useAchievements(useTeam);
     if (accessTokenData != null) {
       // eslint-disable-next-line no-console
       console.warn("Access token has already been set");
@@ -69,6 +72,8 @@ export default function Page(): ReactElement {
 
     const tokenData = await requestAccessTokenData(code);
     $accessTokenData.set(tokenData);
+
+    await init();
 
     return tokenData;
   }

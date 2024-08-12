@@ -1,7 +1,7 @@
 import { Box, Table } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import styled from "styled-components";
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 import { match } from "ts-pattern";
 import { UnlockableCard } from "@/components/achievements/UnlockableCard";
 import { useAchievements } from "@/hooks/db/achievements";
@@ -13,12 +13,8 @@ const BoxStyle = styled(Box)`
 `;
 
 export default function Page(): ReactElement {
-  const { init, fetch } = useAchievements(useTeam);
-  const swrFetchAchievements = useSWRImmutable("fetchAchievements", fetch);
-
-  useEffect(() => {
-    void init();
-  }, []);
+  const { fetch } = useAchievements(useTeam);
+  const swrFetchAchievements = useSWR("fetchAchievements", fetch);
 
   return match(swrFetchAchievements)
     .with(S.Loading, () => <p>Loading...</p>)

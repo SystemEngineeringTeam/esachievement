@@ -1,15 +1,14 @@
 import { Box, Table } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import styled from "styled-components";
 // import SampleMember from "@/assets/members.json";
 // import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 import { match } from "ts-pattern";
 import { MemberCard } from "@/components/member/Card";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { localStorageProvider } from "@/main";
 import { type Member } from "@/types/member";
 
 type MembersWithUnlockedCount = Array<
@@ -24,8 +23,8 @@ const BoxStyle = styled(Box)`
 
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
-  const { init, fetch } = useUnlockedAchievements(useTeam);
-  const swrMembersWithUnlockedCount = useSWRImmutable(
+  const { fetch } = useUnlockedAchievements(useTeam);
+  const swrMembersWithUnlockedCount = useSWR(
     "membersWithUnlockedCount",
     fetchMembersWithUnlockedCount,
   );
@@ -49,10 +48,6 @@ export default function Page(): ReactElement {
       })
       .sort((a, b) => b.unlockedCount - a.unlockedCount);
   }
-
-  useEffect(() => {
-    void init();
-  }, []);
 
   return match(swrMembersWithUnlockedCount)
     .with(S.Loading, () => <div>Loading...</div>)
