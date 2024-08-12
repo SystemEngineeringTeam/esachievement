@@ -31,11 +31,6 @@ export default function Page(): ReactElement {
   );
 
   async function fetchMembersWithUnlockedCount(): Promise<MembersWithUnlockedCount> {
-    if (import.meta.env.USE_MOCK === 1) {
-      const test = localStorageProvider();
-      const members = test.get("membersWithUnlockedCount");
-      return members;
-    }
     const members = await fetchMembers();
     const unlockedAchievements = await fetch();
 
