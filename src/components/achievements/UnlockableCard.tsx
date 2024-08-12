@@ -3,13 +3,6 @@ import { type ReactElement } from "react";
 import styled from "styled-components";
 import { type Achievement } from "@/types/post-data/achievements";
 
-const CustomCheckbox = styled(Checkbox)`
-  transform: scale(2);
-  display: flex;
-  align-content: center;
-  line-height: 10px;
-`;
-
 const CardStyle = styled(Flex)`
   transition: background-color 100ms;
   color: #374151;
@@ -57,11 +50,11 @@ export function UnlockableCard({
 }): ReactElement {
   return (
     <CardStyle align="center">
-      <CustomCheckbox size="3" />
+      <Checkbox ml="4vw" size="3" />
 
       <AvatarStyle
         fallback="A"
-        ml="7vw"
+        ml="4vw"
         mr="3vw"
         radius="full"
         size="6"
