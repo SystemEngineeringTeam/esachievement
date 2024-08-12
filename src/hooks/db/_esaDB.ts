@@ -6,6 +6,7 @@ import { type AnySchema } from "yup";
 import { type useTeam as _useTeam } from "@/hooks/teams";
 import { waitMs } from "@/lib/consts";
 import { $config } from "@/lib/stores/config";
+import { localStorageProvider } from "@/main";
 import { type PostData } from "@/types/post-data/_struct";
 import { type Nullable } from "@/types/utils";
 
@@ -36,7 +37,14 @@ export function useEsaDB<T>(
       await create();
       await waitMs(1000);
     }
-
+    const test = localStorageProvider();
+    if (
+      import.meta.env.VITE_USE_MOCK === "1" &&
+      test.get("membersWithUnlockedCount") != null
+    ) {
+      console.log("Use mock data");
+      return;
+    }
     const data = await fetch();
     config.atom.set(data);
     console.log("init!");
