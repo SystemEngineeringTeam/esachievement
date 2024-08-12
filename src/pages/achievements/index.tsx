@@ -1,5 +1,5 @@
 import { Box } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 import { match } from "ts-pattern";
@@ -16,7 +16,7 @@ const BoxStyle = styled(Box)`
 `;
 
 export default function Page(): ReactElement {
-  const { init, fetch } = useAchievements(useTeam);
+  const { fetch } = useAchievements(useTeam);
   const swrAchievements = useSWR("achievements", fetchAchievements);
 
   async function fetchAchievements(): Promise<{
@@ -30,10 +30,6 @@ export default function Page(): ReactElement {
       achievements,
     };
   }
-
-  useEffect(() => {
-    void init();
-  }, []);
 
   return match(swrAchievements)
     .with(S.Loading, () => <div>Loading...</div>)

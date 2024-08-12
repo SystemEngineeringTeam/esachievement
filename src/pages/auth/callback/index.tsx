@@ -5,7 +5,10 @@ import styled from "styled-components";
 import useSWR from "swr";
 import { match } from "ts-pattern";
 import { Center } from "@/components/Center";
+import { useAchievements } from "@/hooks/db/achievements";
+import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useMember } from "@/hooks/member";
+import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import { requestAccessTokenData } from "@/lib/services/esa";
 import { $accessTokenData } from "@/lib/stores/auth";
@@ -57,6 +60,8 @@ export default function Page(): ReactElement {
   const navigate = useNavigate();
 
   async function fetchTokenAndTeams(): Promise<AccessTokenData> {
+    const { init: initAchievements } = useAchievements(useTeam);
+    const { init: initUnlockedAchievements } = useUnlockedAchievements(useTeam);
     if (accessTokenData != null) {
       // eslint-disable-next-line no-console
       console.warn("Access token has already been set");
@@ -69,6 +74,9 @@ export default function Page(): ReactElement {
 
     const tokenData = await requestAccessTokenData(code);
     $accessTokenData.set(tokenData);
+
+    await initAchievements();
+    await initUnlockedAchievements();
 
     return tokenData;
   }

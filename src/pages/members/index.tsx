@@ -1,5 +1,5 @@
 import { Box, Table } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import styled from "styled-components";
 // import SampleMember from "@/assets/members.json";
 // import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
@@ -23,7 +23,7 @@ const BoxStyle = styled(Box)`
 
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
-  const { init, fetch } = useUnlockedAchievements(useTeam);
+  const { fetch } = useUnlockedAchievements(useTeam);
   const swrMembersWithUnlockedCount = useSWR(
     "membersWithUnlockedCount",
     fetchMembersWithUnlockedCount,
@@ -48,10 +48,6 @@ export default function Page(): ReactElement {
       })
       .sort((a, b) => b.unlockedCount - a.unlockedCount);
   }
-
-  useEffect(() => {
-    void init();
-  }, []);
 
   return match(swrMembersWithUnlockedCount)
     .with(S.Loading, () => <div>Loading...</div>)

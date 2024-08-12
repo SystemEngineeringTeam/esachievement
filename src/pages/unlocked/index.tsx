@@ -1,5 +1,5 @@
 import { Box, Table } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 import { match } from "ts-pattern";
@@ -13,12 +13,8 @@ const BoxStyle = styled(Box)`
 `;
 
 export default function Page(): ReactElement {
-  const { init, fetch } = useAchievements(useTeam);
+  const { fetch } = useAchievements(useTeam);
   const swrFetchAchievements = useSWR("fetchAchievements", fetch);
-
-  useEffect(() => {
-    void init();
-  }, []);
 
   return match(swrFetchAchievements)
     .with(S.Loading, () => <p>Loading...</p>)
