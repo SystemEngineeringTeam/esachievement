@@ -31,13 +31,32 @@ const Description = styled(Text)`
   width: 30vw;
 `;
 
+const Tags = styled(Text)`
+  font-weight: bold;
+  font-size: 1.4em;
+  color: #374151;
+
+  background-color: #e7e7e7;
+
+  padding: 0.1em 1em 0.3em;
+  margin-right: 1vw;
+
+  text-align: center;
+  border-radius: 50px;
+  box-shadow:
+    8px 8px 16px #d4d9e1,
+    -8px -8px 16px #ffffff,
+    inset 4px 4px 16px #e6e9ec,
+    inset -4px -4px 16px #ffffff;
+`;
+
 export function UnlockableCard({
   achievement,
 }: {
   achievement: Achievement;
 }): ReactElement {
   return (
-    <CardStyle>
+    <CardStyle align="center">
       <CustomCheckbox size="3" />
 
       <AvatarStyle
@@ -54,10 +73,13 @@ export function UnlockableCard({
           {achievement.name}
         </Text>
 
-        <Description>{achievement.description}</Description>
+        <Description color="gray" weight="bold">
+          {achievement.description}
+        </Description>
       </Flex>
 
-      <Text>{achievement.tags[0].name}</Text>
+      <Tags as="div">#{achievement.tags[0].name}</Tags>
+      <Tags as="div">#{achievement.tags[0].name}</Tags>
     </CardStyle>
   );
 }

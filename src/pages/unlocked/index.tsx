@@ -10,6 +10,8 @@ import { S } from "@/lib/consts";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
+  height: 100%;
+  overflow: scroll;
 `;
 
 export default function Page(): ReactElement {
@@ -25,7 +27,6 @@ export default function Page(): ReactElement {
     .with(S.Success, ({ data }) => (
       <BoxStyle width="70%">
         <Box mt="20vh" />
-
         {data?.map((achievement) => (
           <UnlockableCard key={achievement.id} achievement={achievement} />
         ))}
