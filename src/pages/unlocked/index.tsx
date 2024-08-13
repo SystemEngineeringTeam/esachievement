@@ -1,4 +1,4 @@
-import { Box, Table } from "@radix-ui/themes";
+import { Box } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
@@ -10,6 +10,8 @@ import { S } from "@/lib/consts";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
+  height: 100%;
+  overflow: scroll;
 `;
 
 export default function Page(): ReactElement {
@@ -20,23 +22,10 @@ export default function Page(): ReactElement {
     .with(S.Loading, () => <p>Loading...</p>)
     .with(S.Success, ({ data }) => (
       <BoxStyle width="70%">
-        <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>説明</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>タグ</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            {data?.map((achievement) => (
-              <UnlockableCard key={achievement.id} achievement={achievement} />
-            ))}
-          </Table.Body>
-        </Table.Root>
+        <Box mt="20vh" />
+        {data?.map((achievement) => (
+          <UnlockableCard key={achievement.id} achievement={achievement} />
+        ))}
       </BoxStyle>
     ))
     .otherwise(({ error }) => {
