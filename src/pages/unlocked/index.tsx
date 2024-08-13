@@ -1,5 +1,5 @@
 import { Box } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 import { match } from "ts-pattern";
