@@ -36,7 +36,6 @@ export function useEsaDB<T>(
       await create();
       await waitMs(1000);
     }
-
     const data = await fetch();
     config.atom.set(data);
     console.log("init!");

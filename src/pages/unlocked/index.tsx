@@ -15,12 +15,8 @@ const BoxStyle = styled(Box)`
 `;
 
 export default function Page(): ReactElement {
-  const { init, fetch } = useAchievements(useTeam);
+  const { fetch } = useAchievements(useTeam);
   const swrFetchAchievements = useSWR("fetchAchievements", fetch);
-
-  useEffect(() => {
-    void init();
-  }, []);
 
   return match(swrFetchAchievements)
     .with(S.Loading, () => <p>Loading...</p>)

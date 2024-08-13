@@ -1,5 +1,5 @@
 import { Text, Box } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 import { match } from "ts-pattern";
@@ -19,7 +19,7 @@ type MembersWithUnlockedCount = Array<
 
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
-  const { init, fetch } = useUnlockedAchievements(useTeam);
+  const { fetch } = useUnlockedAchievements(useTeam);
   const swrMembersWithUnlockedCount = useSWR(
     "membersWithUnlockedCount",
     fetchMembersWithUnlockedCount,
@@ -53,9 +53,6 @@ export default function Page(): ReactElement {
     };
   }
 
-  useEffect(() => {
-    void init();
-  }, []);
   const RankingCardStyle = styled.div`
     border-radius: 50px;
     top: 16vh;
