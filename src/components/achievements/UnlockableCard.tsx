@@ -1,4 +1,4 @@
-import { Text, Checkbox, Flex, Avatar } from "@radix-ui/themes";
+import { Text, Flex, Avatar, Checkbox } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import { type Achievement } from "@/types/post-data/achievements";
@@ -9,6 +9,19 @@ const CardStyle = styled(Flex)`
   border-radius: 16px;
   height: fit-content;
   cursor: pointer;
+`;
+
+const CheckboxStyle = styled(Checkbox)`
+  box-shadow:
+    4px 4px 16px #b5bec9,
+    -4px -4px 16px #ffffff;
+  box-sizing: content-box;
+  border: 4px solid #e7e7e7;
+  border-radius: 6px;
+  &:hover {
+    box-shadow: none;
+    transition: 100ms;
+  }
 `;
 
 const AvatarStyle = styled(Avatar)`
@@ -50,7 +63,7 @@ export function UnlockableCard({
 }): ReactElement {
   return (
     <CardStyle align="center">
-      <Checkbox ml="4vw" size="3" />
+      <CheckboxStyle ml="5vw" size="3" />
 
       <AvatarStyle
         fallback="A"
