@@ -43,6 +43,10 @@ export default function Layout(): ReactElement {
   const ThemeStyle = styled(Theme)`
     background-color: #e7e7e7;
     overflow: hidden;
+    ::-webkit-scrollbar {
+      /* Edge Chorome Safari Operaなど */
+      display: none;
+    }
   `;
   return (
     <ThemeStyle>
