@@ -1,14 +1,21 @@
 import { useStore } from "@nanostores/react";
-import { Avatar, Flex, Text, Link as LinkComponent } from "@radix-ui/themes";
+import {
+  Avatar,
+  Flex,
+  Text,
+  Link as LinkComponent,
+  Box,
+} from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
+import Icon from "@/assets/EsaChibuIcon.svg";
 import { getAuthorizePageUrl } from "@/lib/services/esa";
 import { $hasAuthenticated } from "@/lib/stores/auth";
 import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
   position: fixed;
-  color: #374151;
+  color: #465061;
   top: 3%;
   right: 0;
   left: 0;
@@ -24,8 +31,8 @@ const RightContents = styled(Flex)`
 `;
 
 const CreateStyle = styled(Link)`
-  color: #e7e7e7;
-  background-color: #0f172a;
+  color: #f7f7f7;
+  background-color: #449df7;
   box-shadow:
     12px 12px 16px #b5bec9,
     -12px -12px 16px #ffffff;
@@ -71,20 +78,30 @@ const EsaAchievementsStyle = styled(Link)`
   font-weight: 900;
   letter-spacing: -0.1rem;
   font-size: 1.8rem;
+  display: flex;
+  align-content: center;
+  align-items: center;
 `;
 
 const Esa = styled(Text)`
-  /* color: #24e7dd; */
   color: #28d8d0;
   font-size: 2rem;
+`;
+
+const IconStyle = styled.img`
+  width: 2.3rem;
+  margin-right: 0.5vw;
 `;
 
 export function Header(): ReactElement {
   return (
     <HeaderStyle>
       <EsaAchievementsStyle to="/">
-        <Esa>Esa</Esa>
-        <Text>chievement</Text>
+        <IconStyle alt="Icon" src={Icon} />
+        <Box>
+          <Esa>Esa</Esa>
+          <Text>chievement</Text>
+        </Box>
       </EsaAchievementsStyle>
 
       <RightContents>
