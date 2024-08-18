@@ -25,7 +25,6 @@ export function Catch(): ReactElement {
       font-weight: bold;
     }
   `;
-
   return (
     <Error>
       <Icon height="3rem" icon="mdi:alert-circle" />
@@ -39,19 +38,14 @@ export default function Layout(): ReactElement {
   const Main = styled.main`
     font-family: "Noto Sans JP Variable";
     word-break: keep-all;
+  `;
+  const BodyStyle = styled.div``;
+  const ThemeStyle = styled(Theme)`
     background-color: #e7e7e7;
     overflow: hidden;
   `;
-  const BodyStyle = styled.div`
-    height: 100vw;
-    overflow: hidden;
-    ::-webkit-scrollbar {
-      /* Edge Chorome Safari Operaなど */
-      display: none;
-    }
-  `;
   return (
-    <Theme>
+    <ThemeStyle>
       <Main>
         <Redirects>
           <Header />
@@ -60,6 +54,6 @@ export default function Layout(): ReactElement {
           </BodyStyle>
         </Redirects>
       </Main>
-    </Theme>
+    </ThemeStyle>
   );
 }
