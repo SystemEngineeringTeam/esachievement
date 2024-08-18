@@ -15,7 +15,7 @@ const HeaderStyle = styled(Flex)`
   margin: 0 auto;
   height: 9%;
   width: 96%;
-  z-index: 1;
+  z-index: 10;
 `;
 
 const RightContents = styled(Flex)`
@@ -66,19 +66,21 @@ const EsaAchievementsStyle = styled(Link)`
   bottom: 0;
   margin: auto 0;
   font-weight: 900;
-  margin-left: 3vw;
+  letter-spacing: -0.1rem;
+  font-size: 3rem;
 `;
 
 const Esa = styled(Text)`
-  color: #1dd4cb;
+  color: #24e7dd;
+  font-size: 3rem;
 `;
 
 export function Header(): ReactElement {
   return (
     <HeaderStyle>
       <EsaAchievementsStyle to="/">
-        <Esa size="9">esa</Esa>
-        <Text size="9">chievement</Text>
+        <Esa>Esa</Esa>
+        <Text>chievement</Text>
       </EsaAchievementsStyle>
 
       <RightContents>
