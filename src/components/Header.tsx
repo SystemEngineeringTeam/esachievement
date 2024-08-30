@@ -43,9 +43,9 @@ const CreateStyle = styled(Link)`
   align-items: center;
   justify-content: center;
   display: flex;
+  transition: 160ms;
   &:hover {
     box-shadow: none;
-    transition: 160ms;
   }
 `;
 
@@ -63,11 +63,11 @@ const LinkContents = styled(Link)`
 
   align-items: center;
   display: flex;
+  transition: 160ms;
 
   &:hover {
     color: #6d737d;
     box-shadow: none;
-    transition: 160ms;
   }
 `;
 
