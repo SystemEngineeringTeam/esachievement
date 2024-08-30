@@ -32,7 +32,7 @@ const RightContents = styled(Flex)`
 
 const CreateStyle = styled(Link)`
   color: #f7f7f7;
-  background-color: #449df7;
+  background-color: #2f8ae6;
   box-shadow:
     12px 12px 16px #b5bec9,
     -12px -12px 16px #ffffff;
@@ -57,7 +57,7 @@ const LinkContents = styled(Link)`
 
   height: 100%;
   padding: 0 5rem 0 1.6rem;
-  margin-right: -4rem;
+  margin-right: -3.4rem;
   border-radius: 80px;
   color: #465061;
 
