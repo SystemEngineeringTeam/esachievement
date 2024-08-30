@@ -26,7 +26,7 @@ export function TeamSelector(): ReactElement {
     width: 100px;
   `;
 
-  const initializeFunc =  (): void => {
+  const initializeFunc = (): void => {
     const { init: initAchievements } = useAchievements(useTeam);
     const { init: initUnlockedAchievements } = useUnlockedAchievements(useTeam);
 
@@ -34,6 +34,8 @@ export function TeamSelector(): ReactElement {
       void initAchievements();
       void initUnlockedAchievements();
     }, []);
+
+    navigate("/ranking");
   };
 
   return match(swrJoinedTeams)
@@ -46,7 +48,6 @@ export function TeamSelector(): ReactElement {
             onClick={() => {
               markTeamNameAsSelected(team.name);
               initializeFunc();
-              navigate("/ranking");
             }}
             size="4"
           >

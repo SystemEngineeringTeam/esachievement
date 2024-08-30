@@ -3,7 +3,7 @@ import { type ReactElement } from "react";
 import useSWR from "swr";
 import { match } from "ts-pattern";
 import { Center } from "@/components/Center";
-import { TeamSelector } from "@/components/team/selecter";
+import { TeamSelector } from "@/components/team/Selecter";
 import { S } from "@/lib/consts";
 import { requestAccessTokenData } from "@/lib/services/esa";
 import { $accessTokenData } from "@/lib/stores/auth";
