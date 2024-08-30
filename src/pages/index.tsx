@@ -9,20 +9,24 @@ import { Link } from "@/router.ts";
 export default function App(): ReactElement {
   const Catchcopy = styled(Text)`
     color: #242d3c;
-    letter-spacing: -0.2rem;
+    letter-spacing: -0.1rem;
     font-weight: 700;
-    font-size: 5.8rem;
-    line-height: 5.6rem;
+    font-size: 4.8rem;
+    line-height: 4.6rem;
     font-family: sans-serif;
     position: relative;
     z-index: 3;
     span {
       color: #00cdc2;
+      margin-left: 0.1rem;
+      text-shadow:
+        6px 6px 16px #b5bec9,
+        -6px -6px 16px #ffffff;
     }
   `;
 
   const SubCatchcopy = styled(Text)`
-    color: #525a68;
+    color: #6c7482;
     /* letter-spacing: -0.1rem; */
     font-weight: 500;
     font-size: 0.8rem;
@@ -31,7 +35,7 @@ export default function App(): ReactElement {
 
   const Detail = styled(Text)`
     width: 28vw;
-    color: #525a68;
+    color: #737a89;
 
     line-height: 1.4rem;
     font-weight: 500;
@@ -100,31 +104,30 @@ export default function App(): ReactElement {
 
   const RockStyle = styled.img`
     position: absolute;
-    width: 44rem;
-    left: 48vw;
+    width: 48rem;
+    left: 46vw;
     top: 2vh;
   `;
 
   const CrossStyle = styled.img`
     width: 28vw;
-    top: 64vh;
+    top: 68vh;
     left: 24vw;
     position: absolute;
     z-index: -1;
-    transform: rotate(18deg);
   `;
 
   const CircleStyle = styled.img`
     width: 30vw;
     top: -26vh;
-    left: 32vw;
+    left: 34vw;
     position: absolute;
     z-index: -1;
   `;
 
   return (
     <Flex>
-      <Flex direction="column" ml="8vw" mt="26vh">
+      <Flex direction="column" ml="12vw" mt="26vh">
         <Catchcopy mb="-2.6vh">
           Make Your
           <br />
