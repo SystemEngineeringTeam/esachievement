@@ -68,6 +68,7 @@ export default function App(): ReactElement {
       -6px -6px 16px #ffffff;
 
     transform-origin: 50% 50%;
+    transition: 300ms;
 
     ::after {
       content: "";
@@ -87,7 +88,6 @@ export default function App(): ReactElement {
     &:hover {
       box-shadow: none;
       transform: scale(1.06);
-      transition: 300ms;
       color: #ffffff;
     }
 
