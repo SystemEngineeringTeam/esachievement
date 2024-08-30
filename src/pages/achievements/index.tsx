@@ -24,7 +24,7 @@ export default function Page(): ReactElement {
   }> {
     const achievements = await fetch();
 
-    if (achievements == null) throw new Error("No unlockedAchievements found.");
+    if (achievements == null) throw new Error("No achievements found.");
 
     return {
       achievements,

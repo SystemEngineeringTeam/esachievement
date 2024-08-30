@@ -34,6 +34,7 @@ export function useEsaDB<T>(
 
     if (postId == null) {
       await create();
+      console.log("created!");
       await waitMs(1000);
     }
     const data = await fetch();
