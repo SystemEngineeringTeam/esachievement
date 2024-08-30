@@ -8,7 +8,7 @@ import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { type Member } from "@/types/member";
+import { type MembersWithUnlockedCount } from "@/types/member";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
 const RankingCardStyle = styled.div`
@@ -55,11 +55,7 @@ export default function Page(): ReactElement {
 
   async function fetchMembersWithUnlockedCount(): Promise<{
     unlockedAchievements: UnlockedAchievement[];
-    membersWithUnlockedCount: Array<
-      Member & {
-        unlockedCount: number;
-      }
-    >;
+    membersWithUnlockedCount: MembersWithUnlockedCount;
   }> {
     const members = await fetchMembers();
     const unlockedAchievements = await fetch();
@@ -80,7 +76,7 @@ export default function Page(): ReactElement {
       .sort((a, b) => b.unlockedCount - a.unlockedCount);
 
     return {
-      membersWithUnlockedCount: membersWithUnlockedCount,
+      membersWithUnlockedCount,
       unlockedAchievements,
     };
   }

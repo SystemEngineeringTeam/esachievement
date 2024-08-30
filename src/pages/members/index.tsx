@@ -9,7 +9,7 @@ import { MemberCard } from "@/components/member/Card";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { type Member } from "@/types/member";
+import { type MembersWithUnlockedCount } from "@/types/member";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
@@ -23,13 +23,7 @@ export default function Page(): ReactElement {
     fetchMembersWithUnlockedCount,
   );
 
-  async function fetchMembersWithUnlockedCount(): Promise<
-    Array<
-      Member & {
-        unlockedCount: number;
-      }
-    >
-  > {
+  async function fetchMembersWithUnlockedCount(): Promise<MembersWithUnlockedCount> {
     const members = await fetchMembers();
     const unlockedAchievements = await fetch();
 
