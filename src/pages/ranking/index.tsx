@@ -11,11 +11,39 @@ import { S } from "@/lib/consts";
 import { type Member } from "@/types/member";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
-type MembersWithUnlockedCount = Array<
-  Member & {
-    unlockedCount: number;
-  }
->;
+const RankingCardStyle = styled.div`
+  border-radius: 50px;
+  top: 16vh;
+  left: 6vw;
+  height: 40rem;
+  width: 62vw;
+  position: absolute;
+  overflow: scroll;
+  z-index: 1;
+`;
+
+const RankingCardBox = styled.div`
+  box-shadow:
+    inset 8px 8px 32px #b5bec9,
+    inset -12px -12px 32px #ffffff;
+
+  border-radius: 50px;
+  top: 16vh;
+  left: 6vw;
+  height: 40rem;
+  width: 62vw;
+  position: absolute;
+  z-index: 0;
+`;
+
+const LogRecentUnlockedStyle = styled.div`
+  position: absolute;
+  overflow: scroll;
+  left: 73%;
+  width: 26vw;
+  height: 100vh;
+  background-color: #e7e7e7;
+`;
 
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
@@ -26,8 +54,12 @@ export default function Page(): ReactElement {
   );
 
   async function fetchMembersWithUnlockedCount(): Promise<{
-    membersWithUnlockedCount: MembersWithUnlockedCount;
     unlockedAchievements: UnlockedAchievement[];
+    membersWithUnlockedCount: Array<
+      Member & {
+        unlockedCount: number;
+      }
+    >;
   }> {
     const members = await fetchMembers();
     const unlockedAchievements = await fetch();
@@ -48,44 +80,10 @@ export default function Page(): ReactElement {
       .sort((a, b) => b.unlockedCount - a.unlockedCount);
 
     return {
-      membersWithUnlockedCount,
+      membersWithUnlockedCount: membersWithUnlockedCount,
       unlockedAchievements,
     };
   }
-
-  const RankingCardStyle = styled.div`
-    border-radius: 50px;
-    top: 16vh;
-    left: 6vw;
-    height: 40rem;
-    width: 62vw;
-    position: absolute;
-    overflow: scroll;
-    z-index: 1;
-  `;
-
-  const RankingCardBox = styled.div`
-    box-shadow:
-      inset 8px 8px 32px #b5bec9,
-      inset -12px -12px 32px #ffffff;
-
-    border-radius: 50px;
-    top: 16vh;
-    left: 6vw;
-    height: 40rem;
-    width: 62vw;
-    position: absolute;
-    z-index: 0;
-  `;
-
-  const LogRecentUnlockedStyle = styled.div`
-    position: absolute;
-    overflow: scroll;
-    left: 73%;
-    width: 26vw;
-    height: 100vh;
-    background-color: #e7e7e7;
-  `;
 
   return match(swrMembersWithUnlockedCount)
     .with(S.Loading, () => <p>Loading...</p>)
@@ -95,10 +93,10 @@ export default function Page(): ReactElement {
         <div>
           <RankingCardStyle>
             <Box mt="2rem" />
-            {membersWithUnlockedCount.map((m, idx) => (
+            {membersWithUnlockedCount.map((m, index) => (
               <RankingCard
                 key={m.email}
-                idx={idx}
+                index={index}
                 member={m}
                 point={m.unlockedCount}
               />

@@ -7,11 +7,11 @@ import { type Member } from "@/types/member";
 export function RankingCard({
   member,
   point,
-  idx,
+  index,
 }: {
   member: Member;
   point: number;
-  idx: number;
+  index: number;
 }): ReactElement {
   const { name, email, icon } = member;
 
@@ -40,7 +40,7 @@ export function RankingCard({
       <Link params={{ id: email }} to="/members/:id">
         <Flex align="center" gap="6" ml="6rem">
           <Text mr="2rem" size="8" weight="bold">
-            {idx + 1}
+            {index + 1}
           </Text>
           <Avatar fallback="T" radius="full" size="7" src={icon} />
           <Flex align="center" direction="column">
