@@ -11,12 +11,6 @@ import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import { type Member } from "@/types/member";
 
-type MembersWithUnlockedCount = Array<
-  Member & {
-    unlockedCount: number;
-  }
->;
-
 const BoxStyle = styled(Box)`
   margin: 0 auto;
 `;
@@ -29,14 +23,20 @@ export default function Page(): ReactElement {
     fetchMembersWithUnlockedCount,
   );
 
-  async function fetchMembersWithUnlockedCount(): Promise<MembersWithUnlockedCount> {
+  async function fetchMembersWithUnlockedCount(): Promise<
+    Array<
+      Member & {
+        unlockedCount: number;
+      }
+    >
+  > {
     const members = await fetchMembers();
     const unlockedAchievements = await fetch();
 
     if (unlockedAchievements == null)
       throw new Error("No unlockedAchievements found.");
 
-    return members
+    const membersWithUnlockedCount = members
       .map((m) => {
         const unlockedCount = unlockedAchievements.filter(
           (u) => u.memberEmail === m.email,
@@ -47,6 +47,8 @@ export default function Page(): ReactElement {
         };
       })
       .sort((a, b) => b.unlockedCount - a.unlockedCount);
+
+    return membersWithUnlockedCount;
   }
 
   return match(swrMembersWithUnlockedCount)
@@ -63,9 +65,8 @@ export default function Page(): ReactElement {
           </Table.Header>
 
           <Table.Body>
-            {data.map((m, idx) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <MemberCard key={idx} member={m} point={m.unlockedCount} />
+            {data.map((m) => (
+              <MemberCard key={m.email} member={m} point={m.unlockedCount} />
             ))}
           </Table.Body>
         </Table.Root>
