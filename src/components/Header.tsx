@@ -15,7 +15,7 @@ import { Link } from "@/router.ts";
 
 const HeaderStyle = styled(Flex)`
   position: fixed;
-  color: #465061;
+  color: #242d3c;
   top: 3%;
   right: 0;
   left: 0;
@@ -32,7 +32,7 @@ const RightContents = styled(Flex)`
 
 const CreateStyle = styled(Link)`
   color: #f7f7f7;
-  background-color: #2f8ae6;
+  background-color: #00cdc2;
   box-shadow:
     12px 12px 16px #b5bec9,
     -12px -12px 16px #ffffff;
@@ -59,7 +59,7 @@ const LinkContents = styled(Link)`
   padding: 0 5rem 0 1.6rem;
   margin-right: -3.4rem;
   border-radius: 80px;
-  color: #465061;
+  color: #242d3c;
 
   align-items: center;
   display: flex;
@@ -84,7 +84,7 @@ const EsaAchievementsStyle = styled(Link)`
 `;
 
 const Esa = styled(Text)`
-  color: #28d8d0;
+  color: #00cdc2;
   font-size: 2rem;
 `;
 

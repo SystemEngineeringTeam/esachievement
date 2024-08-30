@@ -8,80 +8,111 @@ import { Link } from "@/router.ts";
 
 export default function App(): ReactElement {
   const Catchcopy = styled(Text)`
-    color: #374151;
+    color: #242d3c;
     letter-spacing: -0.1rem;
-    font-weight: 900;
-    font-size: 3.9rem;
+    font-weight: 700;
+    font-size: 4.8rem;
+    line-height: 4.6rem;
     font-family: sans-serif;
-  `;
-
-  const SubCatchcopy = styled(Text)`
-    color: #374151;
-    letter-spacing: -0.1rem;
-    font-weight: 600;
-    font-size: 3.6rem;
-    font-family: sans-serif;
+    position: relative;
+    z-index: 3;
     span {
+      color: #00cdc2;
+      margin-left: 0.1rem;
       text-shadow:
-        6px 6px 16px #ccd6e2,
+        6px 6px 16px #b5bec9,
         -6px -6px 16px #ffffff;
-      color: #429ffb;
     }
   `;
 
-  const Detail = styled(Text)`
-    width: 30vw;
-    color: #6b7180;
+  const SubCatchcopy = styled(Text)`
+    color: #6c7482;
+    /* letter-spacing: -0.1rem; */
+    font-weight: 500;
+    font-size: 0.8rem;
+    font-family: sans-serif;
+  `;
 
-    line-height: 1.8rem;
-    font-weight: 600;
+  const Detail = styled(Text)`
+    width: 28vw;
+    color: #737a89;
+
+    line-height: 1.4rem;
+    font-weight: 500;
     font-size: 0.8rem;
     font-family: sans-serif;
   `;
 
   const Button1 = styled(Link)`
-    font-weight: bold;
+    font-weight: 600;
     font-family: sans-serif;
-    font-size: 0.9rem;
-    background-color: #ebebeb;
+    font-size: 1rem;
 
-    color: #525c6e;
+    background-color: #e7e7e7;
+    color: #00cdc2;
+    border: 1px solid #00cdc2;
+
     width: fit-content;
     height: fit-content;
 
-    padding: 1.2vh 1.8vw;
-    margin-top: 5.6vh;
-    margin-left: 0.2vw;
+    padding: 1.2vh 1.3vw 1.2vh 1.8vw;
+    margin-top: 4vh;
+    margin-left: 0.3vw;
 
     border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 
     box-shadow:
       6px 6px 16px #b5bec9,
       -6px -6px 16px #ffffff;
-    &:hover {
-      background-color: #34e8df;
 
-      box-shadow:
-        6px 6px 20px #b5bec9,
-        -3px -3px 20px #ffffff;
+    transform-origin: 50% 50%;
+
+    ::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 120%;
+      background-color: #00cdc2;
+
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transform-origin: 100% 50%;
+      transform: scaleX(0%);
+      transition: transform 300ms;
+    }
+
+    &:hover {
+      box-shadow: none;
       transform: scale(1.06);
-      transition: 200ms;
+      transition: 300ms;
+      color: #ffffff;
+    }
+
+    &:hover ::after {
+      transform-origin: 0% 50%;
+      transform: scaleX(100%);
+      transform: none;
     }
   `;
 
   const RockStyle = styled.img`
-    width: 40vw;
-    margin-top: 10vh;
-    margin-left: 4vw;
+    position: absolute;
+    width: 48rem;
+    left: 46vw;
+    top: 2vh;
   `;
 
   const CrossStyle = styled.img`
     width: 28vw;
-    top: 64vh;
-    left: 32vw;
+    top: 68vh;
+    left: 24vw;
     position: absolute;
     z-index: -1;
   `;
@@ -89,28 +120,27 @@ export default function App(): ReactElement {
   const CircleStyle = styled.img`
     width: 30vw;
     top: -26vh;
-    left: 42vw;
+    left: 34vw;
     position: absolute;
     z-index: -1;
   `;
 
   return (
     <Flex>
-      <Flex direction="column" ml="11vw" mt="24vh">
-        <Catchcopy mb="-1.6vh">Esachievement</Catchcopy>
-        <SubCatchcopy ml="-0.1vw">
-          ゲームの実績を<span>現実</span>に
+      <Flex direction="column" ml="12vw" mt="26vh">
+        <Catchcopy mb="-2.6vh">
+          Make Your
+          <br />
+          <span>Life a Game!!</span>
+        </Catchcopy>
+        <SubCatchcopy ml="0.5vw" mt="9vh">
+          EsaChievement
         </SubCatchcopy>
-        <Detail ml="0.5vw" mt="5vh">
-          Esachievementは、ゲームの「実績解除」と情報共有サービス「esa」を組み合わせたWebアプリです。このアプリは
-          チーム活動をより楽しく効率的にすることを目的として開発され、サークルや研究室での情報共有を促進しながら達成感を得ることができる仕組みになっています。
+        <Detail ml="0.5vw" mt="1vh">
+          実績解除と情報共有サービスesaを組み合わせたWebアプリです。このアプリはチーム活動をより楽しく効率的にすることを目的として開発されサークルや研究室での情報共有を促進しながら達成感を得ることができる仕組みになっています。
         </Detail>
         <Button1 to="/create">
           <Text mr="10px">使ってみる</Text>
-          <img
-            alt="arrow-right"
-            src="https://api.iconify.design/formkit:arrowright.svg?color=%23525c6e"
-          />
         </Button1>
       </Flex>
       <RockStyle alt="Rock" src={Rock} />
