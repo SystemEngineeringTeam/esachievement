@@ -14,7 +14,7 @@ export function Redirects({ children }: { children: ReactNode }): ReactNode {
   ) {
     // eslint-disable-next-line no-console
     console.warn("Member is not authenticated; Redirecting to `/`...");
-    return <Navigate replace to="/auth/login" />;
+    return <Navigate replace to="/" />;
   }
 
   return children;
