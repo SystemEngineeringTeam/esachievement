@@ -19,24 +19,20 @@ export default function Page(): ReactElement {
   const { fetch } = useAchievements(useTeam);
   const swrAchievements = useSWR("achievements", fetchAchievements);
 
-  async function fetchAchievements(): Promise<{
-    achievements: Achievement[];
-  }> {
+  async function fetchAchievements(): Promise<Achievement[]> {
     const achievements = await fetch();
 
     if (achievements == null) throw new Error("No achievements found.");
 
-    return {
-      achievements,
-    };
+    return achievements;
   }
 
   return match(swrAchievements)
     .with(S.Loading, () => <div>Loading...</div>)
-    .with(S.Success, ({ data: { achievements } }) => (
+    .with(S.Success, ({ data }) => (
       <BoxStyle width="70%">
         <Box mt="20vh" />
-        {achievements.map((achievement) => {
+        {data.map((achievement) => {
           const typedAchievement = achievement as unknown as Achievement;
           return (
             <AchievementCard
