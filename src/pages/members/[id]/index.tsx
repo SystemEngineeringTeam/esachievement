@@ -1,5 +1,4 @@
 import { type ReactElement } from "react";
-import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { useTeam } from "@/hooks/teams";
