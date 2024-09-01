@@ -1,9 +1,12 @@
-import { Flex, Text } from "@radix-ui/themes";
+import { useStore } from "@nanostores/react";
+import { Flex, Text, Button } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import Circle from "@/assets/Circle.svg";
 import Cross from "@/assets/Cross.svg";
 import Rock from "@/assets/Rock.svg";
+import { getAuthorizePageUrl } from "@/lib/services/esa";
+import { $hasAuthenticated } from "@/lib/stores/auth";
 import { Link } from "@/router.ts";
 
 export default function App(): ReactElement {
@@ -102,6 +105,65 @@ export default function App(): ReactElement {
     }
   `;
 
+  const Button2 = styled(Button)`
+    font-weight: 600;
+    font-family: sans-serif;
+    font-size: 1rem;
+
+    background-color: #e7e7e7;
+    color: #00cdc2;
+    border: 1px solid #00cdc2;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding: 1.2vh 1.3vw 1.2vh 1.8vw;
+    margin-top: 4vh;
+    margin-left: 0.3vw;
+
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+
+    box-shadow:
+      6px 6px 16px #b5bec9,
+      -6px -6px 16px #ffffff;
+
+    transform-origin: 50% 50%;
+    transition: 300ms;
+
+    ::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 120%;
+      background-color: #00cdc2;
+
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transform-origin: 100% 50%;
+      transform: scaleX(0%);
+      transition: transform 300ms;
+    }
+
+    &:hover {
+      box-shadow: none;
+      transform: scale(1.06);
+      color: #ffffff;
+    }
+
+    &:hover ::after {
+      transform-origin: 0% 50%;
+      transform: scaleX(100%);
+      transform: none;
+    }
+  `;
+
   const RockStyle = styled.img`
     position: absolute;
     width: 48rem;
@@ -139,9 +201,16 @@ export default function App(): ReactElement {
         <Detail ml="0.5vw" mt="1vh">
           実績解除と情報共有サービスesaを組み合わせたWebアプリです。このアプリはチーム活動をより楽しく効率的にすることを目的として開発されサークルや研究室での情報共有を促進しながら達成感を得ることができる仕組みになっています。
         </Detail>
-        <Button1 to="/create">
-          <Text mr="10px">使ってみる</Text>
-        </Button1>
+
+        {useStore($hasAuthenticated) ? (
+          <Button1 to="/ranking">
+            <Text mr="10px">使ってみる</Text>
+          </Button1>
+        ) : (
+          <Button2 as="a" href={getAuthorizePageUrl()}>
+            <Text mr="10px">使ってみる</Text>
+          </Button2>
+        )}
       </Flex>
       <RockStyle alt="Rock" src={Rock} />
       <CrossStyle alt="Cross" src={Cross} />
