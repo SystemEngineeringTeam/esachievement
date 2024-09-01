@@ -9,13 +9,7 @@ import { MemberCard } from "@/components/member/Card";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { type Member } from "@/types/member";
-
-type MembersWithUnlockedCount = Array<
-  Member & {
-    unlockedCount: number;
-  }
->;
+import { type MembersWithUnlockedCount } from "@/types/member";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
@@ -36,7 +30,7 @@ export default function Page(): ReactElement {
     if (unlockedAchievements == null)
       throw new Error("No unlockedAchievements found.");
 
-    return members
+    const membersWithUnlockedCount = members
       .map((m) => {
         const unlockedCount = unlockedAchievements.filter(
           (u) => u.memberEmail === m.email,
@@ -47,6 +41,8 @@ export default function Page(): ReactElement {
         };
       })
       .sort((a, b) => b.unlockedCount - a.unlockedCount);
+
+    return membersWithUnlockedCount;
   }
 
   return match(swrMembersWithUnlockedCount)
@@ -63,9 +59,8 @@ export default function Page(): ReactElement {
           </Table.Header>
 
           <Table.Body>
-            {data.map((m, idx) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <MemberCard key={idx} member={m} point={m.unlockedCount} />
+            {data.map((m) => (
+              <MemberCard key={m.email} member={m} point={m.unlockedCount} />
             ))}
           </Table.Body>
         </Table.Root>
