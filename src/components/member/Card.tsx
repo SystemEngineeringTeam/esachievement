@@ -20,8 +20,22 @@ export function MemberCard({
     }
   `;
 
+  const CardStyle = styled(Flex)`
+    transition: background-color 100ms;
+    color: #374151;
+    border-radius: 16px;
+    height: fit-content;
+    cursor: pointer;
+    &:hover {
+      box-shadow:
+        inset 8px 8px 16px #b5bec9,
+        inset -8px -8px 16px #ffffff;
+      transition: 100ms;
+    }
+  `;
+
   return (
-    <TableRow
+    <CardStyle
       onClick={() => {
         if (member.email == null) {
           throw new Error("Member email is undefined");
@@ -48,6 +62,6 @@ export function MemberCard({
           {point}pt
         </Text>
       </Table.Cell>
-    </TableRow>
+    </CardStyle>
   );
 }
