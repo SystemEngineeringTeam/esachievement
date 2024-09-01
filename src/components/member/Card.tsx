@@ -44,6 +44,7 @@ export function MemberCard({
 
   return (
     <CardStyle
+      align="center"
       onClick={() => {
         if (member.email == null) {
           throw new Error("Member email is undefined");
@@ -54,20 +55,24 @@ export function MemberCard({
           },
         });
       }}
+      p="1rem"
     >
-      <Table.RowHeaderCell>
-        <AvatarStyle fallback="A" radius="full" size="6" src={member.icon} />
-      </Table.RowHeaderCell>
-      <Table.Cell>
-        <Text as="div" size="8" weight="bold">
-          {member.name}
-        </Text>
-      </Table.Cell>
-      <Table.Cell>
-        <Text as="div" size="6">
-          {point}pt
-        </Text>
-      </Table.Cell>
+      <AvatarStyle
+        fallback="A"
+        ml="7vw"
+        mr="3vw"
+        radius="full"
+        size="6"
+        src={member.icon}
+      />
+
+      <Text as="div" size="8" weight="bold">
+        {member.name}
+      </Text>
+
+      <Text as="div" size="6">
+        {point}pt
+      </Text>
     </CardStyle>
   );
 }

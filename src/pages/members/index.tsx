@@ -1,4 +1,4 @@
-import { Box, Table } from "@radix-ui/themes";
+import { Box } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 // import SampleMember from "@/assets/members.json";
@@ -13,6 +13,8 @@ import { type MembersWithUnlockedCount } from "@/types/member";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
+  height: 100vh;
+  overflow: scroll;
 `;
 
 export default function Page(): ReactElement {
@@ -49,21 +51,11 @@ export default function Page(): ReactElement {
     .with(S.Loading, () => <div>Loading...</div>)
     .with(S.Success, ({ data }) => (
       <BoxStyle width="70%">
-        <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell> </Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>名前</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>ポイント</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            {data.map((m) => (
-              <MemberCard key={m.email} member={m} point={m.unlockedCount} />
-            ))}
-          </Table.Body>
-        </Table.Root>
+        <Box mt="20vh" />
+        {data.map((m) => (
+          <MemberCard key={m.email} member={m} point={m.unlockedCount} />
+        ))}
+                <Box mt="20vh" />
       </BoxStyle>
     ))
     .otherwise(({ error }) => {
