@@ -20,7 +20,6 @@ export function Catch(): ReactElement {
     gap: 10px;
     color: #ff3e3e;
     background-color: #ffedee;
-
     > p {
       font-size: 1.2rem;
       font-weight: bold;
@@ -49,11 +48,10 @@ export default function Layout(): ReactElement {
   const Main = styled.main`
     font-family: "Noto Sans JP Variable";
     word-break: keep-all;
-    background-color: #e7e7e7;
-    overflow: hidden;
   `;
-  const BodyStyle = styled.div`
-    height: 100vw;
+  const BodyStyle = styled.div``;
+  const ThemeStyle = styled(Theme)`
+    background-color: #e7e7e7;
     overflow: hidden;
     ::-webkit-scrollbar {
       /* Edge Chorome Safari Operaなど */
@@ -61,7 +59,7 @@ export default function Layout(): ReactElement {
     }
   `;
   return (
-    <Theme>
+    <ThemeStyle>
       <Main>
         <Redirects>
           <Header />
@@ -70,6 +68,6 @@ export default function Layout(): ReactElement {
           </BodyStyle>
         </Redirects>
       </Main>
-    </Theme>
+    </ThemeStyle>
   );
 }
