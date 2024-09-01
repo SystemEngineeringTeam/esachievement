@@ -55,7 +55,7 @@ export default function Page(): ReactElement {
         {data.map((m) => (
           <MemberCard key={m.email} member={m} point={m.unlockedCount} />
         ))}
-                <Box mt="20vh" />
+        <Box mt="20vh" />
       </BoxStyle>
     ))
     .otherwise(({ error }) => {
