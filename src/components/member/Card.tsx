@@ -1,4 +1,4 @@
-import { Avatar, Flex, Table, Text } from "@radix-ui/themes";
+import { Avatar, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import { useNavigate } from "@/router";
@@ -12,13 +12,6 @@ export function MemberCard({
   point: number;
 }): ReactElement {
   const navigate = useNavigate();
-  const TableRow = styled(Table.Row)`
-    transition: background-color 100ms;
-    cursor: pointer;
-    &:hover {
-      background-color: #e2e8f0;
-    }
-  `;
 
   const CardStyle = styled(Flex)`
     transition: background-color 100ms;
@@ -40,6 +33,20 @@ export function MemberCard({
       -8px -8px 16px #ffffff;
     box-sizing: content-box;
     border: 6px solid #e7e7e7;
+  `;
+
+  const NameStyle = styled(Text)`
+    font-weight: bold;
+    font-size: 2rem;
+    width: 30vw;
+  `;
+
+  const PointStyle = styled(Text)`
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #374151;
+
+    margin-right: 1vw;
   `;
 
   return (
@@ -66,13 +73,11 @@ export function MemberCard({
         src={member.icon}
       />
 
-      <Text as="div" size="8" weight="bold">
-        {member.name}
-      </Text>
+      <NameStyle as="div">{member.name}</NameStyle>
 
-      <Text as="div" size="6">
+      <PointStyle as="div" size="6">
         {point}pt
-      </Text>
+      </PointStyle>
     </CardStyle>
   );
 }

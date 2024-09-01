@@ -17,11 +17,11 @@ export function AchievementCard({
     border-radius: 16px;
     height: fit-content;
     cursor: pointer;
+    transition: 200ms;
     &:hover {
       box-shadow:
         inset 8px 8px 16px #b5bec9,
         inset -8px -8px 16px #ffffff;
-      transition: 100ms;
     }
   `;
 
