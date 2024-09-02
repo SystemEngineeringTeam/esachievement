@@ -156,7 +156,7 @@ export default function create(): ReactElement {
           />
         </AvatarContainer>
         <Box mb="5vh" width="50vw">
-          <Text>Achievement Name</Text>
+          <Text>実績名</Text>
           <TextField.Root
             placeholder="カカポ"
             size="3"
@@ -168,7 +168,7 @@ export default function create(): ReactElement {
         </Box>
         <Flex justify="between" width="50vw">
           <Box mb="5vh" width="24vw">
-            <Text>Achievement First Tag Name</Text>
+            <Text>実績につけるタグ</Text>
             <TextField.Root
               placeholder="#party parrot"
               size="3"
@@ -179,7 +179,7 @@ export default function create(): ReactElement {
             </TextField.Root>
           </Box>
           <Box mb="5vh" width="24vw">
-            <Text>Achievement Second Tag Name</Text>
+            <Text>実績につけるタグ</Text>
             <TextField.Root
               placeholder="#love2"
               size="3"
@@ -191,7 +191,7 @@ export default function create(): ReactElement {
           </Box>
         </Flex>
         <Box mb="5vh" width="50vw">
-          <Text>Achievement Detail</Text>
+          <Text>実績の詳細</Text>
           <TextField.Root
             placeholder="lkjhgvb"
             size="3"
