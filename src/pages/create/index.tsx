@@ -5,7 +5,6 @@ import {
   Box,
   Avatar,
   Text,
-  Button,
   IconButton,
   Popover,
 } from "@radix-ui/themes";
@@ -34,10 +33,78 @@ export default function create(): ReactElement {
     position: relative;
   `;
 
+  const AvatarStyle = styled(Avatar)`
+    box-shadow:
+      8px 8px 16px #b5bec9,
+      -8px -8px 16px #ffffff;
+    box-sizing: content-box;
+    border: 10px solid #e7e7e7;
+  `;
+
+  const Button1 = styled(Box)`
+    font-weight: 600;
+    font-family: sans-serif;
+    font-size: 1rem;
+
+    background-color: #e7e7e7;
+    color: #00cdc2;
+    border: 1px solid #00cdc2;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding: 1.2vh 1.8vw 1.2vh 1.8vw;
+    margin-top: 4vh;
+    margin-left: 0.3vw;
+
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+
+    box-shadow:
+      6px 6px 16px #b5bec9,
+      -6px -6px 16px #ffffff;
+
+    transform-origin: 50% 50%;
+    transition: 300ms;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 120%;
+      background-color: #00cdc2;
+
+      top: 0;
+      left: 0;
+      z-index: -1;
+      transform-origin: 100% 50%;
+      transform: scaleX(0%);
+      transition: transform 300ms;
+    }
+
+    &:hover {
+      box-shadow: none;
+      transform: scale(1.06);
+      color: #ffffff;
+      background-color: #00cdc2;
+    }
+
+    &:hover &::after {
+      transform-origin: 0% 50%;
+      transform: scaleX(100%);
+      transform: none;
+    }
+  `;
+
   const PlusButton = styled(IconButton)`
     position: absolute;
-    top: 152px;
-    left: 112px;
+    top: 164px;
+    left: 132px;
   `;
 
   const iconUrl = [
@@ -79,7 +146,7 @@ export default function create(): ReactElement {
               </Text>
             </Popover.Content>
           </Popover.Root>
-          <Avatar
+          <AvatarStyle
             fallback="A"
             mb="5vh"
             mt="5vh"
@@ -99,7 +166,7 @@ export default function create(): ReactElement {
             <TextField.Slot px="1" side="right" />
           </TextField.Root>
         </Box>
-        <Flex width="50vw" justify="between">
+        <Flex justify="between" width="50vw">
           <Box mb="5vh" width="24vw">
             <Text>Achievement First Tag Name</Text>
             <TextField.Root
@@ -134,10 +201,11 @@ export default function create(): ReactElement {
             <TextField.Slot px="1" side="right" />
           </TextField.Root>
         </Box>
+
         <Box mb="20vh">
-          <Button>
-            <input type="submit" value="submit" />
-          </Button>
+          <Button1>
+            <input type="submit" value="実績を追加する" />
+          </Button1>
         </Box>
       </FormStyle>
     </form>
