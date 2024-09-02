@@ -25,8 +25,10 @@ export default function create(): ReactElement {
   };
 
   const FormStyle = styled(Flex)`
-    overflow: scroll;
-    height: 100vh;
+    margin-top: 4rem;
+    height: 90vh;
+    color: #242d3c;
+    justify-content: space-between;
   `;
 
   const AvatarContainer = styled.div`
@@ -107,6 +109,26 @@ export default function create(): ReactElement {
     left: 132px;
   `;
 
+  const ImputStyle = styled(TextField.Root)`
+    position: relative;
+    background-color: #e7e7e7;
+    margin-top: 0.6rem;
+    box-shadow:
+      3px 3px 8px inset #b5bec9,
+      -6px -6px 16px inset #ffffff;
+    --text-field-focus-color: none;
+    input {
+      margin-left: 0.4rem;
+      color: #737a89;
+    }
+    &:focus {
+      width: 200px;
+      padding: 3px 7px;
+      border-radius: 5px;
+      border: 2px solid #951c1c;
+    }
+  `;
+
   const iconUrl = [
     "https://qr.paps.jp/8o3Og",
     "https://i.imgur.com/5TaVIlf.gif",
@@ -148,61 +170,65 @@ export default function create(): ReactElement {
           </Popover.Root>
           <AvatarStyle
             fallback="A"
-            mb="5vh"
-            mt="5vh"
+            mb="4vh"
+            mt="4vh"
             radius="full"
             size="9"
             src={selectIcon}
           />
         </AvatarContainer>
-        <Box mb="5vh" width="50vw">
-          <Text>実績名</Text>
-          <TextField.Root
+        <Box mb="4vh" width="50vw">
+          <Text ml="0.4rem" weight="medium">
+            実績名
+          </Text>
+          <ImputStyle
             placeholder="カカポ"
+            radius="full"
             size="3"
             type="text"
             {...register("name")}
-          >
-            <TextField.Slot px="1" side="right" />
-          </TextField.Root>
+          />
         </Box>
         <Flex justify="between" width="50vw">
-          <Box mb="5vh" width="24vw">
-            <Text>実績につけるタグ</Text>
-            <TextField.Root
+          <Box mb="4vh" width="24vw">
+            <Text ml="0.4rem" weight="medium">
+              実績につけるタグ
+            </Text>
+            <ImputStyle
               placeholder="#party parrot"
+              radius="full"
               size="3"
               type="text"
               {...register(`tags.${0}.name`)}
-            >
-              <TextField.Slot px="1" side="right" />
-            </TextField.Root>
+            />
           </Box>
-          <Box mb="5vh" width="24vw">
-            <Text>実績につけるタグ</Text>
-            <TextField.Root
+          <Box mb="4vh" width="24vw">
+            <Text ml="0.4rem" weight="medium">
+              実績につけるタグ
+            </Text>
+            <ImputStyle
               placeholder="#love2"
+              radius="full"
               size="3"
               type="text"
               {...register(`tags.${1}.name`)}
-            >
-              <TextField.Slot px="1" side="right" />
-            </TextField.Root>
+            />
           </Box>
         </Flex>
-        <Box mb="5vh" width="50vw">
-          <Text>実績の詳細</Text>
-          <TextField.Root
+        <Box mb="3vh" width="50vw">
+          <Text ml="0.4rem" weight="medium">
+            実績の詳細
+          </Text>
+          <ImputStyle
             placeholder="lkjhgvb"
+            radius="full"
             size="3"
             type="text"
             {...register("description")}
-          >
-            <TextField.Slot px="1" side="right" />
-          </TextField.Root>
+          />
         </Box>
 
-        <Box mb="20vh">
+        <Box mb="auto">
           <Button1>
             <input type="submit" value="実績を追加する" />
           </Button1>
