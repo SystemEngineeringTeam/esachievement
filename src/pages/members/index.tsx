@@ -9,7 +9,7 @@ import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import {
-  fetchMembersAndUnlockedAchievementsAndAchievements,
+  fetchMembersAndUnlockedAchievements,
   getUnlockedAchievementsFromMember,
 } from "@/lib/utils/fetchers";
 import { handleSWRError } from "@/lib/utils/swr";
@@ -26,7 +26,7 @@ export default function Page(): ReactElement {
   const swrMembersAndUnlockedAchievements = useSWRImmutable(
     "membersAndUnlockedAchievements",
     async () =>
-      await fetchMembersAndUnlockedAchievementsAndAchievements(
+      await fetchMembersAndUnlockedAchievements(
         fetchMembers,
         fetchUnlockedAchievements,
       ),
