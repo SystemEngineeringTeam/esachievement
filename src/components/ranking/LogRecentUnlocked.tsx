@@ -43,7 +43,6 @@ export function LogRecentUnlocked({
         <Flex align="center" gap="3" justify="center">
           <Avatar
             fallback="T"
-            radius="full"
             size="4"
             src={unlockedAchievement.icon}
           />

@@ -60,7 +60,6 @@ export function RecentUnlockedCard({
         <Flex gap="2">
           <Avatar
             fallback="A"
-            radius="full"
             size="6"
             src={matchedAchievement?.icon}
           />
