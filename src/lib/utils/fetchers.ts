@@ -20,6 +20,10 @@ export async function fetchMembersAndUnlockedAchievements(
   const members = await fetchMembers();
   const unlockedAchievements = await fetchUnlockedAchievements();
 
+  if (members == null) {
+    throw new Error("`members` is null!  Maybe you forgot to call `init()`");
+  }
+
   if (unlockedAchievements == null) {
     throw new Error(
       "`unlockedAchievements` is null!  Maybe you forgot to call `init()`",
@@ -55,6 +59,41 @@ export async function fetchAchievementsWithUnlocked(
   }
 
   return {
+    achievements,
+    unlockedAchievements,
+  };
+}
+export async function fetchMembersAndUnlockedAchievementsAndAchievements(
+  fetchMembers: () => Promise<Member[]>,
+  fetchAchievements: () => Promise<Nullable<Achievement[]>>,
+  fetchUnlockedAchievements: () => Promise<Nullable<UnlockedAchievement[]>>,
+): Promise<{
+  members: Member[];
+  achievements: Achievement[];
+  unlockedAchievements: UnlockedAchievement[];
+}> {
+  const members = await fetchMembers();
+  const achievements = await fetchAchievements();
+  const unlockedAchievements = await fetchUnlockedAchievements();
+
+  if (members == null) {
+    throw new Error("`members` is null!  Maybe you forgot to call `init()`");
+  }
+
+  if (achievements == null) {
+    throw new Error(
+      "`achievements` is null!  Maybe you forgot to call `init()`",
+    );
+  }
+
+  if (unlockedAchievements == null) {
+    throw new Error(
+      "`unlockedAchievements` is null!  Maybe you forgot to call `init()`",
+    );
+  }
+
+  return {
+    members,
     achievements,
     unlockedAchievements,
   };

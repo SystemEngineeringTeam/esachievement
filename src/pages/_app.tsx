@@ -12,27 +12,27 @@ import "@radix-ui/themes/styles.css";
 import "@fontsource-variable/noto-sans-jp";
 import "@/styles/global.css";
 
+const Error = styled(Center)`
+  position: relative;
+  gap: 10px;
+  color: #ff3e3e;
+  background-color: #ffedee;
+  > p {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+`;
+
+const Image = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+`;
+
 export function Catch(): ReactElement {
   const error = useRouteError();
-
-  const Error = styled(Center)`
-    position: relative;
-    gap: 10px;
-    color: #ff3e3e;
-    background-color: #ffedee;
-    > p {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-  `;
-
-  const Image = styled.img`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    user-select: none;
-  `;
 
   return (
     <Error>
@@ -44,20 +44,21 @@ export function Catch(): ReactElement {
   );
 }
 
+const Main = styled.main`
+  font-family: "Noto Sans JP Variable";
+  word-break: keep-all;
+`;
+const BodyStyle = styled.div``;
+const ThemeStyle = styled(Theme)`
+  background-color: #e7e7e7;
+  overflow: hidden;
+  ::-webkit-scrollbar {
+    /* Edge Chorome Safari Operaなど */
+    display: none;
+  }
+`;
+
 export default function Layout(): ReactElement {
-  const Main = styled.main`
-    font-family: "Noto Sans JP Variable";
-    word-break: keep-all;
-  `;
-  const BodyStyle = styled.div``;
-  const ThemeStyle = styled(Theme)`
-    background-color: #e7e7e7;
-    overflow: hidden;
-    ::-webkit-scrollbar {
-      /* Edge Chorome Safari Operaなど */
-      display: none;
-    }
-  `;
   return (
     <ThemeStyle>
       <Main>

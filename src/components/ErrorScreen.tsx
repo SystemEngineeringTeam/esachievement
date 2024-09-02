@@ -3,6 +3,25 @@ import { type ReactElement, useEffect } from "react";
 import styled from "styled-components";
 import { Center } from "./Center";
 
+const Error = styled(Center)`
+  position: relative;
+  gap: 10px;
+  color: #ff3e3e;
+  background-color: #ffedee;
+  > p {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+`;
+
+const Image = styled.img`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  user-select: none;
+`;
+
 export function ErrorScreen({
   title,
   error,
@@ -14,25 +33,6 @@ export function ErrorScreen({
     // eslint-disable-next-line no-console
     console.error(error);
   }, []);
-
-  const Error = styled(Center)`
-    position: relative;
-    gap: 10px;
-    color: #ff3e3e;
-    background-color: #ffedee;
-    > p {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-  `;
-
-  const Image = styled.img`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    user-select: none;
-  `;
 
   return (
     <Error>

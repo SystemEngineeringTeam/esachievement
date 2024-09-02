@@ -5,20 +5,20 @@ import styled from "styled-components";
 import Achievements from "@/assets/achievements.json";
 import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
+const TableRow = styled(Table.Row)`
+  transition: background-color 100ms;
+  cursor: pointer;
+  &:hover {
+    background-color: #e2e8f0;
+  }
+`;
+
 export function RecentUnlockedCard({
   unlockedAchievement,
 }: {
   unlockedAchievement: UnlockedAchievement;
 }): ReactElement {
   // const navigate = useNavigate();
-
-  const TableRow = styled(Table.Row)`
-    transition: background-color 100ms;
-    cursor: pointer;
-    &:hover {
-      background-color: #e2e8f0;
-    }
-  `;
 
   const [dayDiff, setDayDiff] = useState(0);
   const rtf1 = new Intl.RelativeTimeFormat("jp-lg", { style: "short" });

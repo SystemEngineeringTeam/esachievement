@@ -12,21 +12,21 @@ import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import { handleSWRError } from "@/lib/utils/swr";
 
+const FlexStyled = styled(Flex)`
+  gap: 15rem;
+`;
+
+const ButtonStyle = styled(Button)`
+  transform: scale(2);
+  padding: 0;
+  height: 100px;
+  width: 100px;
+`;
+
 export function TeamSelector(): ReactElement {
   const navigate = useNavigate();
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
   const swrJoinedTeams = useSWRImmutable("joinedTeams", fetchJoinedTeams);
-
-  const FlexStyled = styled(Flex)`
-    gap: 15rem;
-  `;
-
-  const ButtonStyle = styled(Button)`
-    transform: scale(2);
-    padding: 0;
-    height: 100px;
-    width: 100px;
-  `;
 
   const initializeFunc = (): void => {
     const { init: initAchievements } = useAchievements(useTeam);

@@ -4,6 +4,24 @@ import styled from "styled-components";
 import { Link } from "@/router";
 import { type Member } from "@/types/member";
 
+const BoxStyle = styled(Box)`
+  border-radius: 24px;
+  border-color: #cbd5e1;
+  box-shadow:
+    12px 12px 32px #b5bec9,
+    -12px -12px 32px #ffffff;
+
+  padding: 1.2rem 0;
+  margin: 0 auto;
+  margin-bottom: 1.4rem;
+  width: 40rem;
+  background-color: #e7e7e7;
+  &:hover {
+    box-shadow: none;
+    transition: 100ms;
+  }
+`;
+
 export function RankingCard({
   member,
   point,
@@ -16,24 +34,6 @@ export function RankingCard({
   const { name, email, icon } = member;
 
   if (email == null) throw new Error("email is null");
-
-  const BoxStyle = styled(Box)`
-    border-radius: 24px;
-    border-color: #cbd5e1;
-    box-shadow:
-      12px 12px 32px #b5bec9,
-      -12px -12px 32px #ffffff;
-
-    padding: 1.2rem 0;
-    margin: 0 auto;
-    margin-bottom: 1.4rem;
-    width: 40rem;
-    background-color: #e7e7e7;
-    &:hover {
-      box-shadow: none;
-      transition: 100ms;
-    }
-  `;
 
   return (
     <BoxStyle>
