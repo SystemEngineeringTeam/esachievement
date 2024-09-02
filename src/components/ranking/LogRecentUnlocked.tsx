@@ -18,6 +18,10 @@ const BoxStyle = styled(Box)`
   }
 `;
 
+const DateStyle = styled(Text)`
+  padding-left: 10rem;
+`;
+
 export function LogRecentUnlocked({
   unlockedAchievement,
   unlockedMember,
@@ -29,10 +33,6 @@ export function LogRecentUnlocked({
 }): ReactElement {
   if (unlockedAchievement === null || unlockedMember === null)
     throw new Error("unlockedAchievement or unlockedMember is null");
-
-  const DateStyle = styled(Text)`
-    padding-left: 10rem;
-  `;
 
   return (
     <Link
