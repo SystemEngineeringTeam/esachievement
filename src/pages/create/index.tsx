@@ -27,7 +27,7 @@ export default function create(): ReactElement {
 
   const FormStyle = styled(Flex)`
     overflow: scroll;
-    height: calc(100vh - 4.8rem);
+    height: 100vh;
   `;
 
   const AvatarContainer = styled.div`
@@ -50,7 +50,7 @@ export default function create(): ReactElement {
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormStyle align="center" direction="column">
+      <FormStyle align="center" direction="column" justify="center">
         <AvatarContainer>
           <Popover.Root>
             <Popover.Trigger>
@@ -99,28 +99,30 @@ export default function create(): ReactElement {
             <TextField.Slot px="1" side="right" />
           </TextField.Root>
         </Box>
-        <Box mb="5vh" width="50vw">
-          <Text>Achievement First Tag Name</Text>
-          <TextField.Root
-            placeholder="#party parrot"
-            size="3"
-            type="text"
-            {...register(`tags.${0}.name`)}
-          >
-            <TextField.Slot px="1" side="right" />
-          </TextField.Root>
-        </Box>
-        <Box mb="5vh" width="50vw">
-          <Text>Achievement Second Tag Name</Text>
-          <TextField.Root
-            placeholder="#love2"
-            size="3"
-            type="text"
-            {...register(`tags.${1}.name`)}
-          >
-            <TextField.Slot px="1" side="right" />
-          </TextField.Root>
-        </Box>
+        <Flex width="50vw" justify="between">
+          <Box mb="5vh" width="24vw">
+            <Text>Achievement First Tag Name</Text>
+            <TextField.Root
+              placeholder="#party parrot"
+              size="3"
+              type="text"
+              {...register(`tags.${0}.name`)}
+            >
+              <TextField.Slot px="1" side="right" />
+            </TextField.Root>
+          </Box>
+          <Box mb="5vh" width="24vw">
+            <Text>Achievement Second Tag Name</Text>
+            <TextField.Root
+              placeholder="#love2"
+              size="3"
+              type="text"
+              {...register(`tags.${1}.name`)}
+            >
+              <TextField.Slot px="1" side="right" />
+            </TextField.Root>
+          </Box>
+        </Flex>
         <Box mb="5vh" width="50vw">
           <Text>Achievement Detail</Text>
           <TextField.Root
