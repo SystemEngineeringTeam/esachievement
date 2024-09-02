@@ -10,15 +10,28 @@ export function getUnlockedAchievementsFromMember(
   return unlockedAchievements.filter((u) => u.memberEmail === member.email);
 }
 
-export async function fetchMembersAndUnlockedAchievements(
+export async function fetchMembersAndUnlockedAchievementsAndAchievements(
   fetchMembers: () => Promise<Member[]>,
+  fetchAchievements: () => Promise<Nullable<Achievement[]>>,
   fetchUnlockedAchievements: () => Promise<Nullable<UnlockedAchievement[]>>,
 ): Promise<{
   members: Member[];
+  achievements: Achievement[];
   unlockedAchievements: UnlockedAchievement[];
 }> {
   const members = await fetchMembers();
+  const achievements = await fetchAchievements();
   const unlockedAchievements = await fetchUnlockedAchievements();
+
+  if (members == null) {
+    throw new Error("`members` is null!  Maybe you forgot to call `init()`");
+  }
+
+  if (achievements == null) {
+    throw new Error(
+      "`achievements` is null!  Maybe you forgot to call `init()`",
+    );
+  }
 
   if (unlockedAchievements == null) {
     throw new Error(
@@ -28,6 +41,7 @@ export async function fetchMembersAndUnlockedAchievements(
 
   return {
     members,
+    achievements,
     unlockedAchievements,
   };
 }

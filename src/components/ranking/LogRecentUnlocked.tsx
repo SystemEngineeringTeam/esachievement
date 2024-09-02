@@ -1,12 +1,9 @@
 import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-import SampleAchievements from "@/assets/achievements.json";
-import SampleMembers from "@/assets/members.json";
 import { Link } from "@/router";
 import { type Member } from "@/types/member";
 import { type Achievement } from "@/types/post-data/achievements";
-import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
 
 const BoxStyle = styled(Box)`
   border-color: #cbd5e1;
@@ -23,37 +20,42 @@ const BoxStyle = styled(Box)`
 
 export function LogRecentUnlocked({
   unlockedAchievement,
+  unlockedMember,
+  date,
 }: {
-  unlockedAchievement: UnlockedAchievement;
+  unlockedAchievement: Achievement | null;
+  unlockedMember: Member | null;
+  date: Date;
 }): ReactElement {
-  const { memberEmail, achievementID, createdAt } = unlockedAchievement;
+  if (unlockedAchievement === null || unlockedMember === null)
+    throw new Error("unlockedAchievement or unlockedMember is null");
 
   const DateStyle = styled(Text)`
     padding-left: 10rem;
   `;
 
-  const member = SampleMembers.members.find(
-    (m) => m.email === memberEmail,
-  ) as unknown as Member;
-
-  const achievement = SampleAchievements.achievements.find(
-    (a) => a.id === achievementID,
-  ) as unknown as Achievement;
-
   return (
-    <Link params={{ id: achievement.id.toString() }} to="/achievements/:id">
+    <Link
+      params={{ id: unlockedAchievement.id.toString() }}
+      to="/achievements/:id"
+    >
       <BoxStyle>
         <Flex align="center" gap="3" justify="center">
-          <Avatar fallback="T" radius="full" size="4" src={achievement.icon} />
+          <Avatar
+            fallback="T"
+            radius="full"
+            size="4"
+            src={unlockedAchievement.icon}
+          />
           <Box>
             <Text as="div" size="3" weight="bold">
-              {member.name}
+              {unlockedAchievement.name}
             </Text>
             <Text as="div" color="gray" size="2">
-              {achievement.name}
+              {unlockedMember.name}
             </Text>
             <DateStyle color="gray" size="1">
-              {createdAt.toString().slice(0, 10)}
+              {date.toString().slice(0, 10)}
             </DateStyle>
           </Box>
         </Flex>

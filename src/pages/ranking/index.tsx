@@ -6,16 +6,17 @@ import { match } from "ts-pattern";
 import { ErrorScreen } from "@/components/ErrorScreen";
 import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
+import { useAchievements } from "@/hooks/db/achievements";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import {
-  fetchMembersAndUnlockedAchievements,
+  fetchMembersAndUnlockedAchievementsAndAchievements,
   getUnlockedAchievementsFromMember,
 } from "@/lib/utils/fetchers";
 import { handleSWRError } from "@/lib/utils/swr";
 
-const RankingCardStyle = styled.div`
+const RankingListStyle = styled.div`
   border-radius: 50px;
   top: 16vh;
   left: 6vw;
@@ -51,47 +52,77 @@ const LogRecentUnlockedStyle = styled.div`
 
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
+  const { fetch: fetchAchievements } = useAchievements(useTeam);
   const { fetch: fetchUnlockedAchievements } = useUnlockedAchievements(useTeam);
-  const swrMembersAndUnlockedAchievements = useSWRImmutable(
-    "membersAndUnlockedAchievements",
+  const swrMembersAndUnlockedAchievementsAndAchievements = useSWRImmutable(
+    "membersAndUnlockedAchievementsAndAchievements",
     async () =>
-      await fetchMembersAndUnlockedAchievements(
+      await fetchMembersAndUnlockedAchievementsAndAchievements(
         fetchMembers,
+        fetchAchievements,
         fetchUnlockedAchievements,
       ),
   );
 
-  return match(swrMembersAndUnlockedAchievements)
+  return match(swrMembersAndUnlockedAchievementsAndAchievements)
     .with(S.Loading, () => <p>Loading...</p>)
-    .with(S.Success, ({ data: { members, unlockedAchievements } }) => (
-      <div>
-        <RankingCardStyle>
-          <Box mt="2rem" />
-          {members.map((m, idx) => {
-            const point = getUnlockedAchievementsFromMember(
-              m,
-              unlockedAchievements,
-            ).length;
+    .with(
+      S.Success,
+      ({ data: { members, unlockedAchievements, achievements } }) => (
+        <div>
+          <RankingListStyle>
+            <Box mt="2rem" />
+            {members.map((m, idx) => {
+              const point = getUnlockedAchievementsFromMember(
+                m,
+                unlockedAchievements,
+              ).length;
 
-            return (
-              <RankingCard key={m.email} index={idx} member={m} point={point} />
-            );
-          })}
-        </RankingCardStyle>
-        <RankingCardBox />
+              return (
+                <RankingCard
+                  key={m.email}
+                  index={idx}
+                  member={m}
+                  point={point}
+                />
+              );
+            })}
+          </RankingListStyle>
+          <RankingCardBox />
 
-        <LogRecentUnlockedStyle>
-          <Box mt="10rem" />
-          <Text as="div" size="2" weight="bold">
-            最近の実績解除
-          </Text>
-          <Box mt="1rem" />
-          {unlockedAchievements.map((u) => (
-            <LogRecentUnlocked key={u.achievementID} unlockedAchievement={u} />
-          ))}
-        </LogRecentUnlockedStyle>
-      </div>
-    ))
+          <LogRecentUnlockedStyle>
+            <Box mt="10rem" />
+            <Text as="div" size="2" weight="bold">
+              最近の実績解除
+            </Text>
+            <Box mt="1rem" />
+            {unlockedAchievements.map((u) => {
+              const unlockedMember = members.find(
+                (m) => m.email === u.memberEmail,
+              );
+              const unlockedAchievement = achievements.find(
+                (a) => a.id === u.achievementID,
+              );
+
+              if (
+                unlockedAchievement === undefined ||
+                unlockedMember === undefined
+              )
+                return null;
+
+              return (
+                <LogRecentUnlocked
+                  key={u.achievementID}
+                  date={u.createdAt}
+                  unlockedAchievement={unlockedAchievement}
+                  unlockedMember={unlockedMember}
+                />
+              );
+            })}
+          </LogRecentUnlockedStyle>
+        </div>
+      ),
+    )
     .otherwise(({ data, error }) => (
       <ErrorScreen error={handleSWRError(data, error)} />
     ));
