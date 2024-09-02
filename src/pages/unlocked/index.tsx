@@ -1,12 +1,14 @@
 import { Box } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
+import { ErrorScreen } from "@/components/ErrorScreen";
 import { UnlockableCard } from "@/components/achievements/UnlockableCard";
 import { useAchievements } from "@/hooks/db/achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
+import { handleSWRError } from "@/lib/utils/swr";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
@@ -16,7 +18,7 @@ const BoxStyle = styled(Box)`
 
 export default function Page(): ReactElement {
   const { fetch } = useAchievements(useTeam);
-  const swrFetchAchievements = useSWR("fetchAchievements", fetch);
+  const swrFetchAchievements = useSWRImmutable("fetchAchievements", fetch);
 
   return match(swrFetchAchievements)
     .with(S.Loading, () => <p>Loading...</p>)
@@ -28,7 +30,7 @@ export default function Page(): ReactElement {
         ))}
       </BoxStyle>
     ))
-    .otherwise(({ error }) => {
-      throw error;
-    });
+    .otherwise(({ data, error }) => (
+      <ErrorScreen error={handleSWRError(data, error)} />
+    ));
 }

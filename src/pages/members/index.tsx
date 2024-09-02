@@ -1,15 +1,18 @@
 import { Box } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-// import SampleMember from "@/assets/members.json";
-// import SampleUnlockedAchievements from "@/assets/unlockedAchievements.json";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
+import { ErrorScreen } from "@/components/ErrorScreen";
 import { MemberCard } from "@/components/member/Card";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { type MembersWithUnlockedCount } from "@/types/member";
+import {
+  fetchMembersAndUnlockedAchievements,
+  getUnlockedAchievementsFromMember,
+} from "@/lib/utils/members";
+import { handleSWRError } from "@/lib/utils/swr";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
@@ -19,46 +22,32 @@ const BoxStyle = styled(Box)`
 
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
-  const { fetch } = useUnlockedAchievements(useTeam);
-  const swrMembersWithUnlockedCount = useSWR(
-    "membersWithUnlockedCount",
-    fetchMembersWithUnlockedCount,
+  const { fetch: fetchUnlockedAchievements } = useUnlockedAchievements(useTeam);
+  const swrMembersAndUnlockedAchievements = useSWRImmutable(
+    "membersAndUnlockedAchievements",
+    async () =>
+      await fetchMembersAndUnlockedAchievements(
+        fetchMembers,
+        fetchUnlockedAchievements,
+      ),
   );
 
-  async function fetchMembersWithUnlockedCount(): Promise<MembersWithUnlockedCount> {
-    const members = await fetchMembers();
-    const unlockedAchievements = await fetch();
-
-    if (unlockedAchievements == null)
-      throw new Error("No unlockedAchievements found.");
-
-    const membersWithUnlockedCount = members
-      .map((m) => {
-        const unlockedCount = unlockedAchievements.filter(
-          (u) => u.memberEmail === m.email,
-        ).length;
-        return {
-          ...m,
-          unlockedCount,
-        };
-      })
-      .sort((a, b) => b.unlockedCount - a.unlockedCount);
-
-    return membersWithUnlockedCount;
-  }
-
-  return match(swrMembersWithUnlockedCount)
+  return match(swrMembersAndUnlockedAchievements)
     .with(S.Loading, () => <div>Loading...</div>)
-    .with(S.Success, ({ data }) => (
+    .with(S.Success, ({ data: { members, unlockedAchievements } }) => (
       <BoxStyle width="70%">
         <Box mt="20vh" />
-        {data.map((m) => (
-          <MemberCard key={m.email} member={m} point={m.unlockedCount} />
-        ))}
+        {members.map((m) => {
+          const point = getUnlockedAchievementsFromMember(
+            m,
+            unlockedAchievements,
+          ).length;
+          return <MemberCard key={m.email} member={m} point={point} />;
+        })}
         <Box mt="20vh" />
       </BoxStyle>
     ))
-    .otherwise(({ error }) => {
-      throw error;
-    });
+    .otherwise(({ data, error }) => (
+      <ErrorScreen error={handleSWRError(data, error)} />
+    ));
 }

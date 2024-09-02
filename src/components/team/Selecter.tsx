@@ -2,18 +2,20 @@ import { Button, Flex } from "@radix-ui/themes";
 import { useEffect, type ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
+import { ErrorScreen } from "@/components/ErrorScreen";
 import { useAchievements } from "@/hooks/db/achievements";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useMember } from "@/hooks/member";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
+import { handleSWRError } from "@/lib/utils/swr";
 
 export function TeamSelector(): ReactElement {
   const navigate = useNavigate();
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
-  const swrJoinedTeams = useSWR("joinedTeams", fetchJoinedTeams);
+  const swrJoinedTeams = useSWRImmutable("joinedTeams", fetchJoinedTeams);
 
   const FlexStyled = styled(Flex)`
     gap: 15rem;
@@ -56,7 +58,7 @@ export function TeamSelector(): ReactElement {
         ))}
       </FlexStyled>
     ))
-    .otherwise(({ error }) => {
-      throw error;
-    });
+    .otherwise(({ data, error }) => (
+      <ErrorScreen error={handleSWRError(data, error)} />
+    ));
 }

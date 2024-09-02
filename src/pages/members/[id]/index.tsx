@@ -1,23 +1,16 @@
 import { type ReactElement } from "react";
 import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
+import { ErrorScreen } from "@/components/ErrorScreen";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
+import { handleSWRError } from "@/lib/utils/swr";
 import { useParams } from "@/router";
-import { type Member } from "@/types/member";
 
 export default function Page(): ReactElement {
   const { id } = useParams("/members/:id");
   const { fetchMembers } = useTeam();
-  const swrMembers = useSWRImmutable("members", fetchMember);
-
-  async function fetchMember(): Promise<Member[]> {
-    const members = await fetchMembers();
-
-    if (members == null) throw new Error("No unlockedAchievements found.");
-
-    return members;
-  }
+  const swrMembers = useSWRImmutable("members", fetchMembers);
 
   return match(swrMembers)
     .with(S.Loading, () => <p>Loading...</p>)
@@ -43,7 +36,7 @@ export default function Page(): ReactElement {
         })}
       </div>
     ))
-    .otherwise(({ error }) => {
-      throw error;
-    });
+    .otherwise(({ data, error }) => (
+      <ErrorScreen error={handleSWRError(data, error)} />
+    ));
 }

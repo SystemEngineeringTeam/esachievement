@@ -1,15 +1,19 @@
 import { Text, Box } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
+import { ErrorScreen } from "@/components/ErrorScreen";
 import { RankingCard } from "@/components/member/RankingCard";
 import { LogRecentUnlocked } from "@/components/ranking/LogRecentUnlocked";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { type MembersWithUnlockedCount } from "@/types/member";
-import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievements";
+import {
+  fetchMembersAndUnlockedAchievements,
+  getUnlockedAchievementsFromMember,
+} from "@/lib/utils/members";
+import { handleSWRError } from "@/lib/utils/swr";
 
 const RankingCardStyle = styled.div`
   border-radius: 50px;
@@ -47,76 +51,48 @@ const LogRecentUnlockedStyle = styled.div`
 
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
-  const { fetch } = useUnlockedAchievements(useTeam);
-  const swrMembersWithUnlockedCount = useSWR(
-    "membersWithUnlockedCount",
-    fetchMembersWithUnlockedCount,
+  const { fetch: fetchUnlockedAchievements } = useUnlockedAchievements(useTeam);
+  const swrMembersAndUnlockedAchievements = useSWRImmutable(
+    "membersAndUnlockedAchievements",
+    async () =>
+      await fetchMembersAndUnlockedAchievements(
+        fetchMembers,
+        fetchUnlockedAchievements,
+      ),
   );
 
-  async function fetchMembersWithUnlockedCount(): Promise<{
-    unlockedAchievements: UnlockedAchievement[];
-    membersWithUnlockedCount: MembersWithUnlockedCount;
-  }> {
-    const members = await fetchMembers();
-    const unlockedAchievements = await fetch();
-
-    if (unlockedAchievements == null)
-      throw new Error("No unlockedAchievements found.");
-
-    const membersWithUnlockedCount = members
-      .map((m) => {
-        const unlockedCount = unlockedAchievements.filter(
-          (u) => u.memberEmail === m.email,
-        ).length;
-        return {
-          ...m,
-          unlockedCount,
-        };
-      })
-      .sort((a, b) => b.unlockedCount - a.unlockedCount);
-
-    return {
-      membersWithUnlockedCount,
-      unlockedAchievements,
-    };
-  }
-
-  return match(swrMembersWithUnlockedCount)
+  return match(swrMembersAndUnlockedAchievements)
     .with(S.Loading, () => <p>Loading...</p>)
-    .with(
-      S.Success,
-      ({ data: { membersWithUnlockedCount, unlockedAchievements } }) => (
-        <div>
-          <RankingCardStyle>
-            <Box mt="2rem" />
-            {membersWithUnlockedCount.map((m, index) => (
-              <RankingCard
-                key={m.email}
-                index={index}
-                member={m}
-                point={m.unlockedCount}
-              />
-            ))}
-          </RankingCardStyle>
-          <RankingCardBox />
+    .with(S.Success, ({ data: { members, unlockedAchievements } }) => (
+      <div>
+        <RankingCardStyle>
+          <Box mt="2rem" />
+          {members.map((m, idx) => {
+            const point = getUnlockedAchievementsFromMember(
+              m,
+              unlockedAchievements,
+            ).length;
 
-          <LogRecentUnlockedStyle>
-            <Box mt="10rem" />
-            <Text as="div" size="2" weight="bold">
-              最近の実績解除
-            </Text>
-            <Box mt="1rem" />
-            {unlockedAchievements.map((u) => (
-              <LogRecentUnlocked
-                key={u.achievementID}
-                unlockedAchievement={u}
-              />
-            ))}
-          </LogRecentUnlockedStyle>
-        </div>
-      ),
-    )
-    .otherwise(({ error }) => {
-      throw error;
-    });
+            return (
+              <RankingCard key={m.email} index={idx} member={m} point={point} />
+            );
+          })}
+        </RankingCardStyle>
+        <RankingCardBox />
+
+        <LogRecentUnlockedStyle>
+          <Box mt="10rem" />
+          <Text as="div" size="2" weight="bold">
+            最近の実績解除
+          </Text>
+          <Box mt="1rem" />
+          {unlockedAchievements.map((u) => (
+            <LogRecentUnlocked key={u.achievementID} unlockedAchievement={u} />
+          ))}
+        </LogRecentUnlockedStyle>
+      </div>
+    ))
+    .otherwise(({ data, error }) => (
+      <ErrorScreen error={handleSWRError(data, error)} />
+    ));
 }

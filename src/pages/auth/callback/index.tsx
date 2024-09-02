@@ -1,17 +1,19 @@
 import { useStore } from "@nanostores/react";
 import { type ReactElement } from "react";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { Center } from "@/components/Center";
+import { ErrorScreen } from "@/components/ErrorScreen";
 import { TeamSelector } from "@/components/team/Selecter";
 import { S } from "@/lib/consts";
 import { requestAccessTokenData } from "@/lib/services/esa";
 import { $accessTokenData } from "@/lib/stores/auth";
+import { handleSWRError } from "@/lib/utils/swr";
 import { useNavigate } from "@/router";
 import { type AccessTokenData } from "@/types/auth";
 
 export default function Page(): ReactElement {
-  const swrTokenAndTeams = useSWR("tokenAndTeams", fetchTokenAndTeams);
+  const swrTokenAndTeams = useSWRImmutable("tokenAndTeams", fetchTokenAndTeams);
   const accessTokenData = useStore($accessTokenData);
   const navigate = useNavigate();
 
@@ -37,9 +39,9 @@ export default function Page(): ReactElement {
       {match(swrTokenAndTeams)
         .with(S.Loading, () => <p>Loading...</p>)
         .with(S.Success, () => <TeamSelector />)
-        .otherwise(({ error }) => {
-          throw error;
-        })}
+        .otherwise(({ data, error }) => (
+          <ErrorScreen error={handleSWRError(data, error)} />
+        ))}
     </Center>
   );
 }
