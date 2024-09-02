@@ -41,11 +41,7 @@ export function LogRecentUnlocked({
     >
       <BoxStyle>
         <Flex align="center" gap="3" justify="center">
-          <Avatar
-            fallback="T"
-            size="4"
-            src={unlockedAchievement.icon}
-          />
+          <Avatar fallback="T" size="4" src={unlockedAchievement.icon} />
           <Box>
             <Text as="div" size="3" weight="bold">
               {unlockedAchievement.name}
