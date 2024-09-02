@@ -107,6 +107,14 @@ export default function create(): ReactElement {
     position: absolute;
     top: 164px;
     left: 132px;
+    background-color: #00cdc2;
+    box-shadow: 6px 6px 16px #b5bec9;
+    transform-origin: 50% 50%;
+    transition: 200ms;
+    &:hover {
+      box-shadow: none;
+      transform: scale(1.06);
+    }
   `;
 
   const ImputStyle = styled(TextField.Root)`
@@ -116,16 +124,9 @@ export default function create(): ReactElement {
     box-shadow:
       3px 3px 8px inset #b5bec9,
       -6px -6px 16px inset #ffffff;
-    --text-field-focus-color: none;
     input {
       margin-left: 0.4rem;
       color: #737a89;
-    }
-    &:focus {
-      width: 200px;
-      padding: 3px 7px;
-      border-radius: 5px;
-      border: 2px solid #951c1c;
     }
   `;
 
