@@ -84,7 +84,6 @@ export function UnlockableCard({
         fallback="A"
         ml="4vw"
         mr="3vw"
-        radius="full"
         size="6"
         src={achievement.icon}
       />

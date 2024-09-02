@@ -122,7 +122,9 @@ const ImputStyle = styled(TextField.Root)`
 `;
 
 export default function create(): ReactElement {
-  const [selectIcon, setSelectIcon] = useState("");
+  const [selectIcon, setSelectIcon] = useState(
+    "https://api.iconify.design/twemoji:trophy.svg",
+  );
 
   const { register, handleSubmit, setValue } = useForm<Achievement>({
     mode: "onSubmit",
@@ -133,6 +135,22 @@ export default function create(): ReactElement {
   };
 
   const iconUrl = [
+    "https://api.iconify.design/twemoji:trophy.svg",
+    "https://api.iconify.design/twemoji:meat-on-bone.svg",
+    "https://api.iconify.design/twemoji:horse-racing-medium-skin-tone.svg",
+    "https://api.iconify.design/twemoji:steaming-bowl.svg",
+    "https://api.iconify.design/twemoji:shopping-cart.svg",
+    "https://api.iconify.design/twemoji:page-facing-up.svg",
+    "https://api.iconify.design/twemoji:laptop.svg",
+    "https://api.iconify.design/twemoji:zombie.svg",
+    "https://api.iconify.design/twemoji:face-with-symbols-on-mouth.svg",
+    "https://api.iconify.design/twemoji:broken-heart.svg",
+    "https://api.iconify.design/twemoji:fire.svg",
+    "https://api.iconify.design/twemoji:beer-mug.svg",
+    "https://api.iconify.design/twemoji:beetle.svg",
+    "https://api.iconify.design/twemoji:bathtub.svg",
+    "https://api.iconify.design/twemoji:broccoli.svg",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUqLcDsoa_vMqHK_IPFR4GoMT9RYnH6gtzw9nqHl2AfJeQI7Bm6vd2LphkvWznofSU0yXGcFCWEmO1owcCDJKqaijH4sDyK6r7gwjHUoqD-lVYxHPO9m6khg559gSY2FVv9qia_dHQPxbQ/s800/school_tani_otosu_boy.png",
     "https://qr.paps.jp/8o3Og",
     "https://i.imgur.com/5TaVIlf.gif",
     "https://qr.paps.jp/fblo0",
@@ -156,13 +174,13 @@ export default function create(): ReactElement {
                   <IconButton
                     // eslint-disable-next-line react/no-array-index-key
                     key={index}
-                    mr="3"
+                    m="2"
                     onClick={() => {
                       setSelectIcon(url);
                       setValue("icon", url);
                     }}
+                    variant="ghost"
                     {...register("icon")}
-                    radius="full"
                     size="4"
                   >
                     <Avatar fallback="A" size="4" src={url} />
@@ -175,7 +193,6 @@ export default function create(): ReactElement {
             fallback="A"
             mb="4vh"
             mt="4vh"
-            radius="full"
             size="9"
             src={selectIcon}
           />
