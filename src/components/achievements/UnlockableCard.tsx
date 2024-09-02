@@ -58,12 +58,27 @@ const Tags = styled(Text)`
 
 export function UnlockableCard({
   achievement,
+  isUnlocked,
+  isDisabled = false,
+  setIsUnlocked,
 }: {
   achievement: Achievement;
+  isUnlocked: boolean;
+  isDisabled: boolean;
+  setIsUnlocked: (isUnlocked: boolean) => void;
 }): ReactElement {
   return (
     <CardStyle align="center">
-      <CheckboxStyle ml="5vw" size="3" />
+      <CheckboxStyle
+        checked={isUnlocked}
+        disabled={isDisabled}
+        ml="5vw"
+        onCheckedChange={(e) => {
+          if (e === "indeterminate") return;
+          setIsUnlocked(e);
+        }}
+        size="3"
+      />
 
       <AvatarStyle
         fallback="A"

@@ -32,8 +32,22 @@ export function useMember() {
     $selectedTeamName.set(teamName);
   };
 
+  const fetchCurrentMember = async (): Promise<
+    InferResponseType<"/user", "get">
+  > => {
+    const result = await esaClient.GET("/user");
+    return await match(result)
+      .with(A.Success, ({ data }) => data)
+      .otherwise(async ({ response }) => {
+        throw new Error(
+          `Failed to get current member: ${response.status} ${await response.text()}`,
+        );
+      });
+  };
+
   return {
     fetchJoinedTeams,
     markTeamNameAsSelected,
+    fetchCurrentMember,
   };
 }

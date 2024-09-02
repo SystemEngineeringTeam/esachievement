@@ -11,7 +11,7 @@ import { S } from "@/lib/consts";
 import {
   fetchMembersAndUnlockedAchievements,
   getUnlockedAchievementsFromMember,
-} from "@/lib/utils/members";
+} from "@/lib/utils/fetchers";
 import { handleSWRError } from "@/lib/utils/swr";
 
 const BoxStyle = styled(Box)`
