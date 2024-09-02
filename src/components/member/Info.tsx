@@ -2,7 +2,7 @@ import { Avatar, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import FirstFlag from "@/assets/FirstFlag.svg";
-import Members from "@/assets/members.json";
+import { type Member } from "@/types/member";
 
 const FlexContainer = styled.div`
   display: flex;
@@ -34,13 +34,6 @@ const StyledAvatar = styled(Avatar)`
   padding-top: 5rem;
 `;
 
-// const Styledclass = styled.div`
-//   font-size: 30px;
-//   font-weight: bold;
-//   color: gray;
-//   padding: 8px;
-// `;
-
 const Flag = styled.div`
   position: relative;
   top: 90px;
@@ -65,16 +58,14 @@ const Center = styled.div`
 `;
 
 export function Info({
-  id,
   point,
   rank,
+  member,
 }: {
-  id: string;
   point: number;
   rank: number;
+  member: Member;
 }): ReactElement {
-  const matchedMember = Members.members.find((a) => a.email === id);
-
   return (
     <Padding>
       <FlexContainer>
@@ -86,11 +77,11 @@ export function Info({
           <One>{rank}</One>
         </Center>
 
-        <StyledAvatar fallback="T" radius="full" src={matchedMember?.icon} />
+        <StyledAvatar fallback="T" radius="full" src={member.icon} />
       </FlexContainer>
 
       <div>
-        <StyledText>{matchedMember?.name}</StyledText>
+        <StyledText>{member.name}</StyledText>
       </div>
     </Padding>
   );
