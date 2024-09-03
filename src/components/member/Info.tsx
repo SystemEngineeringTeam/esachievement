@@ -1,4 +1,4 @@
-import { Avatar, Text } from "@radix-ui/themes";
+import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import FirstFlag from "@/assets/FirstFlag.svg";
@@ -68,30 +68,44 @@ export function Info({
   id,
   point,
   rank,
+  percent,
 }: {
   id: string;
   point: number;
   rank: number;
+  percent: number;
 }): ReactElement {
   const matchedMember = Members.members.find((a) => a.email === id);
 
   return (
-    <Padding>
-      <FlexContainer>
-        <Center>
-          <Point>{point}pt</Point>
-          <Flag>
-            <img alt="flag" src={FirstFlag} width="100" />
-          </Flag>
-          <One>{rank}</One>
-        </Center>
+    <Box>
+      <Padding>
+        <FlexContainer>
+          <Center>
+            <Point>{point}pt</Point>
+            <Flag>
+              <img alt="flag" src={FirstFlag} width="100" />
+            </Flag>
+            <One>{rank}</One>
+          </Center>
 
-        <StyledAvatar fallback="T" radius="full" src={matchedMember?.icon} />
-      </FlexContainer>
+          <StyledAvatar fallback="T" radius="full" src={matchedMember?.icon} />
+        </FlexContainer>
 
-      <div>
-        <StyledText>{matchedMember?.name}</StyledText>
-      </div>
-    </Padding>
+        <div>
+          <StyledText>{matchedMember?.name}</StyledText>
+        </div>
+      </Padding>
+      <Box width="100%">
+        <Flex direction="column" gap="1">
+          <Text align="center" size="5">
+            実績解除率
+          </Text>
+          <Text align="center" size="9">
+            {percent}%
+          </Text>
+        </Flex>
+      </Box>
+    </Box>
   );
 }
