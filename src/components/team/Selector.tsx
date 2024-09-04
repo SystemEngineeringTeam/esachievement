@@ -34,7 +34,6 @@ const DivStyled = styled.div`
   margin-top: 20px;
 `;
 
-
 const ButtonStyled = styled(Button)`
   font-weight: 600;
   font-family: sans-serif;

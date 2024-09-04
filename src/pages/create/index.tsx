@@ -132,9 +132,13 @@ const TextInput = styled(TextField.Root)<{ invalid: number }>`
     -6px -6px 16px inset #ffffff;
   input {
     margin-left: 0.4rem;
-    color: #737a89;
+    color: #000;
   }
   border: 2px solid ${({ invalid }) => (invalid !== 0 ? "#e03b3b" : "unset")};
+`;
+
+const Red = styled.span`
+  color: #e03b3b;
 `;
 
 const MessageContainer = styled(Flex)`
@@ -264,7 +268,6 @@ export default function Page(): ReactElement {
                       setValue("icon", url);
                       setPopoverOpened(false);
                     }}
-                    radius="full"
                     size="4"
                     value={getValues("icon")}
                     variant="ghost"
@@ -284,66 +287,65 @@ export default function Page(): ReactElement {
             src={getValues("icon")}
           />
         </AvatarContainer>
-        <Box mb="4vh" width="50vw">
-          <Text ml="0.4rem" weight="medium">
-            実績名
-          </Text>
-          <TextInput
-            disabled={isSubmitting}
-            invalid={Number(errors.name != null)}
-            placeholder="カカポ"
-            radius="full"
-            size="3"
-            type="text"
-            {...register("name")}
-          />
-          <ErrorMessage>{errors.name?.message ?? ""}</ErrorMessage>
-        </Box>
-        <Flex justify="between" width="50vw">
-          <Box mb="4vh" width="24vw">
+        <Flex align="center" direction="column" justify="between">
+          <Box mb="4vh" width="500px">
             <Text ml="0.4rem" weight="medium">
-              実績につけるタグ
+              実績名 <Red>*</Red>
             </Text>
             <TextInput
               disabled={isSubmitting}
-              invalid={Number(errors.tags != null)}
-              placeholder="#party parrot"
+              invalid={Number(errors.name != null)}
+              placeholder="カカポ"
               radius="full"
               size="3"
               type="text"
-              {...register("tags.0")}
+              {...register("name")}
             />
-            <ErrorMessage>{errors.tags?.message ?? ""}</ErrorMessage>
+            <ErrorMessage>{errors.name?.message ?? ""}</ErrorMessage>
           </Box>
-          <Box mb="4vh" width="24vw">
+          <Flex justify="between" width="500px">
+            <Box mb="4vh">
+              <Text ml="0.4rem" weight="medium">
+                実績につけるタグ
+              </Text>
+              <Flex align="stretch" gap="8" justify="between">
+                <TextInput
+                  disabled={isSubmitting}
+                  invalid={Number(errors.tags != null)}
+                  placeholder="#party parrot"
+                  radius="full"
+                  size="3"
+                  type="text"
+                  {...register("tags.0")}
+                />
+                <TextInput
+                  disabled={isSubmitting}
+                  invalid={Number(errors.tags != null)}
+                  placeholder="#love2"
+                  radius="full"
+                  size="3"
+                  type="text"
+                  {...register("tags.1")}
+                />
+              </Flex>
+              <ErrorMessage>{errors.tags?.message ?? ""}</ErrorMessage>
+            </Box>
+          </Flex>
+          <Box mb="3vh" width="500px">
             <Text ml="0.4rem" weight="medium">
-              実績につけるタグ
+              実績の説明 <Red>*</Red>
             </Text>
             <TextInput
               disabled={isSubmitting}
-              invalid={Number(errors.tags != null)}
-              placeholder="#love2"
+              invalid={Number(errors.description != null)}
               radius="full"
               size="3"
               type="text"
-              {...register("tags.1")}
+              {...register("description")}
             />
+            <ErrorMessage>{errors?.description?.message ?? ""}</ErrorMessage>
           </Box>
         </Flex>
-        <Box mb="3vh" width="50vw">
-          <Text ml="0.4rem" weight="medium">
-            実績の説明
-          </Text>
-          <TextInput
-            disabled={isSubmitting}
-            invalid={Number(errors.description != null)}
-            radius="full"
-            size="3"
-            type="text"
-            {...register("description")}
-          />
-          <ErrorMessage>{errors?.description?.message ?? ""}</ErrorMessage>
-        </Box>
 
         <Box mb="auto">
           <SubmitButton
