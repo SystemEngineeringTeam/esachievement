@@ -34,92 +34,76 @@ export function useTeam() {
 
   const fetchAbout = async (): Promise<
     InferResponseType<"/teams/{team_name}", "get">
-  > => {
-    const result = await esaClient.GET(
-      "/teams/{team_name}",
-      paramsWithTeamName,
-    );
-
-    return await match(result)
+  > =>
+    await match(await esaClient.GET("/teams/{team_name}", paramsWithTeamName))
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
-  };
 
   const fetchStats = async (): Promise<
     InferResponseType<"/teams/{team_name}/stats", "get">
-  > => {
-    const result = await esaClient.GET(
-      "/teams/{team_name}/stats",
-      paramsWithTeamName,
-    );
-    return await match(result)
+  > =>
+    await match(
+      await esaClient.GET("/teams/{team_name}/stats", paramsWithTeamName),
+    )
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
-  };
 
   const fetchMembers = async (): Promise<
     InferResponseType<"/teams/{team_name}/members", "get">["members"]
-  > => {
-    const result = await esaClient.GET(
-      "/teams/{team_name}/members",
-      paramsWithTeamName,
-    );
-    return await match(result)
+  > =>
+    await match(
+      await esaClient.GET("/teams/{team_name}/members", paramsWithTeamName),
+    )
       .with(A.Success, ({ data }) => data.members)
       .otherwise(handleError);
-  };
 
   const createNewPost = async (
     postBody: InferRequestBodyType<"/teams/{team_name}/posts", "post">["post"],
-  ): Promise<InferResponseType<"/teams/{team_name}/posts", "post", 201>> => {
-    const result = await esaClient.POST("/teams/{team_name}/posts", {
-      ...paramsWithTeamName,
-      body: {
-        post: postBody,
-      },
-    });
-    return await match(result)
+  ): Promise<InferResponseType<"/teams/{team_name}/posts", "post", 201>> =>
+    await match(
+      await esaClient.POST("/teams/{team_name}/posts", {
+        ...paramsWithTeamName,
+        body: {
+          post: postBody,
+        },
+      }),
+    )
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
-  };
 
   const fetchPostsByCategory = async (
     category: string,
-  ): Promise<InferResponseType<"/teams/{team_name}/posts", "get">["posts"]> => {
-    const result = await esaClient.GET("/teams/{team_name}/posts", {
-      params: {
-        ...paramsWithTeamName.params,
-        query: {
-          q: `on:${category}`,
+  ): Promise<InferResponseType<"/teams/{team_name}/posts", "get">["posts"]> =>
+    await match(
+      await esaClient.GET("/teams/{team_name}/posts", {
+        params: {
+          ...paramsWithTeamName.params,
+          query: {
+            q: `on:${category}`,
+          },
         },
-      },
-    });
-
-    return await match(result)
+      }),
+    )
       .with(A.Success, ({ data }) => data.posts)
       .otherwise(handleError);
-  };
 
   const fetchPostByPostId = async (
     postNumber: number,
   ): Promise<
     InferResponseType<"/teams/{team_name}/posts/{post_number}", "get">
-  > => {
-    const result = await esaClient.GET(
-      "/teams/{team_name}/posts/{post_number}",
-      {
+  > =>
+    await match(
+      await esaClient.GET("/teams/{team_name}/posts/{post_number}", {
         params: {
           path: {
             ...paramsWithTeamName.params.path,
             post_number: postNumber,
           },
         },
-      },
-    );
-    return await match(result)
+      }),
+    )
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
-  };
 
   const updatePost = async (
     postNumber: number,
@@ -129,10 +113,9 @@ export function useTeam() {
     >,
   ): Promise<
     InferResponseType<"/teams/{team_name}/posts/{post_number}", "patch">
-  > => {
-    const result = await esaClient.PATCH(
-      "/teams/{team_name}/posts/{post_number}",
-      {
+  > =>
+    await match(
+      await esaClient.PATCH("/teams/{team_name}/posts/{post_number}", {
         params: {
           path: {
             ...paramsWithTeamName.params.path,
@@ -140,31 +123,34 @@ export function useTeam() {
           },
         },
         body,
-      },
-    );
-
-    return await match(result)
+      }),
+    )
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
-  };
 
   const deletePost = async (postNumber: number): Promise<void> => {
-    const result = await esaClient.DELETE(
-      "/teams/{team_name}/posts/{post_number}",
-      {
+    await match(
+      await esaClient.DELETE("/teams/{team_name}/posts/{post_number}", {
         params: {
           path: {
             ...paramsWithTeamName.params.path,
             post_number: postNumber,
           },
         },
-      },
-    );
-
-    await match(result)
+      }),
+    )
       .with(A.Success, () => undefined)
       .otherwise(handleError);
   };
+
+  const fetchEmojis = async (): Promise<
+    InferResponseType<"/teams/{team_name}/emojis", "get">
+  > =>
+    await match(
+      await esaClient.GET("/teams/{team_name}/emojis", paramsWithTeamName),
+    )
+      .with(A.Success, ({ data }) => data)
+      .otherwise(handleError);
 
   return {
     selectedTeamName,
@@ -173,6 +159,7 @@ export function useTeam() {
     fetchMembers,
     fetchPostByPostId,
     fetchPostsByCategory,
+    fetchEmojis,
 
     __createNewPost: createNewPost,
     __updatePost: updatePost,

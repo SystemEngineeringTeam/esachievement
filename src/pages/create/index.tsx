@@ -11,12 +11,19 @@ import {
   IconButton,
   Popover,
 } from "@radix-ui/themes";
-import { useState, type ReactElement } from "react";
+import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
+import { type CustomEmoji } from "emoji-picker-react/dist/config/customEmojiConfig";
+import { useMemo, useState, type ReactElement } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
+import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
+import { ErrorScreen } from "@/components/ErrorScreen";
 import { useAchievements } from "@/hooks/db/achievements";
 import { useTeam } from "@/hooks/teams";
+import { S } from "@/lib/consts";
+import { emojiUnified2url, SPECIAL_EMOJIS } from "@/lib/utils/emoji";
+import { handleSWRError } from "@/lib/utils/swr";
 import yup from "@/lib/yup-locate";
 import { type Achievement, yAchievement } from "@/types/post-data/achievements";
 
@@ -110,6 +117,7 @@ const SubmitButton = styled.input`
 `;
 
 const PlusButton = styled(IconButton)`
+  cursor: pointer;
   position: absolute;
   top: 164px;
   left: 132px;
@@ -165,30 +173,13 @@ const yAchievementForm = yAchievement.concat(
   }),
 );
 
-const ICON_URLS = [
-  "https://api.iconify.design/twemoji:trophy.svg",
-  "https://api.iconify.design/twemoji:meat-on-bone.svg",
-  "https://api.iconify.design/twemoji:horse-racing-medium-skin-tone.svg",
-  "https://api.iconify.design/twemoji:steaming-bowl.svg",
-  "https://api.iconify.design/twemoji:shopping-cart.svg",
-  "https://api.iconify.design/twemoji:page-facing-up.svg",
-  "https://api.iconify.design/twemoji:laptop.svg",
-  "https://api.iconify.design/twemoji:zombie.svg",
-  "https://api.iconify.design/twemoji:face-with-symbols-on-mouth.svg",
-  "https://api.iconify.design/twemoji:broken-heart.svg",
-  "https://api.iconify.design/twemoji:fire.svg",
-  "https://api.iconify.design/twemoji:beer-mug.svg",
-  "https://api.iconify.design/twemoji:beetle.svg",
-  "https://api.iconify.design/twemoji:bathtub.svg",
-  "https://api.iconify.design/twemoji:broccoli.svg",
-  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUqLcDsoa_vMqHK_IPFR4GoMT9RYnH6gtzw9nqHl2AfJeQI7Bm6vd2LphkvWznofSU0yXGcFCWEmO1owcCDJKqaijH4sDyK6r7gwjHUoqD-lVYxHPO9m6khg559gSY2FVv9qia_dHQPxbQ/s800/school_tani_otosu_boy.png",
-  "https://qr.paps.jp/8o3Og",
-  "https://i.imgur.com/5TaVIlf.gif",
-  "https://qr.paps.jp/fblo0",
-  "https://i.gifer.com/9ZNS.gif",
-] as const;
-
-export default function Page(): ReactElement {
+function Loaded({
+  emojis,
+}: {
+  emojis: Awaited<
+    ReturnType<ReturnType<typeof useTeam>["fetchEmojis"]>
+  >["emojis"];
+}): ReactElement {
   const {
     register,
     handleSubmit,
@@ -202,13 +193,22 @@ export default function Page(): ReactElement {
     reValidateMode: "onChange",
     resolver: yupResolver(yAchievementForm),
     defaultValues: {
-      icon: ICON_URLS[0],
+      icon: emojiUnified2url("1f3c6"),
     },
   });
   const { errors, isSubmitting } = formState;
   const { fetch, update } = useAchievements(useTeam);
 
   const [isPopoverOpened, setPopoverOpened] = useState(false);
+  const additionalEmojis = useMemo<CustomEmoji[]>(
+    () =>
+      emojis.map(({ code, aliases, url }) => ({
+        id: code,
+        names: aliases,
+        imgUrl: url,
+      })),
+    [emojis],
+  );
 
   const onSubmit: SubmitHandler<
     yup.InferType<typeof yAchievementForm>
@@ -253,27 +253,20 @@ export default function Page(): ReactElement {
                 <Icon icon="ion:add" width="30px" />
               </PlusButton>
             </Popover.Trigger>
-            <Popover.Content maxWidth="300px" size="1">
-              <Text as="p" size="1" trim="both">
-                {ICON_URLS.map((url) => (
-                  <IconButton
-                    key={url}
-                    disabled={isSubmitting}
-                    m="2"
-                    onClick={() => {
-                      setValue("icon", url);
-                      setPopoverOpened(false);
-                    }}
-                    radius="full"
-                    size="4"
-                    value={getValues("icon")}
-                    variant="ghost"
-                    {...register("icon")}
-                  >
-                    <Avatar fallback="A" size="4" src={url} />
-                  </IconButton>
-                ))}
-              </Text>
+            <Popover.Content>
+              <EmojiPicker
+                customEmojis={[...additionalEmojis, ...SPECIAL_EMOJIS]}
+                emojiStyle={EmojiStyle.TWITTER}
+                onEmojiClick={(emoji) => {
+                  setValue(
+                    "icon",
+                    emoji.isCustom
+                      ? emoji.imageUrl
+                      : emojiUnified2url(emoji.unified),
+                  );
+                  setPopoverOpened(false);
+                }}
+              />
             </Popover.Content>
           </Popover.Root>
           <AvatarStyle
@@ -382,4 +375,21 @@ export default function Page(): ReactElement {
       </FormStyle>
     </form>
   );
+}
+
+export default function Page(): ReactElement {
+  const { fetchEmojis } = useTeam();
+  const swrEmojis = useSWRImmutable("emojis", fetchEmojis);
+
+  return match(swrEmojis)
+    .with(S.Loading, () => (
+      <Flex gap="10px">
+        <Icon height="1em" icon="svg-spinners:ring-resize" />
+        <p>カスタム絵文字を取得中...</p>
+      </Flex>
+    ))
+    .with(S.Success, ({ data: { emojis } }) => <Loaded emojis={emojis} />)
+    .otherwise(({ data, error }) => (
+      <ErrorScreen error={handleSWRError(data, error)} />
+    ));
 }
