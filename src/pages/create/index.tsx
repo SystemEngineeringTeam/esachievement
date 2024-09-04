@@ -202,11 +202,15 @@ function Loaded({
   const [isPopoverOpened, setPopoverOpened] = useState(false);
   const additionalEmojis = useMemo<CustomEmoji[]>(
     () =>
-      emojis.map(({ code, aliases, url }) => ({
-        id: code,
-        names: aliases,
-        imgUrl: url,
-      })),
+      emojis
+        // メンバー絵文字を除外
+        // ref: https://docs.esa.io/posts/230#%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%E7%B5%B5%E6%96%87%E5%AD%97
+        .filter(({ code }) => !code.startsWith("@"))
+        .map(({ code, aliases, url }) => ({
+          id: code,
+          names: aliases,
+          imgUrl: url,
+        })),
     [emojis],
   );
 
