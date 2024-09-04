@@ -72,20 +72,27 @@ export default function Page(): ReactElement {
         <div>
           <RankingListStyle>
             <Box mt="2rem" />
-            {members.map((m, idx) => {
-              const point = getUnlockedAchievementsFromMember(
-                m,
-                unlockedAchievements,
-              ).length;
+            {members.map(() => {
+              const rankedMembers = members
+                .map((l) => ({
+                  ...l,
+                  point: getUnlockedAchievementsFromMember(
+                    l,
+                    unlockedAchievements,
+                  ).length,
+                }))
+                .sort((a, b) => b.point - a.point);
 
-              return (
+              const test = rankedMembers.map((n, index) => (
                 <RankingCard
-                  key={m.email}
-                  index={idx}
-                  member={m}
-                  point={point}
+                  key={n.email}
+                  index={index}
+                  member={n}
+                  point={n.point}
                 />
-              );
+              ));
+
+              return test;
             })}
           </RankingListStyle>
           <RankingCardBox />
