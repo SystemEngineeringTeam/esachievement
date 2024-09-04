@@ -1,11 +1,14 @@
-import { type InferType, number, object, string, date, array } from "yup";
+import { type InferType } from "yup";
+import yup from "@/lib/yup-locate";
 
-export const yUnlockedAchievement = object().shape({
-  achievementID: number().required(), // achievementのidを参照
-  memberEmail: string().email().required(), // memberのemailを参照
-  createdAt: date().required(),
+export const yUnlockedAchievement = yup.object().shape({
+  achievementID: yup.number().required(), // achievementのidを参照
+  memberEmail: yup.string().email().required(), // memberのemailを参照
+  createdAt: yup.date().required(),
 });
-export const yUnlockedAchievementsPostData = array().of(yUnlockedAchievement);
+export const yUnlockedAchievementsPostData = yup
+  .array()
+  .of(yUnlockedAchievement);
 
 export type UnlockedAchievement = InferType<typeof yUnlockedAchievement>;
 export type UnlockedAchievementsPostData = InferType<

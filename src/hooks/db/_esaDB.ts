@@ -4,9 +4,9 @@ import { useStore } from "@nanostores/react";
 import { type WritableAtom } from "nanostores";
 import { type AnySchema } from "yup";
 import { type useTeam as _useTeam } from "@/hooks/teams";
-import { waitMs } from "@/lib/consts";
+import { DB_VERSION, waitMs } from "@/lib/consts";
 import { $config } from "@/lib/stores/config";
-import { type PostData } from "@/types/post-data/_struct";
+import { yPostData, type PostData } from "@/types/post-data/_struct";
 import { type Nullable } from "@/types/utils";
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -45,7 +45,9 @@ export function useEsaDB<T>(
   const fetch = async (): Promise<T> => {
     const postsId = await searchPostId();
     const { body_md } = await fetchPostByPostId(postsId);
-    return await config.schema.validate(JSON.parse(body_md).data);
+    const { data } = await yPostData.validate(JSON.parse(body_md));
+
+    return await config.schema.validate(data);
   };
 
   const create = async (): Promise<
@@ -58,7 +60,7 @@ export function useEsaDB<T>(
 
     const postData = {
       _name: "esachievement",
-      _version: "1",
+      _version: DB_VERSION,
       data: undefined,
     } as const satisfies PostData<T>;
 
@@ -89,7 +91,7 @@ export function useEsaDB<T>(
 
     const postData = {
       _name: "esachievement",
-      _version: "1",
+      _version: DB_VERSION,
       data: newPost,
     } as const satisfies PostData<T>;
 

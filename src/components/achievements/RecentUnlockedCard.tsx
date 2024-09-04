@@ -58,12 +58,7 @@ export function RecentUnlockedCard({
       </Table.RowHeaderCell>
       <Table.Cell>
         <Flex gap="2">
-          <Avatar
-            fallback="A"
-            radius="full"
-            size="6"
-            src={matchedAchievement?.icon}
-          />
+          <Avatar fallback="A" size="6" src={matchedAchievement?.icon} />
         </Flex>
       </Table.Cell>
       <Table.Cell>

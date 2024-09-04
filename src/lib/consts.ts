@@ -33,3 +33,5 @@ export const LOCAL_STORAGE_VERSION = "1";
 export function getLocalStorageKey(key: string, trailingColon = false): string {
   return `${APP_NAME}.v${LOCAL_STORAGE_VERSION}.${key}${trailingColon ? ":" : ""}`;
 }
+
+export const DB_VERSION = "1";

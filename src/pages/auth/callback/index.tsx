@@ -4,7 +4,7 @@ import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { Center } from "@/components/Center";
 import { ErrorScreen } from "@/components/ErrorScreen";
-import { TeamSelector } from "@/components/team/Selecter";
+import { TeamSelector } from "@/components/team/Selector";
 import { S } from "@/lib/consts";
 import { requestAccessTokenData } from "@/lib/services/esa";
 import { $accessTokenData } from "@/lib/stores/auth";

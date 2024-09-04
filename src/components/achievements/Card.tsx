@@ -72,7 +72,6 @@ export function AchievementCard({
         fallback="A"
         ml="7vw"
         mr="3vw"
-        radius="full"
         size="6"
         src={achievement.icon}
       />

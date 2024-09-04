@@ -23,6 +23,13 @@ const ButtonStyle = styled(Button)`
   width: 100px;
 `;
 
+const DivCenter = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export function TeamSelector(): ReactElement {
   const navigate = useNavigate();
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
@@ -43,20 +50,22 @@ export function TeamSelector(): ReactElement {
   return match(swrJoinedTeams)
     .with(S.Loading, () => <p>Loading...</p>)
     .with(S.Success, ({ data }) => (
-      <FlexStyled>
-        {data.map((team) => (
-          <ButtonStyle
-            key={team.name}
-            onClick={() => {
-              markTeamNameAsSelected(team.name);
-              initializeFunc();
-            }}
-            size="4"
-          >
-            <img alt={team.name} src={team.icon} />
-          </ButtonStyle>
-        ))}
-      </FlexStyled>
+      <DivCenter>
+        <FlexStyled>
+          {data.map((team) => (
+            <ButtonStyle
+              key={team.name}
+              onClick={() => {
+                markTeamNameAsSelected(team.name);
+                initializeFunc();
+              }}
+              size="4"
+            >
+              <img alt={team.name} src={team.icon} />
+            </ButtonStyle>
+          ))}
+        </FlexStyled>
+      </DivCenter>
     ))
     .otherwise(({ data, error }) => (
       <ErrorScreen error={handleSWRError(data, error)} />
