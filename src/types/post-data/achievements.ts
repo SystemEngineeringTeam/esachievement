@@ -6,16 +6,7 @@ export const yAchievement = yup.object().shape({
   name: yup.string().required(),
   description: yup.string().required(),
   icon: yup.string().required(),
-  tags: yup
-    .array()
-    .of(
-      yup.object().shape({
-        id: yup.number().required(),
-        name: yup.string().required(),
-        color: yup.string().required(),
-      }),
-    )
-    .required(),
+  tags: yup.array().of(yup.string()).required(),
   createdAt: yup.date().required(),
   updatedAt: yup.date().required(),
 });
