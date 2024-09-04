@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Icon } from "@iconify/react";
 import {
   TextField,
@@ -11,9 +12,13 @@ import {
   Popover,
 } from "@radix-ui/themes";
 import { useState, type ReactElement } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { type Achievement } from "@/types/post-data/achievements";
+import { match } from "ts-pattern";
+import { useAchievements } from "@/hooks/db/achievements";
+import { useTeam } from "@/hooks/teams";
+import yup from "@/lib/yup-locate";
+import { type Achievement, yAchievement } from "@/types/post-data/achievements";
 
 const FormStyle = styled(Flex)`
   margin-top: 4rem;
@@ -34,7 +39,7 @@ const AvatarStyle = styled(Avatar)`
   border: 10px solid #e7e7e7;
 `;
 
-const Button1 = styled(Box)`
+const SubmitButton = styled.input`
   font-weight: 600;
   font-family: sans-serif;
   font-size: 1rem;
@@ -57,6 +62,7 @@ const Button1 = styled(Box)`
   overflow: hidden;
   position: relative;
   z-index: 1;
+  cursor: pointer;
 
   box-shadow:
     6px 6px 16px #b5bec9,
@@ -92,6 +98,15 @@ const Button1 = styled(Box)`
     transform: scaleX(100%);
     transform: none;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+    color: #ffffff;
+    background-color: #00cdc2;
+    transform: scale(1.06);
+    box-shadow: none;
+  }
 `;
 
 const PlusButton = styled(IconButton)`
@@ -108,7 +123,7 @@ const PlusButton = styled(IconButton)`
   }
 `;
 
-const ImputStyle = styled(TextField.Root)`
+const TextInput = styled(TextField.Root)<{ invalid: number }>`
   position: relative;
   background-color: #e7e7e7;
   margin-top: 0.6rem;
@@ -119,50 +134,120 @@ const ImputStyle = styled(TextField.Root)`
     margin-left: 0.4rem;
     color: #737a89;
   }
+  border: 2px solid ${({ invalid }) => (invalid !== 0 ? "#e03b3b" : "unset")};
 `;
 
-export default function create(): ReactElement {
-  const [selectIcon, setSelectIcon] = useState(
-    "https://api.iconify.design/twemoji:trophy.svg",
-  );
+const MessageContainer = styled(Flex)`
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  gap: 10px;
+`;
 
-  const { register, handleSubmit, setValue } = useForm<Achievement>({
-    mode: "onSubmit",
+const ErrorMessageContainer = styled(MessageContainer)`
+  color: #e03b3b;
+`;
+
+const SuccessMessageContainer = styled(MessageContainer)`
+  color: #00cdc2;
+`;
+
+const ErrorMessage = styled(Text)`
+  color: #e03b3b;
+  font-size: 0.8rem;
+`;
+
+const yAchievementForm = yAchievement.concat(
+  yup.object({
+    id: yup.mixed().notRequired(),
+    createdAt: yup.mixed().notRequired(),
+    updatedAt: yup.mixed().notRequired(),
+  }),
+);
+
+const ICON_URLS = [
+  "https://api.iconify.design/twemoji:trophy.svg",
+  "https://api.iconify.design/twemoji:meat-on-bone.svg",
+  "https://api.iconify.design/twemoji:horse-racing-medium-skin-tone.svg",
+  "https://api.iconify.design/twemoji:steaming-bowl.svg",
+  "https://api.iconify.design/twemoji:shopping-cart.svg",
+  "https://api.iconify.design/twemoji:page-facing-up.svg",
+  "https://api.iconify.design/twemoji:laptop.svg",
+  "https://api.iconify.design/twemoji:zombie.svg",
+  "https://api.iconify.design/twemoji:face-with-symbols-on-mouth.svg",
+  "https://api.iconify.design/twemoji:broken-heart.svg",
+  "https://api.iconify.design/twemoji:fire.svg",
+  "https://api.iconify.design/twemoji:beer-mug.svg",
+  "https://api.iconify.design/twemoji:beetle.svg",
+  "https://api.iconify.design/twemoji:bathtub.svg",
+  "https://api.iconify.design/twemoji:broccoli.svg",
+  "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUqLcDsoa_vMqHK_IPFR4GoMT9RYnH6gtzw9nqHl2AfJeQI7Bm6vd2LphkvWznofSU0yXGcFCWEmO1owcCDJKqaijH4sDyK6r7gwjHUoqD-lVYxHPO9m6khg559gSY2FVv9qia_dHQPxbQ/s800/school_tani_otosu_boy.png",
+  "https://qr.paps.jp/8o3Og",
+  "https://i.imgur.com/5TaVIlf.gif",
+  "https://qr.paps.jp/fblo0",
+  "https://i.gifer.com/9ZNS.gif",
+] as const;
+
+export default function Page(): ReactElement {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState,
+    setError,
+    reset,
+  } = useForm({
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    resolver: yupResolver(yAchievementForm),
+    defaultValues: {
+      icon: ICON_URLS[0],
+    },
   });
-  const onSubmit: SubmitHandler<Achievement> = (data) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+  const { errors, isSubmitting } = formState;
+  const { fetch, update } = useAchievements(useTeam);
+
+  const [isPopoverOpened, setPopoverOpened] = useState(false);
+
+  const onSubmit: SubmitHandler<
+    yup.InferType<typeof yAchievementForm>
+  > = async (data) => {
+    try {
+      const achievements = await fetch();
+      if (achievements == null) {
+        throw new Error(
+          "`achievements` is null!  Maybe you forgot to call `init()`",
+        );
+      }
+
+      const achievement: Achievement = {
+        ...data,
+        tags: data.tags.filter((tag) => tag !== ""),
+        id: achievements.length + 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      await update([...achievements, achievement]);
+      reset();
+    } catch (e) {
+      setError("root.submit", { message: String(e) });
+      throw e;
+    }
   };
 
-  const iconUrl = [
-    "https://api.iconify.design/twemoji:trophy.svg",
-    "https://api.iconify.design/twemoji:meat-on-bone.svg",
-    "https://api.iconify.design/twemoji:horse-racing-medium-skin-tone.svg",
-    "https://api.iconify.design/twemoji:steaming-bowl.svg",
-    "https://api.iconify.design/twemoji:shopping-cart.svg",
-    "https://api.iconify.design/twemoji:page-facing-up.svg",
-    "https://api.iconify.design/twemoji:laptop.svg",
-    "https://api.iconify.design/twemoji:zombie.svg",
-    "https://api.iconify.design/twemoji:face-with-symbols-on-mouth.svg",
-    "https://api.iconify.design/twemoji:broken-heart.svg",
-    "https://api.iconify.design/twemoji:fire.svg",
-    "https://api.iconify.design/twemoji:beer-mug.svg",
-    "https://api.iconify.design/twemoji:beetle.svg",
-    "https://api.iconify.design/twemoji:bathtub.svg",
-    "https://api.iconify.design/twemoji:broccoli.svg",
-    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUqLcDsoa_vMqHK_IPFR4GoMT9RYnH6gtzw9nqHl2AfJeQI7Bm6vd2LphkvWznofSU0yXGcFCWEmO1owcCDJKqaijH4sDyK6r7gwjHUoqD-lVYxHPO9m6khg559gSY2FVv9qia_dHQPxbQ/s800/school_tani_otosu_boy.png",
-    "https://qr.paps.jp/8o3Og",
-    "https://i.imgur.com/5TaVIlf.gif",
-    "https://qr.paps.jp/fblo0",
-    "https://i.gifer.com/9ZNS.gif",
-  ];
-
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onSubmit={handleSubmit(onSubmit, (e) => {
+        // eslint-disable-next-line no-console
+        console.error("Form validation failed", e);
+      })}
+    >
       <FormStyle align="center" direction="column" justify="center">
         <AvatarContainer>
-          <Popover.Root>
+          <Popover.Root onOpenChange={setPopoverOpened} open={isPopoverOpened}>
             <Popover.Trigger>
               <PlusButton radius="full" size="4">
                 <Icon icon="ion:add" width="30px" />
@@ -170,18 +255,20 @@ export default function create(): ReactElement {
             </Popover.Trigger>
             <Popover.Content maxWidth="300px" size="1">
               <Text as="p" size="1" trim="both">
-                {iconUrl.map((url, index) => (
+                {ICON_URLS.map((url) => (
                   <IconButton
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
+                    key={url}
+                    disabled={isSubmitting}
                     m="2"
                     onClick={() => {
-                      setSelectIcon(url);
                       setValue("icon", url);
+                      setPopoverOpened(false);
                     }}
+                    radius="full"
+                    size="4"
+                    value={getValues("icon")}
                     variant="ghost"
                     {...register("icon")}
-                    size="4"
                   >
                     <Avatar fallback="A" size="4" src={url} />
                   </IconButton>
@@ -194,65 +281,104 @@ export default function create(): ReactElement {
             mb="4vh"
             mt="4vh"
             size="9"
-            src={selectIcon}
+            src={getValues("icon")}
           />
         </AvatarContainer>
         <Box mb="4vh" width="50vw">
           <Text ml="0.4rem" weight="medium">
             実績名
           </Text>
-          <ImputStyle
+          <TextInput
+            disabled={isSubmitting}
+            invalid={Number(errors.name != null)}
             placeholder="カカポ"
             radius="full"
             size="3"
             type="text"
             {...register("name")}
           />
+          <ErrorMessage>{errors.name?.message ?? ""}</ErrorMessage>
         </Box>
         <Flex justify="between" width="50vw">
           <Box mb="4vh" width="24vw">
             <Text ml="0.4rem" weight="medium">
               実績につけるタグ
             </Text>
-            <ImputStyle
+            <TextInput
+              disabled={isSubmitting}
+              invalid={Number(errors.tags != null)}
               placeholder="#party parrot"
               radius="full"
               size="3"
               type="text"
-              {...register(`tags.${0}.name`)}
+              {...register("tags.0")}
             />
+            <ErrorMessage>{errors.tags?.message ?? ""}</ErrorMessage>
           </Box>
           <Box mb="4vh" width="24vw">
             <Text ml="0.4rem" weight="medium">
               実績につけるタグ
             </Text>
-            <ImputStyle
+            <TextInput
+              disabled={isSubmitting}
+              invalid={Number(errors.tags != null)}
               placeholder="#love2"
               radius="full"
               size="3"
               type="text"
-              {...register(`tags.${1}.name`)}
+              {...register("tags.1")}
             />
           </Box>
         </Flex>
         <Box mb="3vh" width="50vw">
           <Text ml="0.4rem" weight="medium">
-            実績の詳細
+            実績の説明
           </Text>
-          <ImputStyle
-            placeholder="lkjhgvb"
+          <TextInput
+            disabled={isSubmitting}
+            invalid={Number(errors.description != null)}
             radius="full"
             size="3"
             type="text"
             {...register("description")}
           />
+          <ErrorMessage>{errors?.description?.message ?? ""}</ErrorMessage>
         </Box>
 
         <Box mb="auto">
-          <Button1>
-            <input type="submit" value="実績を追加する" />
-          </Button1>
+          <SubmitButton
+            disabled={isSubmitting}
+            type="submit"
+            value="実績を追加する"
+          />
         </Box>
+        {match(formState)
+          .with({ isDirty: false }, () => undefined)
+          .with({ isSubmitting: true }, () => (
+            <MessageContainer>
+              <Icon height="1em" icon="svg-spinners:ring-resize" />
+              <p>実績を追加中...</p>
+            </MessageContainer>
+          ))
+          .with({ isSubmitSuccessful: true }, () => (
+            <SuccessMessageContainer>
+              <Icon height="1em" icon="mdi:check" />
+              <p>実績は正常に追加されました</p>
+            </SuccessMessageContainer>
+          ))
+          .when(
+            () => errors.root?.submit != null,
+            () => (
+              <ErrorMessageContainer>
+                <Icon height="1em" icon="mdi:alert" />
+                <ErrorMessage>
+                  追加中にエラーが発生しました:{" "}
+                  {errors.root?.submit.message ?? ""}
+                </ErrorMessage>
+              </ErrorMessageContainer>
+            ),
+          )
+          .otherwise(() => undefined)}
       </FormStyle>
     </form>
   );

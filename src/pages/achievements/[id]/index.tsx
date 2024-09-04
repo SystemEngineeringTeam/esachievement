@@ -27,7 +27,7 @@ export default function Page(): ReactElement {
                 <p>icon: {d.icon}</p>
                 <p>createdAt: {String(d.createdAt)}</p>
                 <p>updatedAt: {String(d.updatedAt)}</p>
-                <p>tags: {d.tags.map((tag) => tag.name).join(", ")}</p>
+                <p>tags: {d.tags.join(", ")}</p>
               </div>
             );
           }

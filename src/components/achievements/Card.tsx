@@ -86,8 +86,12 @@ export function AchievementCard({
         </Description>
       </Flex>
 
-      <Tags as="div">#{achievement.tags[0].name}</Tags>
-      <Tags as="div">#{achievement.tags[0].name}</Tags>
+      {achievement.tags.map((t, idx) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Tags key={`${idx}_${t}`} as="div">
+          #{t}
+        </Tags>
+      ))}
     </CardStyle>
   );
 }

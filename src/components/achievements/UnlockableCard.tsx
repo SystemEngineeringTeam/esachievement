@@ -98,8 +98,8 @@ export function UnlockableCard({
         </Description>
       </Flex>
 
-      <Tags as="div">#{achievement.tags[0].name}</Tags>
-      <Tags as="div">#{achievement.tags[0].name}</Tags>
+      <Tags as="div">#{achievement.tags}</Tags>
+      <Tags as="div">#{achievement.tags}</Tags>
     </CardStyle>
   );
 }
