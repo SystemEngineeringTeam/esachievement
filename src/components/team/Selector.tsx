@@ -1,14 +1,11 @@
 import { Button, Flex } from "@radix-ui/themes";
-import { useEffect, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { ErrorScreen } from "@/components/ErrorScreen";
-import { useAchievements } from "@/hooks/db/achievements";
-import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useMember } from "@/hooks/member";
-import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import { handleSWRError } from "@/lib/utils/swr";
 
@@ -28,24 +25,20 @@ const DivCenter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+`;
+
+const DivStyled = styled.div`
+  position: absolute;
+  top: calc(50% + 100px);
+  margin-top: 20px;
 `;
 
 export function TeamSelector(): ReactElement {
   const navigate = useNavigate();
   const { fetchJoinedTeams, markTeamNameAsSelected } = useMember();
   const swrJoinedTeams = useSWRImmutable("joinedTeams", fetchJoinedTeams);
-
-  const initializeFunc = (): void => {
-    const { init: initAchievements } = useAchievements(useTeam);
-    const { init: initUnlockedAchievements } = useUnlockedAchievements(useTeam);
-
-    useEffect(() => {
-      void initAchievements();
-      void initUnlockedAchievements();
-    }, []);
-
-    navigate("/ranking");
-  };
+  const [teamName, setTeamName] = useState("");
 
   return match(swrJoinedTeams)
     .with(S.Loading, () => <p>Loading...</p>)
@@ -57,7 +50,7 @@ export function TeamSelector(): ReactElement {
               key={team.name}
               onClick={() => {
                 markTeamNameAsSelected(team.name);
-                initializeFunc();
+                setTeamName(team.name);
               }}
               size="4"
             >
@@ -65,6 +58,18 @@ export function TeamSelector(): ReactElement {
             </ButtonStyle>
           ))}
         </FlexStyled>
+        <DivStyled>
+          {teamName !== "" && (
+            <Button
+              onClick={() => {
+                navigate("/ranking");
+              }}
+              size="4"
+            >
+              {teamName}に参加する
+            </Button>
+          )}
+        </DivStyled>
       </DivCenter>
     ))
     .otherwise(({ data, error }) => (
