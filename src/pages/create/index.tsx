@@ -246,13 +246,7 @@ function Loaded({
   };
 
   return (
-    <form
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      onSubmit={handleSubmit(onSubmit, (e) => {
-        // eslint-disable-next-line no-console
-        console.error("Form validation failed", e);
-      })}
-    >
+    <form>
       <FormStyle align="center" direction="column" justify="center">
         <AvatarContainer>
           <Popover.Root onOpenChange={setPopoverOpened} open={isPopoverOpened}>
@@ -348,7 +342,12 @@ function Loaded({
         <Box mb="auto">
           <SubmitButton
             disabled={isSubmitting}
-            type="submit"
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onClick={handleSubmit(onSubmit, (e) => {
+              // eslint-disable-next-line no-console
+              console.error("Form validation failed", e);
+            })}
+            type="button"
             value="実績を追加する"
           />
         </Box>
