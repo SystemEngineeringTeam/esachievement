@@ -12,7 +12,6 @@ export type Path =
   | `/members`
   | `/members/:id`
   | `/ranking`
-  | `/test`
   | `/unlocked`;
 
 export type Params = {

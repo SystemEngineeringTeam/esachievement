@@ -1,4 +1,4 @@
-import { Box, Flex } from "@radix-ui/themes";
+import { Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -47,7 +47,8 @@ export default function Page(): ReactElement {
 
               const thisMemberUnlockedAchievements = unlockedAchievements
                 .filter((u) => u.memberEmail === m.email)
-                .map((u) => achievements.find((a) => a.id === u.achievementID));
+                .map((u) => achievements.find((a) => a.id === u.achievementID))
+                .reverse();
 
               const rankedMembers = members
                 .map((l) => ({
@@ -66,6 +67,7 @@ export default function Page(): ReactElement {
               return (
                 <Flex key={m.email} gap="9">
                   <Info
+                    icon={m.icon}
                     name={m.name}
                     point={point}
                     ranking={ranking}
@@ -73,6 +75,10 @@ export default function Page(): ReactElement {
                   />
                   <div>
                     <Box mt="20vh" />
+                    <Text size="8" weight="bold">
+                      最近解除した実績
+                    </Text>
+                    <Box mt="1rem" />
                     <BoxStyle>
                       {thisMemberUnlockedAchievements.map((achievement) => {
                         if (achievement === undefined) return null;

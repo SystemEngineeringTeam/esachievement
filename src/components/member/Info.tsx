@@ -43,21 +43,19 @@ export function Info({
   name,
   ranking,
   point,
+  icon,
   rateOfUnlocked,
 }: {
   name: string;
   ranking: number;
   point: number;
+  icon: string;
   rateOfUnlocked: number;
 }): ReactElement {
   return (
     <InfoBox direction="column">
       <Flex align="center" direction="column">
-        <Avatar
-          fallback="T"
-          size="9"
-          src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
-        />
+        <Avatar fallback="T" size="9" src={icon} />
 
         <Text mt="1rem" size="8" weight="bold">
           {name}

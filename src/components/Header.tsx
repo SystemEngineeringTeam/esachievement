@@ -1,11 +1,6 @@
+import { Icon } from "@iconify/react";
 import { useStore } from "@nanostores/react";
-import {
-  Avatar,
-  Flex,
-  Text,
-  Link as LinkComponent,
-  Box,
-} from "@radix-ui/themes";
+import { Flex, Text, Link as LinkComponent, Box } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
 import LogoIcon from "@/assets/EsaChibuIcon.svg";
@@ -169,16 +164,11 @@ export function Header(): ReactElement {
             className="createStyle createHoverAnime headerDefaultStyle"
             to="/unlocked"
           >
-            <Flex align="center" gap="4">
+            <Flex align="center" gap="4" style={{ color: "white" }}>
               <Text size="2" weight="bold">
                 実績管理
               </Text>
-              <Avatar
-                fallback="A"
-                radius="full"
-                size="3"
-                src="https://api.iconify.design/mdi:lock-open-outline.svg"
-              />
+              <Icon height="2em" icon="mdi:lock-open-outline" />
             </Flex>
           </UnlockedStyle>
         ) : (
@@ -191,24 +181,13 @@ export function Header(): ReactElement {
                 <Text size="3" weight="bold">
                   ログイン
                 </Text>
-                <Avatar
-                  fallback="T"
-                  radius="full"
-                  size="2"
-                  src="https://api.iconify.design/mdi:account.svg"
-                />
+                <Icon height="2em" icon="mdi:account" />
               </Flex>
             </LoginStyle>
           </LinkComponent>
         )}
         <TeamStyle to="/">
-          <Avatar
-            fallback="T"
-            radius="full"
-            size="3"
-            src="https://api.iconify.design/mdi:account-group.svg"
-            style={{ width: "60px", padding: "0.5rem" }}
-          />
+          <Icon height="2em" icon="mdi:account-group" width="4em" />
         </TeamStyle>
       </RightContents>
     </HeaderStyle>
