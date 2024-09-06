@@ -72,7 +72,8 @@ export default function Page(): ReactElement {
         <div>
           <RankingListStyle>
             <Box mt="2rem" />
-            {members.map(() => {
+            {members.map((m, idx) => {
+              if (m === undefined) return null;
               const rankedMembers = members
                 .map((l) => ({
                   ...l,
@@ -92,7 +93,7 @@ export default function Page(): ReactElement {
                 />
               ));
 
-              return test;
+              return test[idx];
             })}
           </RankingListStyle>
           <RankingCardBox />
