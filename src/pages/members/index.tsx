@@ -46,7 +46,6 @@ export default function Page(): ReactElement {
             return <MemberCard key={m.email} member={m} point={point} />;
           })}
         </BoxStyle>
-          <Box mt="20vh" />
       </>
     ))
     .otherwise(({ data, error }) => (
