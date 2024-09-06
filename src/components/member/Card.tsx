@@ -45,7 +45,7 @@ export function MemberCard({
   point,
 }: {
   member: Member;
-  point: number;
+  point?: number;
 }): ReactElement {
   const navigate = useNavigate();
 
@@ -74,10 +74,11 @@ export function MemberCard({
       />
 
       <NameStyle as="div">{member.name}</NameStyle>
-
-      <PointStyle as="div" size="6">
-        {point}pt
-      </PointStyle>
+      {point == null ? null : (
+        <PointStyle as="div" size="6">
+          {point}pt
+        </PointStyle>
+      )}
     </CardStyle>
   );
 }

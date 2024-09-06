@@ -44,18 +44,24 @@ const TagGroup = styled(Flex)`
   flex-wrap: wrap;
 `;
 
-export function Info(): ReactElement {
+export function Info({
+  name,
+  tags,
+  icon,
+  rateOfUnlocked,
+}: {
+  name: string;
+  icon: string;
+  tags: Array<string | undefined>;
+  rateOfUnlocked: number;
+}): ReactElement {
   return (
     <InfoBox direction="column">
       <Flex align="center" direction="column">
-        <Avatar
-          fallback="T"
-          size="9"
-          src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
-        />
+        <Avatar fallback="T" size="9" src={icon} />
 
         <Text mt="1rem" size="8" weight="bold">
-          恋愛失敗
+          {name}
         </Text>
       </Flex>
 
@@ -63,15 +69,15 @@ export function Info(): ReactElement {
         <Text weight="bold">タグ</Text>
         <TagGroup>
           <TagStyle mr="0.6rem" mt="1rem">
-            #Love
+            #{tags[0]}
           </TagStyle>
-          <TagStyle mt="1rem">#Love</TagStyle>
+          <TagStyle mt="1rem">#{tags[1]}</TagStyle>
         </TagGroup>
       </Flex>
 
       <Flex direction="column" mt="2rem">
         <Text weight="bold">全体の実績解除率</Text>
-        <PercentageUnlocked mt="1rem">50%</PercentageUnlocked>
+        <PercentageUnlocked mt="1rem">{rateOfUnlocked}%</PercentageUnlocked>
       </Flex>
     </InfoBox>
   );
