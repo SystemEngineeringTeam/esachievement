@@ -50,6 +50,27 @@ const UnlockedStyle = styled(Link)`
   }
 `;
 
+const LoginStyle = styled(Box)`
+  color: #f7f7f7;
+  background-color: #00cdc2;
+  box-shadow:
+    12px 12px 16px #b5bec9,
+    -12px -12px 16px #ffffff;
+
+  width: 10rem;
+  height: 100%;
+  border-radius: 80px;
+  padding: 1rem;
+
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  &:hover {
+    box-shadow: none;
+    transition: 160ms;
+  }
+`;
+
 const LinkContents = styled(Link)`
   background: #e7e7e7;
   box-shadow:
@@ -165,17 +186,19 @@ export function Header(): ReactElement {
             className="createStyle createHoverAnime"
             href={getAuthorizePageUrl()}
           >
-            <Flex align="center" gap="4">
-              <Text size="2" weight="bold">
-                ログイン
-              </Text>
-              <Avatar
-                fallback="T"
-                radius="full"
-                size="3"
-                src="https://api.iconify.design/ion:person-sharp.svg?color=%23ffffff"
-              />
-            </Flex>
+            <LoginStyle>
+              <Flex align="center" gap="4">
+                <Text size="3" weight="bold">
+                  ログイン
+                </Text>
+                <Avatar
+                  fallback="T"
+                  radius="full"
+                  size="2"
+                  src="https://api.iconify.design/ion:person-sharp.svg?color=%23ffffff"
+                />
+              </Flex>
+            </LoginStyle>
           </LinkComponent>
         )}
         <TeamStyle to="/">teamIcon</TeamStyle>
