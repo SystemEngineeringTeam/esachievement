@@ -18,7 +18,7 @@ import { type UnlockedAchievement } from "@/types/post-data/unlocked-achievement
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
-  height: 100%;
+  height: 80vh;
   overflow: scroll;
 `;
 
@@ -83,34 +83,36 @@ export default function Page(): ReactElement {
         data: { achievements, unlockedAchievements, currentMember },
         mutate,
       }) => (
-        <BoxStyle width="70%">
+        <>
           <Box mt="20vh" />
-          {achievements.map((achievement) => {
-            const isUnlocked = unlockedAchievements.some(
-              (u) => u.achievementID === achievement.id,
-            );
+          <BoxStyle width="70%">
+            {achievements.map((achievement) => {
+              const isUnlocked = unlockedAchievements.some(
+                (u) => u.achievementID === achievement.id,
+              );
 
-            return (
-              <UnlockableCard
-                key={achievement.id}
-                achievement={achievement}
-                isDisabled={isUILocked}
-                isUnlocked={isUnlocked}
-                setIsUnlocked={(u) => {
-                  void handleUnlockToggle(
-                    achievement.id,
-                    unlockedAchievements,
-                    currentMember,
-                    u,
-                    async () => {
-                      await mutate();
-                    },
-                  );
-                }}
-              />
-            );
-          })}
-        </BoxStyle>
+              return (
+                <UnlockableCard
+                  key={achievement.id}
+                  achievement={achievement}
+                  isDisabled={isUILocked}
+                  isUnlocked={isUnlocked}
+                  setIsUnlocked={(u) => {
+                    void handleUnlockToggle(
+                      achievement.id,
+                      unlockedAchievements,
+                      currentMember,
+                      u,
+                      async () => {
+                        await mutate();
+                      },
+                    );
+                  }}
+                />
+              );
+            })}
+          </BoxStyle>
+        </>
       ),
     )
     .otherwise(({ data, error }) => (

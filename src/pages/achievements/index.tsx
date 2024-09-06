@@ -13,7 +13,7 @@ import { type Achievement } from "@/types/post-data/achievements";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
-  height: 100%;
+  height: 80vh;
   overflow: scroll;
 `;
 
@@ -24,18 +24,20 @@ export default function Page(): ReactElement {
   return match(swrAchievements)
     .with(S.Loading, () => <div>Loading...</div>)
     .with(S.Success, ({ data }) => (
-      <BoxStyle width="70%">
+      <>
         <Box mt="20vh" />
-        {data.map((achievement) => {
-          const typedAchievement = achievement as unknown as Achievement;
-          return (
-            <AchievementCard
-              key={achievement.id}
-              achievement={typedAchievement}
-            />
-          );
-        })}
-      </BoxStyle>
+        <BoxStyle width="70%">
+          {data.map((achievement) => {
+            const typedAchievement = achievement as unknown as Achievement;
+            return (
+              <AchievementCard
+                key={achievement.id}
+                achievement={typedAchievement}
+              />
+            );
+          })}
+        </BoxStyle>
+      </>
     ))
     .otherwise(({ data, error }) => (
       <ErrorScreen error={handleSWRError(data, error)} />
