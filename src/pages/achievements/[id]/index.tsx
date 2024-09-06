@@ -1,16 +1,24 @@
+import { Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
 import { ErrorScreen } from "@/components/ErrorScreen";
 import { Info } from "@/components/achievements/Info";
+import { MemberCard } from "@/components/member/Card";
 import { useAchievements } from "@/hooks/db/achievements";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
 import { fetchMembersAndUnlockedAchievementsAndAchievements } from "@/lib/utils/fetchers";
 import { handleSWRError } from "@/lib/utils/swr";
-import { RecentUnlockedCard } from "@/components/achievements/RecentUnlockedCard";
+
+const BoxStyle = styled(Box)`
+  margin: 0 auto;
+  height: 80vh;
+  overflow: scroll;
+`;
 
 export default function Page(): ReactElement {
   const { id } = useParams();
@@ -38,14 +46,35 @@ export default function Page(): ReactElement {
               const rateOfUnlocked = unlockedAchievements.filter(
                 (ua) => ua.achievementID === a.id,
               ).length;
+
+              const thisAchievementUnlockedMembers = members.filter((m) =>
+                unlockedAchievements.some(
+                  (ua) =>
+                    ua.achievementID === a.id && ua.memberEmail === m.email,
+                ),
+              );
               return (
-                <Info
-                  key={a.id}
-                  icon={a.icon}
-                  name={a.name}
-                  rateOfUnlocked={rateOfUnlocked}
-                  tags={a.tags}
-                />
+                <Flex key={a.id} gap="9">
+                  <Info
+                    key={a.id}
+                    icon={a.icon}
+                    name={a.name}
+                    rateOfUnlocked={rateOfUnlocked}
+                    tags={a.tags}
+                  />
+                  <div>
+                    <Box mt="20vh" />
+                    <BoxStyle>
+                      <Text size="8" weight="bold">
+                        最近解除したメンバー
+                      </Text>
+                      <Box mt="1rem" />
+                      {thisAchievementUnlockedMembers.map((m) => (
+                        <MemberCard key={m.email} member={m} />
+                      ))}
+                    </BoxStyle>
+                  </div>
+                </Flex>
               );
             }
             return null;

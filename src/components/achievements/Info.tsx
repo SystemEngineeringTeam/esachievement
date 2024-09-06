@@ -58,11 +58,7 @@ export function Info({
   return (
     <InfoBox direction="column">
       <Flex align="center" direction="column">
-        <Avatar
-          fallback="T"
-          size="9"
-          src={icon}
-        />
+        <Avatar fallback="T" size="9" src={icon} />
 
         <Text mt="1rem" size="8" weight="bold">
           {name}
