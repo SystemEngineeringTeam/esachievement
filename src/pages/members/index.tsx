@@ -16,7 +16,7 @@ import { handleSWRError } from "@/lib/utils/swr";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
-  height: 100vh;
+  height: 80vh;
   overflow: scroll;
 `;
 
@@ -35,17 +35,19 @@ export default function Page(): ReactElement {
   return match(swrMembersAndUnlockedAchievements)
     .with(S.Loading, () => <div>Loading...</div>)
     .with(S.Success, ({ data: { members, unlockedAchievements } }) => (
-      <BoxStyle width="70%">
+      <>
         <Box mt="20vh" />
-        {members.map((m) => {
-          const point = getUnlockedAchievementsFromMember(
-            m,
-            unlockedAchievements,
-          ).length;
-          return <MemberCard key={m.email} member={m} point={point} />;
-        })}
-        <Box mt="20vh" />
-      </BoxStyle>
+        <BoxStyle width="70%">
+          {members.map((m) => {
+            const point = getUnlockedAchievementsFromMember(
+              m,
+              unlockedAchievements,
+            ).length;
+            return <MemberCard key={m.email} member={m} point={point} />;
+          })}
+        </BoxStyle>
+          <Box mt="20vh" />
+      </>
     ))
     .otherwise(({ data, error }) => (
       <ErrorScreen error={handleSWRError(data, error)} />
