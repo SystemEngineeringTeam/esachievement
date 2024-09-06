@@ -90,7 +90,7 @@ const a = [
 const UnlockedBox = styled(Flex)`
   width: 100%;
   height: 100%;
-  margin: 7rem 4rem 0rem 4rem;
+  margin: 7rem 6rem 0rem 6rem;
 `;
 
 const UnlockedCardStyle = styled(Link)`
@@ -140,13 +140,11 @@ export function RecentUnlockedCard(): ReactElement {
               size="5"
               src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?&w=64&h=64&dpr=2&q=70&crop=focalpoint&fp-x=0.67&fp-y=0.5&fp-z=1.4&fit=crop"
             />
-            <Text mr="3rem" size="7" weight="bold">
-              恋愛失敗
+            <Text mr="8rem" size="7" weight="bold">
+              メンバー名
             </Text>
-            <Box mr="3rem" width="20rem">
-              dafjasdklflkasdjflkjasdflkjlaskjflaskdj
-            </Box>
-            <Text>#love</Text>
+            <Text mr="2rem">20位</Text>
+            <Text>1000pt</Text>
           </UnlockedCardList>
         ))}
         <Box height="1rem" width="1rem" />

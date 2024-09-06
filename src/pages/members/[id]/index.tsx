@@ -43,15 +43,15 @@
 
 import { Flex } from "@radix-ui/themes";
 import { type ReactElement } from "react";
-import { RecentUnlockedCard } from "@/components/achievements/RecentUnlockedCard";
 import { Info } from "@/components/member/Info";
+import { UnlockedCard } from "@/components/member/UnlockedCard";
 
 export default function Page(): ReactElement {
   return (
     <Flex>
       <Info />
       <Flex overflow="scroll" width="100%">
-        <RecentUnlockedCard />
+        <UnlockedCard />
       </Flex>
     </Flex>
   );

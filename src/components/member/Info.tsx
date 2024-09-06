@@ -7,10 +7,10 @@ const InfoBox = styled(Flex)`
   position: relative;
   left: 0;
   background-color: #e7e7e7;
-  border-radius: 0 30px 30px 0;
+  /* border-radius: 0 30px 30px 0; */
   height: 100vh;
   width: fit-content;
-  padding: 9rem 4rem 6rem 4rem;
+  padding: 9rem 4rem 6rem 3rem;
   box-shadow:
     6px 6px 16px #b5bec9,
     -6px -6px 16px #ffffff;
@@ -31,7 +31,7 @@ const RankingStyle = styled(Flex)`
   color: #242d3c;
   font-weight: bold;
   align-items: center;
-  font-size: 3rem;
+  font-size: 2.6rem;
   box-shadow:
     6px 6px 16px #b5bec9,
     -6px -6px 16px #ffffff;
@@ -60,7 +60,7 @@ export function Info(): ReactElement {
         </Text>
         <RankingStyle mt="1rem">
           <Text>31位</Text>
-          <Text ml="1rem" size="4">
+          <Text color="gray" ml="1rem" size="6">
             100pt
           </Text>
         </RankingStyle>
