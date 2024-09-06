@@ -50,6 +50,27 @@ const UnlockedStyle = styled(Link)`
   }
 `;
 
+const LoginStyle = styled(Box)`
+  color: #f7f7f7;
+  background-color: #00cdc2;
+  box-shadow:
+    12px 12px 16px #b5bec9,
+    -12px -12px 16px #ffffff;
+
+  width: 10rem;
+  height: 100%;
+  border-radius: 80px;
+  padding: 1rem;
+
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  &:hover {
+    box-shadow: none;
+    transition: 160ms;
+  }
+`;
+
 const LinkContents = styled(Link)`
   background: #e7e7e7;
   box-shadow:
@@ -153,10 +174,10 @@ export function Header(): ReactElement {
                 実績管理
               </Text>
               <Avatar
-                fallback="T"
+                fallback="A"
                 radius="full"
                 size="3"
-                src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
+                src="https://api.iconify.design/mdi:lock-open-outline.svg"
               />
             </Flex>
           </UnlockedStyle>
@@ -165,20 +186,30 @@ export function Header(): ReactElement {
             className="createStyle createHoverAnime"
             href={getAuthorizePageUrl()}
           >
-            <Flex align="center" gap="4">
-              <Text size="2" weight="bold">
-                ログイン
-              </Text>
-              <Avatar
-                fallback="T"
-                radius="full"
-                size="3"
-                src="https://api.iconify.design/ion:person-sharp.svg?color=%23ffffff"
-              />
-            </Flex>
+            <LoginStyle>
+              <Flex align="center" gap="4">
+                <Text size="3" weight="bold">
+                  ログイン
+                </Text>
+                <Avatar
+                  fallback="T"
+                  radius="full"
+                  size="2"
+                  src="https://api.iconify.design/mdi:account.svg"
+                />
+              </Flex>
+            </LoginStyle>
           </LinkComponent>
         )}
-        <TeamStyle to="/">teamIcon</TeamStyle>
+        <TeamStyle to="/">
+          <Avatar
+            fallback="T"
+            radius="full"
+            size="3"
+            src="https://api.iconify.design/mdi:account-group.svg"
+            style={{ width: "60px", padding: "0.5rem" }}
+          />
+        </TeamStyle>
       </RightContents>
     </HeaderStyle>
   );
