@@ -65,7 +65,7 @@ const ButtonStyled = styled(Button)`
   width: fit-content;
   height: fit-content;
 
-  padding: 1.2vh 1.3vw 1.2vh 1.8vw;
+  padding: 10px 20px;
 
   border-radius: 50px;
   display: flex;
@@ -174,7 +174,7 @@ function TeamSelector(): ReactElement {
     .with(S.Loading, () => <p>Loading...</p>)
     .with(S.Success, ({ data }) => (
       <ExpandedCenter gap={10}>
-        <Heading>チームを選択してください</Heading>
+        <Heading>チームを選択</Heading>
         <Flex gap="5">
           {data.map((team) => (
             <TeamIcon
