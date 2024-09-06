@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/themes";
 import { type ReactElement } from "react";
 import styled from "styled-components";
-import Icon from "@/assets/EsaChibuIcon.svg";
+import LogoIcon from "@/assets/EsaChibuIcon.svg";
 import { getAuthorizePageUrl } from "@/lib/services/esa";
 import { $hasAuthenticated } from "@/lib/stores/auth";
 import { Link } from "@/router.ts";
@@ -30,7 +30,7 @@ const RightContents = styled(Flex)`
   border-radius: 80px;
 `;
 
-const CreateStyle = styled(Link)`
+const UnlockedStyle = styled(Link)`
   color: #f7f7f7;
   background-color: #00cdc2;
   box-shadow:
@@ -39,6 +39,7 @@ const CreateStyle = styled(Link)`
 
   width: 10rem;
   border-radius: 80px;
+  padding: 1rem;
 
   align-items: center;
   justify-content: center;
@@ -93,11 +94,30 @@ const IconStyle = styled.img`
   margin-right: 0.5vw;
 `;
 
+const TeamStyle = styled(Link)`
+  display: flex;
+  height: 100%;
+  width: fit-content;
+  background-color: #00cdc2;
+  border-radius: 100rem;
+  align-items: center;
+  justify-content: center;
+  color: #f7f7f7;
+  margin-left: 0.8rem;
+  box-shadow:
+    12px 12px 16px #b5bec9,
+    -12px -12px 16px #ffffff;
+  &:hover {
+    box-shadow: none;
+    transition: 160ms;
+  }
+`;
+
 export function Header(): ReactElement {
   return (
     <HeaderStyle>
       <EsaAchievementsStyle to="/">
-        <IconStyle alt="Icon" src={Icon} />
+        <IconStyle alt="Icon" src={LogoIcon} />
         <Box>
           <Esa>Esa</Esa>
           <Text>chievement</Text>
@@ -124,7 +144,7 @@ export function Header(): ReactElement {
         </LinkContents>
 
         {useStore($hasAuthenticated) ? (
-          <CreateStyle
+          <UnlockedStyle
             className="createStyle createHoverAnime headerDefaultStyle"
             to="/unlocked"
           >
@@ -139,7 +159,7 @@ export function Header(): ReactElement {
                 src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?&w=256&h=256&q=70&crop=focalpoint&fp-x=0.5&fp-y=0.3&fp-z=1&fit=crop"
               />
             </Flex>
-          </CreateStyle>
+          </UnlockedStyle>
         ) : (
           <LinkComponent
             className="createStyle createHoverAnime"
@@ -158,8 +178,8 @@ export function Header(): ReactElement {
             </Flex>
           </LinkComponent>
         )}
+        <TeamStyle to="/">teamIcon</TeamStyle>
       </RightContents>
     </HeaderStyle>
   );
-  // https://api.iconify.design/ion:add.svg
 }

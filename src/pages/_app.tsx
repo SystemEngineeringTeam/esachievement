@@ -4,6 +4,7 @@ import { type ReactElement } from "react";
 import { Outlet, useRouteError } from "react-router-dom";
 import styled from "styled-components";
 import { Center } from "@/components/Center";
+import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Redirects } from "@/components/Redirects";
 
@@ -67,6 +68,7 @@ export default function Layout(): ReactElement {
           <BodyStyle>
             <Outlet />
           </BodyStyle>
+          <Footer />
         </Redirects>
       </Main>
     </ThemeStyle>
