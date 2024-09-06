@@ -39,7 +39,17 @@ const RankingStyle = styled(Flex)`
   border-radius: 20px;
 `;
 
-export function Info(): ReactElement {
+export function Info({
+  name,
+  ranking,
+  point,
+  rateOfUnlocked,
+}: {
+  name: string;
+  ranking: number;
+  point: number;
+  rateOfUnlocked: number;
+}): ReactElement {
   return (
     <InfoBox direction="column">
       <Flex align="center" direction="column">
@@ -50,7 +60,7 @@ export function Info(): ReactElement {
         />
 
         <Text mt="1rem" size="8" weight="bold">
-          メンバー
+          {name}
         </Text>
       </Flex>
 
@@ -59,9 +69,9 @@ export function Info(): ReactElement {
           順位
         </Text>
         <RankingStyle mt="1rem">
-          <Text>31位</Text>
+          <Text>{ranking}位</Text>
           <Text color="gray" ml="1rem" size="6">
-            100pt
+            {point}pt
           </Text>
         </RankingStyle>
       </Flex>
@@ -70,7 +80,7 @@ export function Info(): ReactElement {
         <Text ml="20px" weight="bold">
           実績解除率
         </Text>
-        <PercentageUnlocked mt="1rem">50%</PercentageUnlocked>
+        <PercentageUnlocked mt="1rem">{rateOfUnlocked}%</PercentageUnlocked>
       </Flex>
     </InfoBox>
   );
