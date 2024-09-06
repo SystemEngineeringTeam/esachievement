@@ -1,7 +1,8 @@
-import createClient from "openapi-fetch";
+import createClient, { type MiddlewareRequest } from "openapi-fetch";
 import { type paths } from "./esa.gen";
 import { getEnv } from "@/lib/consts";
 import { $accessTokenData } from "@/lib/stores/auth";
+import { $shouldIgnoreResCache } from "@/lib/stores/teams";
 import { type AccessTokenData } from "@/types/auth";
 
 export function getAuthorizePageUrl(): string {
@@ -35,16 +36,31 @@ export async function requestAccessTokenData(
   return await res.json();
 }
 
-export const esaClient = createClient<paths>({
+function processRequest(req: MiddlewareRequest): MiddlewareRequest {
+  const token = $accessTokenData.get();
+  if (token == null) throw new Error("Access token has not been set");
+
+  req.headers.set("Authorization", `Bearer ${token.access_token}`);
+  return req;
+}
+
+const esaClient = createClient<paths>({
   baseUrl: "/api",
 });
 
 esaClient.use({
-  onRequest: async (req) => {
-    const token = $accessTokenData.get();
-    if (token == null) throw new Error("Access token has not been set");
-
-    req.headers.set("Authorization", `Bearer ${token.access_token}`);
-    return req;
-  },
+  onRequest: processRequest,
 });
+
+const esaClientUnCached = createClient<paths>({
+  baseUrl: "/api",
+  cache: "no-cache",
+});
+
+esaClientUnCached.use({
+  onRequest: processRequest,
+});
+
+export function getEsaClient(): typeof esaClient {
+  return $shouldIgnoreResCache.get() ? esaClientUnCached : esaClient;
+}

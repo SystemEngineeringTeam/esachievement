@@ -13,5 +13,5 @@ export const yAchievement = yup.object().shape({
 export type Achievement = InferType<typeof yAchievement>;
 export type AchievementTag = Achievement["tags"];
 
-export const yAchievementsPostData = array().of(yAchievement);
+export const yAchievementsPostData = array().of(yAchievement).required();
 export type AchievementsPostData = InferType<typeof yAchievementsPostData>;

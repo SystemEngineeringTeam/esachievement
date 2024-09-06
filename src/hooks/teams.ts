@@ -1,7 +1,7 @@
 import { useStore } from "@nanostores/react";
 import { match } from "ts-pattern";
 import { A } from "@/lib/consts";
-import { esaClient } from "@/lib/services/esa";
+import { getEsaClient } from "@/lib/services/esa";
 import { $selectedTeamName } from "@/lib/stores/teams";
 import {
   type InferRequestBodyType,
@@ -35,7 +35,9 @@ export function useTeam() {
   const fetchAbout = async (): Promise<
     InferResponseType<"/teams/{team_name}", "get">
   > =>
-    await match(await esaClient.GET("/teams/{team_name}", paramsWithTeamName))
+    await match(
+      await getEsaClient().GET("/teams/{team_name}", paramsWithTeamName),
+    )
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
 
@@ -43,7 +45,7 @@ export function useTeam() {
     InferResponseType<"/teams/{team_name}/stats", "get">
   > =>
     await match(
-      await esaClient.GET("/teams/{team_name}/stats", paramsWithTeamName),
+      await getEsaClient().GET("/teams/{team_name}/stats", paramsWithTeamName),
     )
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
@@ -52,7 +54,10 @@ export function useTeam() {
     InferResponseType<"/teams/{team_name}/members", "get">["members"]
   > =>
     await match(
-      await esaClient.GET("/teams/{team_name}/members", paramsWithTeamName),
+      await getEsaClient().GET(
+        "/teams/{team_name}/members",
+        paramsWithTeamName,
+      ),
     )
       .with(A.Success, ({ data }) => data.members)
       .otherwise(handleError);
@@ -61,7 +66,7 @@ export function useTeam() {
     postBody: InferRequestBodyType<"/teams/{team_name}/posts", "post">["post"],
   ): Promise<InferResponseType<"/teams/{team_name}/posts", "post", 201>> =>
     await match(
-      await esaClient.POST("/teams/{team_name}/posts", {
+      await getEsaClient().POST("/teams/{team_name}/posts", {
         ...paramsWithTeamName,
         body: {
           post: postBody,
@@ -75,7 +80,7 @@ export function useTeam() {
     category: string,
   ): Promise<InferResponseType<"/teams/{team_name}/posts", "get">["posts"]> =>
     await match(
-      await esaClient.GET("/teams/{team_name}/posts", {
+      await getEsaClient().GET("/teams/{team_name}/posts", {
         params: {
           ...paramsWithTeamName.params,
           query: {
@@ -93,7 +98,7 @@ export function useTeam() {
     InferResponseType<"/teams/{team_name}/posts/{post_number}", "get">
   > =>
     await match(
-      await esaClient.GET("/teams/{team_name}/posts/{post_number}", {
+      await getEsaClient().GET("/teams/{team_name}/posts/{post_number}", {
         params: {
           path: {
             ...paramsWithTeamName.params.path,
@@ -115,7 +120,7 @@ export function useTeam() {
     InferResponseType<"/teams/{team_name}/posts/{post_number}", "patch">
   > =>
     await match(
-      await esaClient.PATCH("/teams/{team_name}/posts/{post_number}", {
+      await getEsaClient().PATCH("/teams/{team_name}/posts/{post_number}", {
         params: {
           path: {
             ...paramsWithTeamName.params.path,
@@ -130,7 +135,7 @@ export function useTeam() {
 
   const deletePost = async (postNumber: number): Promise<void> => {
     await match(
-      await esaClient.DELETE("/teams/{team_name}/posts/{post_number}", {
+      await getEsaClient().DELETE("/teams/{team_name}/posts/{post_number}", {
         params: {
           path: {
             ...paramsWithTeamName.params.path,
@@ -147,7 +152,7 @@ export function useTeam() {
     InferResponseType<"/teams/{team_name}/emojis", "get">
   > =>
     await match(
-      await esaClient.GET("/teams/{team_name}/emojis", paramsWithTeamName),
+      await getEsaClient().GET("/teams/{team_name}/emojis", paramsWithTeamName),
     )
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);

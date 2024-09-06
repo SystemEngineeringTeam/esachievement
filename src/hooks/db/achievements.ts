@@ -12,4 +12,5 @@ export const useAchievements = (useTeam: typeof _useTeam) =>
     postName: "achievements",
     schema: yAchievementsPostData,
     atom: $currentAchievements,
+    initData: [],
   });
