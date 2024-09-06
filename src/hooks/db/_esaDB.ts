@@ -6,6 +6,7 @@ import { type AnySchema } from "yup";
 import { type useTeam as _useTeam } from "@/hooks/teams";
 import { DB_VERSION, waitMs } from "@/lib/consts";
 import { $config } from "@/lib/stores/config";
+import { enableIgnoreResCacheTemporarily } from "@/lib/stores/teams";
 import { yPostData, type PostData } from "@/types/post-data/_struct";
 import { type Nullable } from "@/types/utils";
 
@@ -16,6 +17,7 @@ export function useEsaDB<T>(
     postName: string;
     schema: AnySchema<T>;
     atom: WritableAtom<Nullable<T>>;
+    initData: T;
   },
 ) {
   const { baseCategory } = useStore($config);
@@ -30,6 +32,8 @@ export function useEsaDB<T>(
   const category = `${baseCategory}/${config.postName}`;
 
   const init = async (): Promise<void> => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    using _ = enableIgnoreResCacheTemporarily();
     const postId = await searchPostId().catch(() => undefined);
 
     if (postId == null) {
@@ -61,7 +65,7 @@ export function useEsaDB<T>(
     const postData = {
       _name: "esachievement",
       _version: DB_VERSION,
-      data: undefined,
+      data: config.initData,
     } as const satisfies PostData<T>;
 
     return await __createNewPost({

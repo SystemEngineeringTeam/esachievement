@@ -3,7 +3,7 @@
 import { useStore } from "@nanostores/react";
 import { match } from "ts-pattern";
 import { A } from "@/lib/consts";
-import { esaClient } from "@/lib/services/esa";
+import { getEsaClient } from "@/lib/services/esa";
 import { $hasAuthenticated } from "@/lib/stores/auth";
 import { $selectedTeamName } from "@/lib/stores/teams";
 import { type InferResponseType } from "@/types/openapi";
@@ -18,7 +18,7 @@ export function useMember() {
   const fetchJoinedTeams = async (): Promise<
     InferResponseType<"/teams", "get">["teams"]
   > => {
-    const result = await esaClient.GET("/teams");
+    const result = await getEsaClient().GET("/teams");
     return await match(result)
       .with(A.Success, ({ data }) => data.teams)
       .otherwise(async ({ response }) => {
@@ -35,7 +35,7 @@ export function useMember() {
   const fetchCurrentMember = async (): Promise<
     InferResponseType<"/user", "get">
   > => {
-    const result = await esaClient.GET("/user");
+    const result = await getEsaClient().GET("/user");
     return await match(result)
       .with(A.Success, ({ data }) => data)
       .otherwise(async ({ response }) => {

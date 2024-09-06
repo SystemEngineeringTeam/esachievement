@@ -8,10 +8,7 @@ import { MemberCard } from "@/components/member/Card";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import {
-  fetchMembersAndUnlockedAchievements,
-  getUnlockedAchievementsFromMember,
-} from "@/lib/utils/fetchers";
+import { getUnlockedAchievementsFromMember } from "@/lib/utils/fetchers";
 import { handleSWRError } from "@/lib/utils/swr";
 
 const BoxStyle = styled(Box)`
@@ -23,16 +20,12 @@ const BoxStyle = styled(Box)`
 export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
   const { fetch: fetchUnlockedAchievements } = useUnlockedAchievements(useTeam);
-  const swrMembersAndUnlockedAchievements = useSWRImmutable(
-    "membersAndUnlockedAchievements",
-    async () =>
-      await fetchMembersAndUnlockedAchievements(
-        fetchMembers,
-        fetchUnlockedAchievements,
-      ),
-  );
+  const swrMU = useSWRImmutable("mu", async () => ({
+    members: await fetchMembers(),
+    unlockedAchievements: await fetchUnlockedAchievements(),
+  }));
 
-  return match(swrMembersAndUnlockedAchievements)
+  return match(swrMU)
     .with(S.Loading, () => <div>Loading...</div>)
     .with(S.Success, ({ data: { members, unlockedAchievements } }) => (
       <>

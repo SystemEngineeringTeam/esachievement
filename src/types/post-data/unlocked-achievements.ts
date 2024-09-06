@@ -8,7 +8,8 @@ export const yUnlockedAchievement = yup.object().shape({
 });
 export const yUnlockedAchievementsPostData = yup
   .array()
-  .of(yUnlockedAchievement);
+  .of(yUnlockedAchievement)
+  .required();
 
 export type UnlockedAchievement = InferType<typeof yUnlockedAchievement>;
 export type UnlockedAchievementsPostData = InferType<

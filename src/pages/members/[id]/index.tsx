@@ -11,10 +11,7 @@ import { useAchievements } from "@/hooks/db/achievements";
 import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import {
-  fetchMembersAndUnlockedAchievementsAndAchievements,
-  getUnlockedAchievementsFromMember,
-} from "@/lib/utils/fetchers";
+import { getUnlockedAchievementsFromMember } from "@/lib/utils/fetchers";
 import { handleSWRError } from "@/lib/utils/swr";
 
 const BoxStyle = styled(Box)`
@@ -28,17 +25,13 @@ export default function Page(): ReactElement {
   const { fetchMembers } = useTeam();
   const { fetch: fetchAchievements } = useAchievements(useTeam);
   const { fetch: fetchUnlockedAchievements } = useUnlockedAchievements(useTeam);
-  const swrMembersAndUnlockedAchievementsAndAchievements = useSWRImmutable(
-    "membersAndUnlockedAchievementsAndAchievements",
-    async () =>
-      await fetchMembersAndUnlockedAchievementsAndAchievements(
-        fetchMembers,
-        fetchAchievements,
-        fetchUnlockedAchievements,
-      ),
-  );
+  const swrAMU = useSWRImmutable("amu", async () => ({
+    achievements: await fetchAchievements(),
+    members: await fetchMembers(),
+    unlockedAchievements: await fetchUnlockedAchievements(),
+  }));
 
-  return match(swrMembersAndUnlockedAchievementsAndAchievements)
+  return match(swrAMU)
     .with(S.Loading, () => <p>Loading...</p>)
     .with(
       S.Success,

@@ -10,7 +10,6 @@ import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useMember } from "@/hooks/member";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
-import { fetchAchievementsWithUnlocked } from "@/lib/utils/fetchers";
 import { handleSWRError } from "@/lib/utils/swr";
 import { type CurrentMember } from "@/types/member";
 import { type Achievement } from "@/types/post-data/achievements";
@@ -27,21 +26,11 @@ export default function Page(): ReactElement {
   const { fetch: fetchAchievements } = useAchievements(useTeam);
   const { fetch: fetchUnlockedAchievements, update } =
     useUnlockedAchievements(useTeam);
-  const swrAchievementsWithUnlocked = useSWRImmutable(
-    "achievementsWithUnlocked",
-    async () => {
-      const achievementsKit = await fetchAchievementsWithUnlocked(
-        fetchAchievements,
-        fetchUnlockedAchievements,
-      );
-      const currentMember = await fetchCurrentMember();
-
-      return {
-        ...achievementsKit,
-        currentMember,
-      };
-    },
-  );
+  const swrACU = useSWRImmutable("acu", async () => ({
+    achievements: await fetchAchievements(),
+    currentMember: await fetchCurrentMember(),
+    unlockedAchievements: await fetchUnlockedAchievements(),
+  }));
 
   const [isUILocked, setIsUILocked] = useState(false);
 
@@ -75,7 +64,7 @@ export default function Page(): ReactElement {
     }
   };
 
-  return match(swrAchievementsWithUnlocked)
+  return match(swrACU)
     .with(S.Loading, () => <p>Loading...</p>)
     .with(
       S.Success,

@@ -4,6 +4,7 @@ import { type ReactElement } from "react";
 import { Outlet, useRouteError } from "react-router-dom";
 import styled from "styled-components";
 import { Center } from "@/components/Center";
+import { Expanded } from "@/components/Expanded";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Redirects } from "@/components/Redirects";
@@ -49,7 +50,6 @@ const Main = styled.main`
   font-family: "Noto Sans JP Variable";
   word-break: keep-all;
 `;
-const BodyStyle = styled.div``;
 const ThemeStyle = styled(Theme)`
   background-color: #e7e7e7;
   overflow: hidden;
@@ -65,9 +65,9 @@ export default function Layout(): ReactElement {
       <Main>
         <Redirects>
           <Header />
-          <BodyStyle>
+          <Expanded>
             <Outlet />
-          </BodyStyle>
+          </Expanded>
           <Footer />
         </Redirects>
       </Main>
