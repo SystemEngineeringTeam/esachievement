@@ -48,12 +48,12 @@ const LogRecentUnlockedStyle = styled.div`
 `;
 
 export default function Page(): ReactElement {
-  const { fetchMembers } = useTeam();
+  const { fetchMembersAll } = useTeam();
   const { fetch: fetchAchievements } = useAchievements(useTeam);
   const { fetch: fetchUnlockedAchievements } = useUnlockedAchievements(useTeam);
   const swrAMU = useSWRImmutable("amu", async () => ({
     achievements: await fetchAchievements(),
-    members: await fetchMembers(),
+    members: await fetchMembersAll(),
     unlockedAchievements: await fetchUnlockedAchievements(),
   }));
 

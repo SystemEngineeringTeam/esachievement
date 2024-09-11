@@ -18,10 +18,10 @@ const BoxStyle = styled(Box)`
 `;
 
 export default function Page(): ReactElement {
-  const { fetchMembers } = useTeam();
+  const { fetchMembersAll } = useTeam();
   const { fetch: fetchUnlockedAchievements } = useUnlockedAchievements(useTeam);
   const swrMU = useSWRImmutable("mu", async () => ({
-    members: await fetchMembers(),
+    members: await fetchMembersAll(),
     unlockedAchievements: await fetchUnlockedAchievements(),
   }));
 

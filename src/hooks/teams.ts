@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
+
 import { useStore } from "@nanostores/react";
 import { match } from "ts-pattern";
-import { A } from "@/lib/consts";
+import { A, range } from "@/lib/consts";
 import { getEsaClient } from "@/lib/services/esa";
 import { $selectedTeamName } from "@/lib/stores/teams";
 import {
@@ -50,17 +52,53 @@ export function useTeam() {
       .with(A.Success, ({ data }) => data)
       .otherwise(handleError);
 
-  const fetchMembers = async (): Promise<
+  const fetchMembers = async (
+    /**
+     * 1 度に取得するメンバー数
+     */
+    prePage?: number,
+    /**
+     * ページ番号
+     */
+    page: number = 1,
+  ): Promise<
     InferResponseType<"/teams/{team_name}/members", "get">["members"]
   > =>
     await match(
-      await getEsaClient().GET(
-        "/teams/{team_name}/members",
-        paramsWithTeamName,
-      ),
+      await getEsaClient().GET("/teams/{team_name}/members", {
+        ...paramsWithTeamName,
+        params: {
+          ...paramsWithTeamName.params,
+          query: { page, per_page: prePage },
+        },
+      }),
     )
       .with(A.Success, ({ data }) => data.members)
       .otherwise(handleError);
+
+  const fetchMembersAll = async (): Promise<
+    InferResponseType<"/teams/{team_name}/members", "get">["members"]
+  > => {
+    const PER_PAGE_MAX = 100;
+
+    const stats = await fetchStats();
+    console.log(`[fetchMembersAll] Num of members: ${stats.members}`);
+
+    const pageCount = Math.ceil(stats.members / 100);
+    const membersPromises = range(pageCount, 1).map(
+      // eslint-disable-next-line @typescript-eslint/promise-function-async
+      (pageAt, _) => {
+        const start = PER_PAGE_MAX * (pageAt - 1);
+        const end = Math.min(PER_PAGE_MAX * pageAt, stats.members);
+        console.log(
+          `[fetchMembersAll] Fetching members as a batch... ${pageAt}/${pageCount}: ${start}..${end}`,
+        );
+        return fetchMembers(PER_PAGE_MAX, pageAt);
+      },
+    );
+
+    return (await Promise.all(membersPromises)).flat();
+  };
 
   const createNewPost = async (
     postBody: InferRequestBodyType<"/teams/{team_name}/posts", "post">["post"],
@@ -162,6 +200,7 @@ export function useTeam() {
     fetchStats,
     fetchAbout,
     fetchMembers,
+    fetchMembersAll,
     fetchPostByPostId,
     fetchPostsByCategory,
     fetchEmojis,

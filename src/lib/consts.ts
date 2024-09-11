@@ -35,3 +35,7 @@ export function getLocalStorageKey(key: string, trailingColon = false): string {
 }
 
 export const DB_VERSION = "2";
+
+export function range(size: number, startAt: number = 0): readonly number[] {
+  return [...Array(size).keys()].map((i) => i + startAt);
+}
