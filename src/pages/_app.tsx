@@ -8,7 +8,7 @@ import { Expanded } from "@/components/Expanded";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Redirects } from "@/components/Redirects";
-
+import { usePageTracking } from "@/lib/utils/analytics";
 import "the-new-css-reset/css/reset.css";
 import "@radix-ui/themes/styles.css";
 import "@fontsource-variable/noto-sans-jp";
@@ -60,6 +60,7 @@ const ThemeStyle = styled(Theme)`
 `;
 
 export default function Layout(): ReactElement {
+  usePageTracking();
   return (
     <ThemeStyle>
       <Main>
