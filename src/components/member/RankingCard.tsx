@@ -1,8 +1,6 @@
 import { Avatar, Box, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { sendAnalytics } from "@/lib/utils/analytics";
 import { Link } from "@/router";
 import { type Member } from "@/types/member";
 
@@ -34,19 +32,12 @@ export function RankingCard({
   index: number;
 }): ReactElement {
   const { name, email, icon } = member;
-  const url = useLocation().pathname;
 
   if (email == null) throw new Error("email is null");
 
   return (
     <BoxStyle>
-      <Link
-        onClick={() => {
-          sendAnalytics("memberDetail", url);
-        }}
-        params={{ id: email }}
-        to="/members/:id"
-      >
+      <Link onClick={() => {}} params={{ id: email }} to="/members/:id">
         <Flex align="center" gap="6" ml="6rem">
           <Text mr="2rem" size="8" weight="bold">
             {index + 1}

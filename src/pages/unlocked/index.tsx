@@ -1,7 +1,6 @@
 import { Box } from "@radix-ui/themes";
 import { useState, type ReactElement } from "react";
 import ReactGA from "react-ga4";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
