@@ -1,5 +1,6 @@
 import { Box } from "@radix-ui/themes";
 import { useState, type ReactElement } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import useSWRImmutable from "swr/immutable";
 import { match } from "ts-pattern";
@@ -10,6 +11,7 @@ import { useUnlockedAchievements } from "@/hooks/db/unlocked-achievements";
 import { useMember } from "@/hooks/member";
 import { useTeam } from "@/hooks/teams";
 import { S } from "@/lib/consts";
+import { sendAnalytics } from "@/lib/utils/analytics";
 import { handleSWRError } from "@/lib/utils/swr";
 import { type CurrentMember } from "@/types/member";
 import { type Achievement } from "@/types/post-data/achievements";
@@ -22,6 +24,7 @@ const BoxStyle = styled(Box)`
 `;
 
 export default function Page(): ReactElement {
+  const url = useLocation().pathname;
   const { fetchCurrentMember } = useMember();
   const { fetch: fetchAchievements } = useAchievements(useTeam);
   const { fetch: fetchUnlockedAchievements, update } =
@@ -58,6 +61,7 @@ export default function Page(): ReactElement {
               ({ achievementID: id }) => id !== targetAchievementId,
             ),
       );
+      sendAnalytics("unlock", url);
       await mutate();
     } finally {
       setIsUILocked(false);

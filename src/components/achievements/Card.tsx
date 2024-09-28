@@ -1,6 +1,8 @@
 import { Avatar, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { sendAnalytics } from "@/lib/utils/analytics";
 import { useNavigate } from "@/router";
 import { type Achievement } from "@/types/post-data/achievements";
 
@@ -56,11 +58,13 @@ export function AchievementCard({
   achievement: Achievement;
 }): ReactElement {
   const navigate = useNavigate();
+  const url = useLocation().pathname;
 
   return (
     <CardStyle
       align="center"
       onClick={() => {
+        sendAnalytics("achievementDetail", url);
         navigate("/achievements/:id", {
           params: {
             id: achievement.id.toString(),
