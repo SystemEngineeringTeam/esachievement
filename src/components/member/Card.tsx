@@ -1,8 +1,6 @@
 import { Avatar, Flex, Text } from "@radix-ui/themes";
 import { type ReactElement } from "react";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { sendAnalytics } from "@/lib/utils/analytics";
 import { useNavigate } from "@/router";
 import { type Member } from "@/types/member";
 
@@ -50,7 +48,6 @@ export function MemberCard({
   point?: number;
 }): ReactElement {
   const navigate = useNavigate();
-  const url = useLocation().pathname;
 
   return (
     <CardStyle
@@ -59,7 +56,6 @@ export function MemberCard({
         if (member.email == null) {
           throw new Error("Member email is undefined");
         }
-        sendAnalytics("memberDetail", url);
         navigate("/members/:id", {
           params: {
             id: member.email,
