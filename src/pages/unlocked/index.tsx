@@ -45,6 +45,11 @@ export default function Page(): ReactElement {
     setIsUILocked(true);
 
     try {
+      if (isUnlocked) {
+        ReactGA.event("unlocked");
+        // eslint-disable-next-line no-console
+        console.log("unlocked");
+      }
       await update(
         isUnlocked
           ? [
@@ -59,7 +64,6 @@ export default function Page(): ReactElement {
               ({ achievementID: id }) => id !== targetAchievementId,
             ),
       );
-      ReactGA.event("unlocked achievement");
       await mutate();
     } finally {
       setIsUILocked(false);
