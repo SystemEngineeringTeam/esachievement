@@ -59,8 +59,8 @@ const ThemeStyle = styled(Theme)`
   }
 `;
 
+usePageTracking();
 export default function Layout(): ReactElement {
-  usePageTracking();
   return (
     <ThemeStyle>
       <Main>
