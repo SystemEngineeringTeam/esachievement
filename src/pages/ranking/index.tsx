@@ -97,7 +97,7 @@ export default function Page(): ReactElement {
               最近の実績解除
             </Text>
             <Box mt="1rem" />
-            {unlockedAchievements.map((u) => {
+            {unlockedAchievements.reverse().map((u) => {
               const unlockedMember = members.find(
                 (m) => m.email === u.memberEmail,
               );
