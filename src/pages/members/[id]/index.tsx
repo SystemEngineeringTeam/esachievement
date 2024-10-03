@@ -42,8 +42,9 @@ export default function Page(): ReactElement {
               const point = unlockedAchievements.filter(
                 (u) => u.memberEmail === m.email,
               ).length;
-              const rateOfUnlocked =
-                Math.round((point / achievements.length) * 10) / 10;
+              const rateOfUnlocked = Math.round(
+                (point / achievements.length) * 100,
+              );
 
               const thisMemberUnlockedAchievements = unlockedAchievements
                 .filter((u) => u.memberEmail === m.email)
