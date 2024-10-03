@@ -16,7 +16,7 @@ import { handleSWRError } from "@/lib/utils/swr";
 
 const BoxStyle = styled(Box)`
   margin: 0 auto;
-  height: 80vh;
+  max-height: calc(100vh - 230px);
   overflow: scroll;
 `;
 
