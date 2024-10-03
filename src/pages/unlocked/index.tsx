@@ -27,11 +27,23 @@ export default function Page(): ReactElement {
   const { fetch: fetchAchievements } = useAchievements(useTeam);
   const { fetch: fetchUnlockedAchievements, update } =
     useUnlockedAchievements(useTeam);
-  const swrACU = useSWRImmutable("acu", async () => ({
-    achievements: await fetchAchievements(),
-    currentMember: await fetchCurrentMember(),
-    unlockedAchievements: await fetchUnlockedAchievements(),
-  }));
+  const swrACU = useSWRImmutable("acu", async () => {
+    const [achievements, currentMember, unlockedAchievements] =
+      await Promise.all([
+        fetchAchievements(),
+        fetchCurrentMember(),
+        fetchUnlockedAchievements(),
+      ]);
+
+    return {
+      achievements,
+      currentMember,
+      unlockedAchievements,
+      myUnlockedAchievements: unlockedAchievements.filter(
+        (u) => u.memberEmail === currentMember.email,
+      ),
+    };
+  });
 
   const [isUILocked, setIsUILocked] = useState(false);
 
@@ -75,14 +87,19 @@ export default function Page(): ReactElement {
     .with(
       S.Success,
       ({
-        data: { achievements, unlockedAchievements, currentMember },
+        data: {
+          achievements,
+          myUnlockedAchievements,
+          unlockedAchievements,
+          currentMember,
+        },
         mutate,
       }) => (
         <>
           <Box mt="20vh" />
           <BoxStyle width="70%">
             {achievements.map((achievement) => {
-              const isUnlocked = unlockedAchievements.some(
+              const isUnlocked = myUnlockedAchievements.some(
                 (u) => u.achievementID === achievement.id,
               );
 
