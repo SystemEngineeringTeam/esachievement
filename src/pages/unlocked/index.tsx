@@ -23,6 +23,15 @@ const Container = styled.div`
   align-items: center;
   gap: 1rem;
   margin-top: 140px;
+  max-width: 1200px;
+  margin-inline: auto;
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
 `;
 
 const $isUILocked = atom(false);
@@ -129,28 +138,31 @@ export default function Page(): ReactElement {
     .with(S.Loading, () => <Expanded>Loading...</Expanded>)
     .with(S.Success, ({ data: { achievements, currentMember }, mutate }) => (
       <Container>
-        {achievements.map((achievement) => {
-          const isUnlocked = unlockedAchievementsBuff.some(
-            (u) => u === achievement.id,
-          );
+        <CardContainer>
+          {achievements.map((achievement) => {
+            const isUnlocked = unlockedAchievementsBuff.some(
+              (u) => u === achievement.id,
+            );
 
-          return (
-            <UnlockableCard
-              key={achievement.id}
-              achievement={achievement}
-              isDisabled={isUILocked}
-              isUnlocked={isUnlocked}
-              setIsUnlocked={(u) => {
-                setUnlockedAchievementsBuff((prev) => {
-                  if (u) {
-                    return [...prev, achievement.id];
-                  }
-                  return prev.filter((id) => id !== achievement.id);
-                });
-              }}
-            />
-          );
-        })}
+            return (
+              <UnlockableCard
+                key={achievement.id}
+                achievement={achievement}
+                isDisabled={isUILocked}
+                isUnlocked={isUnlocked}
+                setIsUnlocked={(u) => {
+                  setUnlockedAchievementsBuff((prev) => {
+                    if (u) {
+                      return [...prev, achievement.id];
+                    }
+                    return prev.filter((id) => id !== achievement.id);
+                  });
+                }}
+              />
+            );
+          })}
+        </CardContainer>
+
         {shouldUpdate ? (
           <SaveButton
             currentMember={currentMember}
